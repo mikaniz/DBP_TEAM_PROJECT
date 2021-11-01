@@ -86,6 +86,18 @@
 	table-layout: fixed;
 }
 
+#searchButton {
+	width: 100px; 
+	height: 47px;
+	background-color: #90ABDA;
+}
+
+#createButton {
+	width: 400px; 
+	height: 50px;	
+	background-color: #90ABDA;
+}
+
 th, td {
 	text-align: center;
 }
@@ -143,8 +155,7 @@ th, td {
 			</div>
 			<div style="height: 50px;">
 				<!-- 루틴 등록 버튼 -->
-				<input type="button" value="루틴 등록" onclick=""
-					style="width: 400px; height: 50px;">
+				<input id="createButton" type="button" value="루틴 등록" onclick="location.href='./routine_createForm.jsp'">
 			</div>
 		</div>
 
@@ -153,8 +164,8 @@ th, td {
 			<div id="search" style="width: 700px; height: 50px;">
 				<form action="" method="get">
 					<input type="text" name="routine"
-						style="width: 480px; height: 42px;"> <input type="button"
-						value="검색" onclick="" style="width: 100px; height: 47px;">
+						style="width: 480px; height: 42px;"> 
+					<input id="searchButton" type="button" value="검색" onclick="">
 					<select name="sort" style="width: 100px; height: 47px;">
 						<option value="1" selected>전체</option>
 						<option value="2">개인</option>

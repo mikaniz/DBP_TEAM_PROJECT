@@ -61,26 +61,26 @@
 	table-layout: fixed;
 }
 
-#clubInfoInput {
+#routineInfoInput {
 	width: 700px;
 	height: 600px;
 	border: 1px solid;
 }
 
-#clubTable {
+#routineTable {
 	border-collapse: collapse;
 	width: 700px;
 	height: 450px;
 	float: center;
 }
 
-#clubTableTr {
+#routineTableTr {
 	height: 45px;
 	width: 700px;
 	table-layout: fixed;
 }
 
-#clubAccpetButton {
+#routineCreateButton {
 	width: 150px;
 	height: 45px;
 	text-align: center;
@@ -102,13 +102,12 @@ th, td {
 </style>
 
 <script>
-function acceptRequestBtn_click() {
+function createRequestBtn_click() {
 	theForm = document.openForm;
 	
-	if(theForm.clubName.value == "") alert("모임 이름을 입력해주세요.");
+	if(theForm.routineName.value == "") alert("루틴명을 입력해주세요.");
 	else {
-		alert("모임이 개설되었습니다.");
-		location.href= "./club_detail.jsp"
+		alert("루틴이 등록되었습니다.\n 루틴 목록에서 확인이 가능합니다.");
 	}
 	
 }
@@ -168,43 +167,73 @@ function acceptRequestBtn_click() {
 		</div>
 
 		<div style="float: right">
-			<!-- 모임 개설 항목 입력 부분  -->
-			<div id="clubInfoInput">
-				<h3 style="margin: 20px;">모임 정보 입력</h3>
+			<!-- 루틴 등록 항목 입력 부분  -->
+			<div id="routineInfoInput">
+				<h3 style="margin: 20px;">루틴 정보 입력</h3>
 				<hr>
 				<form name="openForm">
-				<table id="clubTable">
-					<tr id="clubTableTr">
-						<td style="width: 130px;">모임 이름 :</td>
-						<td><input type="text" name="clubName"
+				<table id="routineTable">
+					<tr id="routineTableTr">
+						<td style="width: 130px;">루틴명 :</td>
+						<td><input type="text" name="routineName"
 							style="width: 300px; height: 20px; font-size: 15px;"></td>
 					</tr>
-					<tr id="clubTableTr">
-						<td style="width: 130px;">모임 유형 :</td>
+					<tr id="routineTableTr">
+						<td style="width: 130px;">등록자 :</td>
+						<td><input type="text" name="routineCreator"
+							style="width: 300px; height: 20px; font-size: 15px;"></td>
+					</tr>
+					<tr id="routineTableTr">
+						<td style="width: 130px;">운동 부위 :</td>
 						<td>
-							<input type="radio" name="clubOpenCycle" value="정기적" checked />정기적
-							 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-							<input type="radio" name="clubOpenCycle" value="일시적" />일시적
+							<input type="checkbox" name="routinePart" value="상체" />상체
+							&nbsp;&nbsp; 
+							<input type="checkbox" name="routinePart" value="하체" />하체
+							&nbsp;&nbsp; 
+							<input type="checkbox" name="routinePart" value="복부" />복부
+							&nbsp;&nbsp; 
+							<input type="checkbox" name="routinePart" value="어깨" />어깨
+							&nbsp;&nbsp; 
+							<input type="checkbox" name="routinePart" value="전신" />전신
 						</td>
 					</tr>
-					<tr id="clubTableTr">
-						<td style="width: 130px;">초대 유형 :</td>
+					<tr id="routineTableTr">
+						<td style="width: 130px;">소요시간 :</td>
+						<td><input type="text" name="routineTime"
+							style="width: 300px; height: 20px; font-size: 15px;"></td>
+					</tr>
+					<tr id="routineTableTr">
+						<td style="width: 130px;">운동 강도 :</td>
 						<td>
-							<input type="radio" name="clubSignUp" value="자유 가입" checked />자유 가입 
+							<input type="radio" name="routineLevel" value="1" checked />1
+							&nbsp;&nbsp; 
+							<input type="radio" name="routineLevel" value="2" />2
+							&nbsp;&nbsp; 
+							<input type="radio" name="routineLevel" value="3" />3
+							&nbsp;&nbsp; 
+							<input type="radio" name="routineLevel" value="4" />4
+							&nbsp;&nbsp; 
+							<input type="radio" name="routineLevel" value="5" />5
+						</td>
+					</tr>
+					<tr id="routineTableTr">
+						<td style="width: 130px;">루틴 유형 :</td>
+						<td>
+							<input type="radio" name="routineType" value="0" checked />전체
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-							<input type="radio" name="clubSignUp" value="초대 가입" />초대 가입
+							<input type="radio" name="routineType" value="1" />개인
 						</td>
 					</tr>
-					<tr id="clubTableTr">
-						<td style="width: 130px;">모임 소개 :</td>
-						<td><textarea name="clubIntro" rows=15 cols=60 style="resize: none;"></textarea></td>
+					<tr id="routineTableTr">
+						<td style="width: 130px;">운동 방법 :</td>
+						<td><textarea name="routineMethod" rows=10 cols=60 style="resize: none;"></textarea></td>
 					</tr>
 				</table>
 				<div style="text-align: center; margin-left: 130px;">
-					<input id="clubAccpetButton" type="button" value="모임 승인 요청"
-						onclick="acceptRequestBtn_click()"> 
+					<input id="routineCreateButton" type="button" value="루틴 등록"
+						onclick="createRequestBtn_click()"> 
 					<input id="backButton" type="button" value="돌아가기" 
-						onclick="location.href='./clubPage.jsp'">
+						onclick="location.href='./routinePage.jsp'">
 				</div>
 				</form>
 			</div>
