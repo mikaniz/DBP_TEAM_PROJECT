@@ -119,7 +119,7 @@ function acceptRequestBtn_click() {
 <body>
 	<!-- 운동하기 편하군&로고 -->
 	<div style="text-align: center">
-		<a href="../mainPage.jsp"><img src="../images/logo.PNG"
+		<a href="../../mainPage.jsp"><img src="../images/logo.PNG"
 			width=500px height=130px /></a>
 	</div>
 	<!-- 돌아가기 버튼 -->
@@ -146,7 +146,7 @@ function acceptRequestBtn_click() {
 			<h3 style="margin: 20px;">회원정보</h3>
 			<table id="memberDataTable">
 				<tr>
-					<td><img src="../images/somsom.jpg" width=150px height=230px />
+					<td><img src="../../images/somsom.jpg" width=150px height=230px />
 					</td>
 					<td>이름 : 김동덕
 						<p /> 등급 : 새싹
