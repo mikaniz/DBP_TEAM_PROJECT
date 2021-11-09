@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
+	
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>ETW club_detials</title>
+<title>ETW AllDiaryPage</title>
 <style>
 .menu {
 	height: 50px;
@@ -61,37 +62,29 @@
 	table-layout: fixed;
 }
 
-#clubInfoOutput {
+#list {
 	width: 700px;
-	height: 600px;
+	height: 540px;
 	border: 1px solid;
+	margin-top: 10px;
+	overflow: scroll;
 }
 
-#clubTable {
+#listTable {
 	border-collapse: collapse;
-	width: 700px;
-	height: 450px;
-	float: center;
-}
-
-#clubTableTr {
-	height: 30px;
 	width: 700px;
 	table-layout: fixed;
 }
 
-#backButton {
-	width: 150px;
-	height: 45px;
-	text-align: center;
-	margin: 10px;
-	background-color: #90ABDA;
+#listItem {
+	border-bottom: 1px solid;
+	height: 50px;
 }
 
-#scheduleDetailButton {
-	width: 100px; 
-	height: 35px;
-	background-color: #90ABDA;
+#listTr {
+	width: 700px;
+	height: 40px;
+	table-layout: fixed;
 }
 
 th, td {
@@ -106,7 +99,6 @@ th, td {
 		<a href="../mainPage.jsp"><img src="../images/logo.PNG"
 			width=500px height=130px /></a>
 	</div>
-	<!-- 돌아가기 버튼 -->
 
 	<hr>
 	<!-- 메뉴바 -->
@@ -114,10 +106,10 @@ th, td {
 		<ul class="mainMenu">
 			<li><a href='../club/clubPage.jsp'>모임</a></li>
 			<li><a href='../routine/routinePage.jsp'>루틴</a></li>
-			<li><a href='#'>다이어리</a>
+			<li><a href='../diary/myDiaryPage.jsp'>다이어리</a>
 				<ul class="subMenu">
-					<li><a href='#'>MY 다이어리</a></li>
-					<li><a href='#'>전체 다이어리</a></li>
+					<li><a href='../diary/myDiaryPage.jsp'>MY 다이어리</a></li>
+					<li><a href='../diary/allDiaryPage.jsp'>전체 다이어리</a></li>
 				</ul></li>
 		</ul>
 	</nav>
@@ -125,8 +117,7 @@ th, td {
 	<hr>
 	<div class="container">
 		<!-- 회원정보 틀 -->
-		<div
-			style="width: 400px; height: 600px; border: 1px solid; float: left; margin-right: 10px;">
+		<div style="width: 400px; height: 600px; border: 1px solid; float: left; margin-right: 10px;">
 			<div style="height: 530px;">
 				<h3 style="margin: 20px;">회원정보</h3>
 				<table id="memberDataTable">
@@ -137,12 +128,11 @@ th, td {
 							<p /> 등급 : 새싹
 							<p /> <br> <a href='#'>회원정보 수정</a>
 							<p>
-								<a href='#'>로그아웃</a>
+								<a href='../user/member_login.jsp'>로그아웃</a>
 						</td>
 					</tr>
 				</table>
-				<br>
-				<hr>
+				<br><hr>
 				<article>
 					<h4 style="margin: 20px;">내 모임 목록</h4>
 					<ul>
@@ -151,48 +141,50 @@ th, td {
 					</ul>
 				</article>
 			</div>
+			<div style="height: 50px;">
+				<!-- 다이어리 작성 버튼 -->
+				<input type="button" value="다이어리 작성" onclick=""
+					style="width: 400px; height: 50px;">
+			</div>
 		</div>
 
 		<div style="float: right">
-			<!-- 모임 상세 정보 출력 부분  -->
-			<div id="clubInfoOutput">
-				<h3 style="margin: 20px;">모임 상세 정보</h3>
-				<hr>
-				<table id="clubTable">
-					<tr id="clubTableTr">
-						<td style="width: 130px;">모임 이름 :</td>
-						<td style="text-align:left;">
-							<p>모임 이름 출력
-						</td>
-						<td >
-						<input id="scheduleDetailButton" type="button" value="일정 보기"
-							onclick="location.href='./schedule_list.jsp'">
-					</td>
-					</tr>
-					<tr id="clubTableTr">
-						<td style="width: 130px;">모임 유형 :</td>
-						<td colspan=2 style="text-align:left;">
-							<p>정기적 or 일시적
-						</td>
-					</tr>
-					<tr id="clubTableTr">
-						<td style="width: 130px;">초대 유형 :</td>
-						<td colspan=2 style="text-align:left;">
-							<p>초대 or 자유
-						</td>
-					</tr>
-					<tr id="clubTableTr">
-						<td style="width: 130px;">모임 소개 :</td>
-						<td colspan=2 style="text-align:left;">
-							<textarea rows=13 cols=60
-								style="resize: none; font-size: 14px;" readonly="readonly" disabled>
-								개설자 소개 및 모임 진행 방법, 공지사항, 규칙 등
-							</textarea></td>
-					</tr>
-				</table>
-				<div style="text-align: center;">
-					<input id="backButton" type="button" value="돌아가기"
-						onclick="location.href='./clubPage.jsp'">
+			<!-- 검색창 -->
+			<div id="search" style="width: 700px; height: 50px;">
+				<form action="" method="get">
+					<input type="text" name="diary"
+						style="width: 480px; height: 42px;"> <input type="button"
+						value="검색" onclick="" style="width: 100px; height: 47px;">
+					<select name="sort" style="width: 100px; height: 47px;">
+						<option value="1" selected>전체</option>
+						<option value="2">날짜순</option>
+						<option value="3">운동 시간순</option>
+					</select>
+				</form>
+			</div>
+			<!-- 전체 다이어리 목록 -->
+			<div id="list">
+				<div style="width: 670px; height: 30px;">
+					<table id="listTable">
+						<tr id="listItem">
+							<th>제목</th>
+							<th>작성자</th>
+							<th>날짜</th>
+							<th>운동 시간</th>
+						</tr>
+						<tr id="listTr">
+							<td>아주 뿌듯하구나</td>
+							<td>김동덕</td>
+							<td>2021.10.05</td>
+							<td>1시간</td>
+						</tr>
+						<tr id="listTr">
+							<td>힘들어 힘들어</td>
+							<td>냠냠이</td>
+							<td>2021.10.05</td>
+							<td>2시간</td>
+						</tr>
+					</table>
 				</div>
 			</div>
 		</div>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -121,7 +122,7 @@ th, td {
 <body>
 	<!-- 운동하기 편하군&로고 -->
 	<div style="text-align: center">
-		<a href="./mainPage.jsp"><img src="../images/logo.PNG" width=500px
+		<a href="./mainPage.jsp"><img src="<c:url value='/images/logo.png' />" width=500px
 			height=130px /></a> 
 	</div>
 
