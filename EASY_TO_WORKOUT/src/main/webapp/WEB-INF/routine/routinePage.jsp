@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -108,23 +109,24 @@ th, td {
 <body>
 	<!-- 운동하기 편하군&로고 -->
 	<div style="text-align: center">
-		<a href="../mainPage.jsp"><img src="../images/logo.PNG"
-			width=500px height=130px /></a>
+		<a href="<c:url value='/main' />"><img src="<c:url value='/images/logo.PNG' />" width=500px
+			height=130px /></a> 
 	</div>
 
 	<hr>
 	<!-- 메뉴바 -->
 	<nav class="menu">
 		<ul class="mainMenu">
-			<li><a href='../club/clubPage.jsp'>모임</a></li>
-			<li><a href='../routine/routinePage.jsp'>루틴</a></li>
+			<li><a href='<c:url value='/club' />'>모임</a></li>
+			<li><a href='<c:url value='/routine' />'>루틴</a></li>
 			<li><a href='#'>다이어리</a>
 				<ul class="subMenu">
-					<li><a href='#'>MY 다이어리</a></li>
-					<li><a href='#'>전체 다이어리</a></li>
+					<li><a href='<c:url value='/diary/my' />'>MY 다이어리</a></li>
+					<li><a href='<c:url value='/diary/all' />'>전체 다이어리</a></li>
 				</ul></li>
 		</ul>
 	</nav>
+
 
 	<hr>
 	<div class="container">
@@ -134,7 +136,7 @@ th, td {
 				<h3 style="margin: 20px;">회원정보</h3>
 				<table id="memberDataTable">
 					<tr>
-						<td><img src="../images/somsom.jpg" width=150px height=230px />
+						<td><img src="<c:url value='/images/somsom.jpg' />" width=150px height=230px />
 						</td>
 						<td>이름 : 김동덕
 							<p /> 등급 : 새싹
@@ -155,7 +157,7 @@ th, td {
 			</div>
 			<div style="height: 50px;">
 				<!-- 루틴 등록 버튼 -->
-				<input id="createButton" type="button" value="루틴 등록" onclick="location.href='./routine_createForm.jsp'">
+				<input id="createButton" type="button" value="루틴 등록" onclick="location.href='<c:url value='/routine/create/form' />'">
 			</div>
 		</div>
 
@@ -170,7 +172,6 @@ th, td {
 						<option value="1" selected>전체</option>
 						<option value="2">개인</option>
 						<option value="3">인기순</option>
-						<option value="4">좋아요</option>
 					</select>
 				</form>
 			</div>
@@ -182,13 +183,11 @@ th, td {
 							<th>루틴명</th>
 							<th>등록자</th>
 							<th>운동부위</th>
-							<th>좋아요</th>
 						</tr>
 						<tr id="listTr">
 							<td>11자 복근 만들기</td>
 							<td>솜솜</td>
 							<td>복부</td>
-							<td><input type='checkbox' name="like" value="like"></td>
 						</tr>
 					</table>
 				</div>

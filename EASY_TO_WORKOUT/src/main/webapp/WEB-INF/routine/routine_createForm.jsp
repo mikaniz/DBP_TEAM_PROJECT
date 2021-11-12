@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -118,24 +119,24 @@ function createRequestBtn_click() {
 <body>
 	<!-- 운동하기 편하군&로고 -->
 	<div style="text-align: center">
-		<a href="../mainPage.jsp"><img src="../images/logo.PNG"
-			width=500px height=130px /></a>
+		<a href="<c:url value='/main' />"><img src="<c:url value='/images/logo.PNG' />" width=500px
+			height=130px /></a> 
 	</div>
-	<!-- 돌아가기 버튼 -->
 
 	<hr>
 	<!-- 메뉴바 -->
 	<nav class="menu">
 		<ul class="mainMenu">
-			<li><a href='../club/clubPage.jsp'>모임</a></li>
-			<li><a href='../routine/routinePage.jsp'>루틴</a></li>
+			<li><a href='<c:url value='/club' />'>모임</a></li>
+			<li><a href='<c:url value='/routine' />'>루틴</a></li>
 			<li><a href='#'>다이어리</a>
 				<ul class="subMenu">
-					<li><a href='#'>MY 다이어리</a></li>
-					<li><a href='#'>전체 다이어리</a></li>
+					<li><a href='<c:url value='/diary/my' />'>MY 다이어리</a></li>
+					<li><a href='<c:url value='/diary/all' />'>전체 다이어리</a></li>
 				</ul></li>
 		</ul>
 	</nav>
+
 
 	<hr>
 	<div class="container">
@@ -145,7 +146,7 @@ function createRequestBtn_click() {
 			<h3 style="margin: 20px;">회원정보</h3>
 			<table id="memberDataTable">
 				<tr>
-					<td><img src="../images/somsom.jpg" width=150px height=230px />
+					<td><img src="<c:url value='/images/somsom.jpg' />" width=150px height=230px />
 					</td>
 					<td>이름 : 김동덕
 						<p /> 등급 : 새싹
@@ -233,7 +234,7 @@ function createRequestBtn_click() {
 					<input id="routineCreateButton" type="button" value="루틴 등록"
 						onclick="createRequestBtn_click()"> 
 					<input id="backButton" type="button" value="돌아가기" 
-						onclick="location.href='./routinePage.jsp'">
+						onclick="location.href='<c:url value='/routine' />'">
 				</div>
 				</form>
 			</div>
