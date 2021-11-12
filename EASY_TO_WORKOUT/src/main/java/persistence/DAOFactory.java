@@ -6,18 +6,39 @@ import persistence.dao.impl.*;
 // DAO 를 구현한 Implementation 객체를 생성하는 클래스
 public class DAOFactory {
 	
-//	// StudentDAO 를 위한 RDB 용 DAO Implementation 객체를 반환
-//	public StudentDAO getStudentDAO() {
-//		return new StudentDAOImpl();		 
+//	public ChoiceDAO getChoiceDAO() {
+//		return new ChoiceDAOImpl();
 //	}
 //	
-//	// DeptDAO 를 위한 RDB 용 DAO Implementation 객체를 반환
-//	public DeptDAO getDeptDAO() {
-//		return new DeptDAOImpl();		
+//	public ClubDAO getClubDAO() {
+//		return new ClubDAOImpl();
 //	}
 //	
-//	// ProfDAO 를 위한 RDB 용 DAO Implementation 객체를 반환
-//	public ProfDAO getProfDAO() {
-//		return new ProfDAOImpl();		
+//	public ClubScheduleDAO getClubScheduleDAO() {
+//		return new ClubScheduleDAOImpl();
+//	}
+//	
+//	public DiaryDAO getDiaryDAO() {
+//		return new DiaryDAOImpl();
+//	}
+//	
+//	public ExerciseDAO getExerciseDAO() {
+//		return new ExerciseDAOImpl();
+//	}
+//	
+//	public MemberDAO getMemberDAO() {
+//		return new MemberDAOImpl();
+//	}
+//	
+//	public MembershipDAO getMembershipDAO() {
+//		return new MembershipDAOImpl();
+//	}
+//	
+//	public RoutineDAO getRoutineDAO() {
+//		return new RoutineDAOImpl();
+//	}
+//	
+//	public UsageDAO getUsageDAO() {
+//		return new UsageDAOImpl();
 //	}
 }
