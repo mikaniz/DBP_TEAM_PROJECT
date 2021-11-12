@@ -4,7 +4,6 @@
 package persistence.util;
 
 import java.sql.*;
-
 import persistence.ConnectionManager;
 
 public class JDBCUtil {
