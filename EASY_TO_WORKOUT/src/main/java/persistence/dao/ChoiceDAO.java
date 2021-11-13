@@ -1,5 +1,7 @@
 package persistence.dao;
 
-public class ChoiceDAO {
+import service.dto.ChoiceDTO;
+
+public interface ChoiceDAO {
 
 }
