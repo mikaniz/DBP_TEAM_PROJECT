@@ -10,5 +10,7 @@ public interface MemberDAO {
 	public int insertMember(MemberDTO member);
 	public int updateMember(MemberDTO member);
 	public int deleteMember(String id);
+	public boolean existingMember(String id);
+	public boolean isMaster(String id);
 	
 }
