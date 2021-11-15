@@ -23,6 +23,7 @@ public class RequestMapping {
     	mappings.put("/routine", new ForwardController("/routine/routinePage.jsp"));
     	mappings.put("/diary/all", new ForwardController("/diary/allDiaryPage.jsp"));
     	mappings.put("/diary/my", new ForwardController("/diary/myDiaryPage.jsp"));
+    	mappings.put("/login", new ForwardController("/member/member_login.jsp"));
     	// 사용자 관리
     	mappings.put("/", new ForwardController("index.jsp"));
     	mappings.put("/member/login", new LoginController()); 
