@@ -35,8 +35,7 @@ public class RequestMapping {
     	
     	// 다이어리 관리
     	mappings.put("/diary/list", new ListDiaryController());
-    	mappings.put("/diary/detail", new DetailDiaryController());
-//    	mappings.put("/diary/update/form", new ForwardController("/diary/update_form.jsp"));
+    	mappings.put("/diary/detail", new DetailDiaryController());//    	mappings.put("/diary/update/form", new ForwardController("/diary/update_form.jsp"));
 //    	mappings.put("/diary/update", new UpdateDiaryController());
     	mappings.put("/diary/update", new UpdateDiaryController());
     	
