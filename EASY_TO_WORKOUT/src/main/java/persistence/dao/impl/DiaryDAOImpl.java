@@ -99,7 +99,7 @@ public class DiaryDAOImpl implements DiaryDAO {
 	}
 
 	@Override
-	public int insertDairy(DiaryDTO diary) {
+	public int insertDiary(DiaryDTO diary) {
 		int result = 0;
 		String insertQuery = "INSERT INTO "
 				+ "diary (diaryId, title, diaryDate, workTime, contents, private, author) "
