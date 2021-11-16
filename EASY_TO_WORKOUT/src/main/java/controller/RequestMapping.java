@@ -23,6 +23,7 @@ public class RequestMapping {
     	mappings.put("/routine", new ForwardController("/routine/routinePage.jsp"));
     	mappings.put("/diary/all", new ForwardController("/diary/allDiaryPage.jsp"));
     	mappings.put("/diary/my", new ForwardController("/diary/myDiaryPage.jsp"));
+    	mappings.put("/login", new ForwardController("/member/member_login.jsp"));
     	// 사용자 관리
     	mappings.put("/", new ForwardController("index.jsp"));
     	mappings.put("/member/login", new LoginController()); 
@@ -34,8 +35,7 @@ public class RequestMapping {
     	
     	// 다이어리 관리
     	mappings.put("/diary/list", new ListDiaryController());
-    	mappings.put("/diary/detail", new DetailDiaryController());
-//    	mappings.put("/diary/update/form", new ForwardController("/diary/update_form.jsp"));
+    	mappings.put("/diary/detail", new DetailDiaryController());//    	mappings.put("/diary/update/form", new ForwardController("/diary/update_form.jsp"));
 //    	mappings.put("/diary/update", new UpdateDiaryController());
     	mappings.put("/diary/update", new UpdateDiaryController());
     	

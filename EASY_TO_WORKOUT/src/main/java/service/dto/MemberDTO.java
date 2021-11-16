@@ -46,4 +46,12 @@ public class MemberDTO {
 		this.grade = grade;
 	}
 	
+//	비밀번호 검사
+	public boolean matchPassword(String pw) {
+		if (pw == null) {
+			return false;
+		}
+		return this.pw.equals(pw);
+	}
+	
 }

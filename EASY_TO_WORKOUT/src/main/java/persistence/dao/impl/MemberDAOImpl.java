@@ -130,4 +130,44 @@ public class MemberDAOImpl implements MemberDAO {
 		return result;
 	}
 
+	@Override
+	public boolean existingMember(String id) {
+		String query = "SELECT count(*) FROM member WHERE memberId=?";
+		jdbcUtil.setSql(query);
+		Object[] param = new Object[] {id};
+		jdbcUtil.setParameters(param);
+		try {
+			ResultSet rs = jdbcUtil.executeQuery();
+			if (rs.next()) {
+				int count = rs.getInt(1);
+				return (count == 1 ? true : false);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			jdbcUtil.close();
+		}
+		return false;
+	}
+
+	@Override
+	public boolean isMaster(String id) {
+		String query = "SELECT grade FROM member WHERE memberId=?";
+		jdbcUtil.setSql(query);
+		Object[] param = new Object[] {id};
+		jdbcUtil.setParameters(param);
+		try {
+			ResultSet rs = jdbcUtil.executeQuery();
+			if (rs.next()) {
+				String grade = rs.getString("grade");
+				return (grade.equals("master") ? true : false);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			jdbcUtil.close();
+		}
+		return false;
+	}
+
 }
