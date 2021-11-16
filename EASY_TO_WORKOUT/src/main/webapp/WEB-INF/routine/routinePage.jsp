@@ -117,12 +117,12 @@ th, td {
 	<!-- 메뉴바 -->
 	<nav class="menu">
 		<ul class="mainMenu">
-			<li><a href='<c:url value='/club' />'>모임</a></li>
-			<li><a href='<c:url value='/routine' />'>루틴</a></li>
+			<li><a href='<c:url value='/club/list' />'>모임</a></li>
+			<li><a href='<c:url value='/routine/list' />'>루틴</a></li>
 			<li><a href='#'>다이어리</a>
 				<ul class="subMenu">
-					<li><a href='<c:url value='/diary/my' />'>MY 다이어리</a></li>
-					<li><a href='<c:url value='/diary/all' />'>전체 다이어리</a></li>
+					<li><a href='<c:url value='/diary/my/list' />'>MY 다이어리</a></li>
+					<li><a href='<c:url value='/diary/all/list' />'>전체 다이어리</a></li>
 				</ul></li>
 		</ul>
 	</nav>
@@ -164,15 +164,10 @@ th, td {
 		<div style="float: right">
 			<!-- 검색창 -->
 			<div id="search" style="width: 700px; height: 50px;">
-				<form action="" method="get">
-					<input type="text" name="routine"
-						style="width: 480px; height: 42px;"> 
+				<form name="searchForm" method="POST" action="<c:url value='/routine/list' />">
+					<input type="text" name="searchRoutine" placeholder="검색할 루틴을 입력하세요."
+						style="width: 580px; height: 42px;"> 
 					<input id="searchButton" type="button" value="검색" onclick="">
-					<select name="sort" style="width: 100px; height: 47px;">
-						<option value="1" selected>전체</option>
-						<option value="2">개인</option>
-						<option value="3">인기순</option>
-					</select>
 				</form>
 			</div>
 			<!-- 전체 루틴 목록 -->
@@ -183,12 +178,25 @@ th, td {
 							<th>루틴명</th>
 							<th>등록자</th>
 							<th>운동부위</th>
+							<td><form name="sortForm" method="POST" action="<c:url value='/routine/list' />">
+								<select name="sortRoutine" style="width: 80px; height: 37px;" onchange="this.form.submit()">
+									<option value="1" 
+										<c:if test="${checkedOne}">selected</c:if>>전체</option>
+									<option value="2"
+										<c:if test="${checkedTwo}">selected</c:if>>공개</option>
+									<option value="3"
+										<c:if test="${checkedThree}">selected</c:if>>개인</option>
+								</select>
+							</form></td>
 						</tr>
-						<tr id="listTr">
-							<td>11자 복근 만들기</td>
-							<td>솜솜</td>
-							<td>복부</td>
-						</tr>
+						<c:forEach var="routine" items="${routineList}">
+							<tr id="listTr">
+								<td>${routine.rName}</td>
+								<td>${routine.routineCreater}</td>
+								<td>${routine.part}</td>
+								<td><input id="etcButton" type='BUTTON' value="더보기"></td>
+							</tr>
+						</c:forEach>
 					</table>
 				</div>
 			</div>

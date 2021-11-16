@@ -103,14 +103,16 @@ th, td {
 </style>
 
 <script>
-function createRequestBtn_click() {
-	theForm = document.openForm;
-	
-	if(theForm.routineName.value == "") alert("루틴명을 입력해주세요.");
+function routineCreate() {
+	if(createForm.routineName.value == "") {
+		alert("루틴명을 입력해주세요.");
+		createForm.routineName.focus();
+		return false;
+	}
 	else {
 		alert("루틴이 등록되었습니다.\n 루틴 목록에서 확인이 가능합니다.");
 	}
-	
+	createForm.submit();
 }
 </script>
 
@@ -127,12 +129,12 @@ function createRequestBtn_click() {
 	<!-- 메뉴바 -->
 	<nav class="menu">
 		<ul class="mainMenu">
-			<li><a href='<c:url value='/club' />'>모임</a></li>
-			<li><a href='<c:url value='/routine' />'>루틴</a></li>
+			<li><a href='<c:url value='/club/list' />'>모임</a></li>
+			<li><a href='<c:url value='/routine/list' />'>루틴</a></li>
 			<li><a href='#'>다이어리</a>
 				<ul class="subMenu">
-					<li><a href='<c:url value='/diary/my' />'>MY 다이어리</a></li>
-					<li><a href='<c:url value='/diary/all' />'>전체 다이어리</a></li>
+					<li><a href='<c:url value='/diary/my/list' />'>MY 다이어리</a></li>
+					<li><a href='<c:url value='/diary/all/list' />'>전체 다이어리</a></li>
 				</ul></li>
 		</ul>
 	</nav>
@@ -172,16 +174,18 @@ function createRequestBtn_click() {
 			<div id="routineInfoInput">
 				<h3 style="margin: 20px;">루틴 정보 입력</h3>
 				<hr>
-				<form name="openForm">
+				<form name="createForm" method="POST" action="<c:url value='/routine/create' />">
 				<table id="routineTable">
 					<tr id="routineTableTr">
 						<td style="width: 130px;">루틴명 :</td>
 						<td><input type="text" name="routineName"
+							<c:if test="${creationFailed}">value="${routine.rName}"</c:if>
 							style="width: 300px; height: 20px; font-size: 15px;"></td>
 					</tr>
 					<tr id="routineTableTr">
 						<td style="width: 130px;">등록자 :</td>
-						<td><input type="text" name="routineCreator"
+						<td><input type="text" name="routineCreater"
+							<c:if test="${creationFailed}">value="${routine.routineCreater}"</c:if>
 							style="width: 300px; height: 20px; font-size: 15px;"></td>
 					</tr>
 					<tr id="routineTableTr">
@@ -201,6 +205,7 @@ function createRequestBtn_click() {
 					<tr id="routineTableTr">
 						<td style="width: 130px;">소요시간 :</td>
 						<td><input type="text" name="routineTime"
+							<c:if test="${creationFailed}">value="${routine.rTime}"</c:if>
 							style="width: 300px; height: 20px; font-size: 15px;"></td>
 					</tr>
 					<tr id="routineTableTr">
@@ -232,7 +237,7 @@ function createRequestBtn_click() {
 				</table>
 				<div style="text-align: center; margin-left: 130px;">
 					<input id="routineCreateButton" type="button" value="루틴 등록"
-						onclick="createRequestBtn_click()"> 
+						onclick=""> 
 					<input id="backButton" type="button" value="돌아가기" 
 						onclick="location.href='<c:url value='/routine' />'">
 				</div>
