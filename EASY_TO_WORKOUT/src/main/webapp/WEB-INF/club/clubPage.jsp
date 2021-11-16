@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@page contentType="text/html; charset=utf-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -114,105 +113,110 @@ th, td {
 	text-align: center;
 }
 </style>
+<script>
+function search() {
+	searchForm.submit();
+}
+</script>
 </head>
 
 <body>
-	<!-- ¿îµ¿ÇÏ±â ÆíÇÏ±º&·Î°í -->
+	<!-- ìš´ë™í•˜ê¸° íŽ¸í•˜êµ°&ë¡œê³  -->
 	<div style="text-align: center">
-		<a href="<c:url value='/js/mainPage.jsp' />"><img src="<c:url value='/images/logo.png' />"
+		<a href="<c:url value='/main' />"><img src="<c:url value='/images/logo.PNG' />"
 			width=500px height=130px /></a>
 	</div>
 
 	<hr>
-	<!-- ¸Þ´º¹Ù -->
+	<!-- ë©”ë‰´ë°” -->
 	<nav class="menu">
 		<ul class="mainMenu">
-			<li><a href='../club/clubPage.jsp'>¸ðÀÓ</a></li>
-			<li><a href='../routine/routinePage.jsp'>·çÆ¾</a></li>
-			<li><a href='#'>´ÙÀÌ¾î¸®</a>
+			<li><a href='<c:url value='/club/list' />'>ëª¨ìž„</a></li>
+			<li><a href='<c:url value='/routine/list' />'>ë£¨í‹´</a></li>
+			<li><a href='#'>ë‹¤ì´ì–´ë¦¬</a>
 				<ul class="subMenu">
-					<li><a href='#'>MY ´ÙÀÌ¾î¸®</a></li>
-					<li><a href='#'>ÀüÃ¼ ´ÙÀÌ¾î¸®</a></li>
+					<li><a href='<c:url value='/diary/my/list' />'>MY ë‹¤ì´ì–´ë¦¬</a></li>
+					<li><a href='<c:url value='/diary/all/list' />'>ì „ì²´ ë‹¤ì´ì–´ë¦¬</a></li>
 				</ul></li>
 		</ul>
 	</nav>
 
 	<hr>
 	<div class="container">
-		<!-- È¸¿øÁ¤º¸ Æ² -->
+		<!-- íšŒì›ì •ë³´ í‹€ -->
 		<div style="width: 400px; height: 600px; border: 1px solid; float: left; margin-right: 10px;">
 			<div style="height: 530px;">
-				<h3 style="margin: 20px;">È¸¿øÁ¤º¸</h3>
+				<h3 style="margin: 20px;">íšŒì›ì •ë³´</h3>
 				<table id="memberDataTable">
 					<tr>
-						<td><img src="../../images/somsom.jpg" width=150px height=230px />
+						<td><img src="<c:url value='/images/somsom.jpg' />" width=150px height=230px />
 						</td>
-						<td>ÀÌ¸§ : ±èµ¿´ö
-							<p /> µî±Þ : »õ½Ï
-							<p /> <br> <a href='#'>È¸¿øÁ¤º¸ ¼öÁ¤</a>
+						<td>ì´ë¦„ : ê¹€ë™ë•
+							<p /> ë“±ê¸‰ : ìƒˆì‹¹
+							<p /> <br> <a href='#'>íšŒì›ì •ë³´ ìˆ˜ì •</a>
 							<p>
-								<a href='#'>·Î±×¾Æ¿ô</a>
+								<a href='#'>ë¡œê·¸ì•„ì›ƒ</a>
 						</td>
 					</tr>
 				</table>
 				<br><hr>
 				<article>
-					<h4 style="margin: 20px;">³» ¸ðÀÓ ¸ñ·Ï</h4>
+					<h4 style="margin: 20px;">ë‚´ ëª¨ìž„ ëª©ë¡</h4>
 					<ul>
-						<li><a href='#'>ÅõÇöÁø</a></li>
+						<li><a href='#'>íˆ¬í˜„ì§„</a></li>
 						<li><a href='#'>ETW</a></li>
 					</ul>
 				</article>
 			</div>
 			<div style="height: 50px;">
-				<!-- ¸ðÀÓ °³¼³ ¹öÆ° -->
-				<input id="createButton" type="button" value="¸ðÀÓ °³¼³" onclick="location.href='./club_openForm.jsp'">
+				<!-- ëª¨ìž„ ê°œì„¤ ë²„íŠ¼ -->
+				<input id="createButton" type="button" value="ëª¨ìž„ ê°œì„¤" onclick="location.href='<c:url value='/club/open/form' />'">
 			</div>
 		</div>
 
 		<div style="float: right">
-			<!-- °Ë»öÃ¢ -->
+			<!-- ê²€ìƒ‰ì°½ -->
 			<div id="search" style="width: 700px; height: 50px;">
-				<form action="" method="get">
-					<input type="text" name="routine"
-						style="width: 480px; height: 42px;"> 
-					<input id="searchButton" type="button"
-						value="°Ë»ö" onclick="">
-					<select name="sort" style="width: 100px; height: 47px;">
-						<option value="1" selected>ÀüÃ¼</option>
-						<option value="2">È¸¿ø¼ø</option>
-						<option value="3">ÀÎ±â¼ø</option>
-					</select>
+				<form name="searchForm" method="POST" action="<c:url value='/club/find' />">
+					<input type="text" name="searchClub" placeholder="
+						<c:choose>
+							<c:when test="${findClubFailed}">${exception.getMessage()}</c:when>
+							<c:otherwise>ëª¨ìž„ì„ ìž…ë ¥í•˜ì„¸ìš”</c:otherwise>
+						</c:choose>
+					" style="width: 580px; height: 42px;"> 
+	    			<input id="searchButton" type="button"
+						value="ê²€ìƒ‰" onclick="search()">
 				</form>
 			</div>
-			<!-- ÀüÃ¼ ¸ðÀÓ ¸ñ·Ï -->
+			<!-- ì „ì²´ ëª¨ìž„ ëª©ë¡ -->
 			<div id="list">
 				<div style="width: 670px; height: 30px;">
 					<table id="listTable">
 						<tr id="listItem">
-							<th>¸ðÀÓ¸í</th>
-							<th>°³¼³ÀÚ</th>
-							<th>ÀÎ¿ø ¼ö</th>
-							<td></td>
+							<th>ëª¨ìž„ëª…</th>
+							<th>ê°œì„¤ìž</th>
+							<th>ì¸ì› ìˆ˜</th>
+							<td><form name="sortForm" method="POST" action="<c:url value='/club/list' />">
+								<select name="sortClub" style="width: 80px; height: 37px;" onchange="this.form.submit()">
+									<option value="1" 
+										<c:if test="${checkedOne}">selected</c:if>>ì´ë¦„ìˆœ</option>
+									<option value="2"
+										<c:if test="${checkedTwo}">selected</c:if>>íšŒì›ìˆœ</option>
+									<option value="3"
+										<c:if test="${checkedThree}">selected</c:if>>ìžìœ ê°€ìž…</option>
+								</select>
+							</form></td>
 						</tr>
-						<tr id="listTr">
-							<td>ETW</td>
-							<td>¿îÆí±º</td>
-							<td>(10/20)</td>
-							<td>
-								<input id="etcButton" type='BUTTON' value="´õº¸±â" onclick="location.href='./club_detail.jsp'">
-								<input id="joinButton" type='BUTTON' value="°¡ÀÔ">
-							</td>
-						</tr>
-						<tr id="listTr">
-							<td>ÅõÇöÁø</td>
-							<td>·ùÇöÁø</td>
-							<td>(3/20)</td>
-							<td>
-								<input id="etcButton" type='BUTTON' value="´õº¸±â" onclick="location.href='./club_detail.jsp'">
-								<input id="joinButton" type='BUTTON' value="°¡ÀÔ">
-							</td>
-						</tr>
+						<c:forEach var="club" items="${clubList}">
+							<tr id="listTr">
+								<td>${club.clubName}</td>
+								<td>${club.clubMaster}</td>
+								<td>${club.countClub}</td>
+								<td>
+									<input id="etcButton" type='BUTTON' value="ë”ë³´ê¸°">
+								</td>
+							</tr>
+						</c:forEach>
 					</table>
 				</div>
 			</div>
