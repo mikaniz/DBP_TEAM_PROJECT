@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page contentType="text/html; charset=utf-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -87,6 +86,10 @@
 	table-layout: fixed;
 }
 
+#etcButton{
+	background-color: #90ABDA;
+}
+
 #searchButton {
 	width: 100px; 
 	height: 47px;
@@ -107,22 +110,22 @@ th, td {
 </head>
 
 <body>
-	<!-- ¿îµ¿ÇÏ±â ÆíÇÏ±º&·Î°í -->
+	<!-- ìš´ë™í•˜ê¸° í¸í•˜êµ°&ë¡œê³  -->
 	<div style="text-align: center">
 		<a href="<c:url value='/main' />"><img src="<c:url value='/images/logo.PNG' />" width=500px
 			height=130px /></a> 
 	</div>
 
 	<hr>
-	<!-- ¸Ş´º¹Ù -->
+	<!-- ë©”ë‰´ë°” -->
 	<nav class="menu">
 		<ul class="mainMenu">
-			<li><a href='<c:url value='/club/list' />'>¸ğÀÓ</a></li>
-			<li><a href='<c:url value='/routine/list' />'>·çÆ¾</a></li>
-			<li><a href='#'>´ÙÀÌ¾î¸®</a>
+			<li><a href='<c:url value='/club/list' />'>ëª¨ì„</a></li>
+			<li><a href='<c:url value='/routine/list' />'>ë£¨í‹´</a></li>
+			<li><a href='#'>ë‹¤ì´ì–´ë¦¬</a>
 				<ul class="subMenu">
-					<li><a href='<c:url value='/diary/my/list' />'>MY ´ÙÀÌ¾î¸®</a></li>
-					<li><a href='<c:url value='/diary/all/list' />'>ÀüÃ¼ ´ÙÀÌ¾î¸®</a></li>
+					<li><a href='<c:url value='/diary/my/list' />'>MY ë‹¤ì´ì–´ë¦¬</a></li>
+					<li><a href='<c:url value='/diary/all/list' />'>ì „ì²´ ë‹¤ì´ì–´ë¦¬</a></li>
 				</ul></li>
 		</ul>
 	</nav>
@@ -130,62 +133,62 @@ th, td {
 
 	<hr>
 	<div class="container">
-		<!-- È¸¿øÁ¤º¸ Æ² -->
+		<!-- íšŒì›ì •ë³´ í‹€ -->
 		<div style="width: 400px; height: 600px; border: 1px solid; float: left; margin-right: 10px;">
 			<div style="height: 530px;">
-				<h3 style="margin: 20px;">È¸¿øÁ¤º¸</h3>
+				<h3 style="margin: 20px;">íšŒì›ì •ë³´</h3>
 				<table id="memberDataTable">
 					<tr>
 						<td><img src="<c:url value='/images/somsom.jpg' />" width=150px height=230px />
 						</td>
-						<td>ÀÌ¸§ : ±èµ¿´ö
-							<p /> µî±Ş : »õ½Ï
-							<p /> <br> <a href='#'>È¸¿øÁ¤º¸ ¼öÁ¤</a>
+						<td>ì´ë¦„ : ê¹€ë™ë•
+							<p /> ë“±ê¸‰ : ìƒˆì‹¹
+							<p /> <br> <a href='#'>íšŒì›ì •ë³´ ìˆ˜ì •</a>
 							<p>
-								<a href='#'>·Î±×¾Æ¿ô</a>
+								<a href='#'>ë¡œê·¸ì•„ì›ƒ</a>
 						</td>
 					</tr>
 				</table>
 				<br><hr>
 				<article>
-					<h4 style="margin: 20px;">³» ¸ğÀÓ ¸ñ·Ï</h4>
+					<h4 style="margin: 20px;">ë‚´ ëª¨ì„ ëª©ë¡</h4>
 					<ul>
-						<li><a href='#'>ÅõÇöÁø</a></li>
+						<li><a href='#'>íˆ¬í˜„ì§„</a></li>
 						<li><a href='#'>ETW</a></li>
 					</ul>
 				</article>
 			</div>
 			<div style="height: 50px;">
-				<!-- ·çÆ¾ µî·Ï ¹öÆ° -->
-				<input id="createButton" type="button" value="·çÆ¾ µî·Ï" onclick="location.href='<c:url value='/routine/create/form' />'">
+				<!-- ë£¨í‹´ ë“±ë¡ ë²„íŠ¼ -->
+				<input id="createButton" type="button" value="ë£¨í‹´ ë“±ë¡" onclick="location.href='<c:url value='/routine/create/form' />'">
 			</div>
 		</div>
 
 		<div style="float: right">
-			<!-- °Ë»öÃ¢ -->
+			<!-- ê²€ìƒ‰ì°½ -->
 			<div id="search" style="width: 700px; height: 50px;">
 				<form name="searchForm" method="POST" action="<c:url value='/routine/list' />">
-					<input type="text" name="searchRoutine" placeholder="°Ë»öÇÒ ·çÆ¾À» ÀÔ·ÂÇÏ¼¼¿ä."
+					<input type="text" name="searchRoutine" placeholder="ê²€ìƒ‰í•  ë£¨í‹´ì„ ì…ë ¥í•˜ì„¸ìš”."
 						style="width: 580px; height: 42px;"> 
-					<input id="searchButton" type="button" value="°Ë»ö" onclick="">
+					<input id="searchButton" type="button" value="ê²€ìƒ‰" onclick="">
 				</form>
 			</div>
-			<!-- ÀüÃ¼ ·çÆ¾ ¸ñ·Ï -->
+			<!-- ì „ì²´ ë£¨í‹´ ëª©ë¡ -->
 			<div id="list">
 				<div style="width: 670px; height: 30px;">
 					<table id="listTable">
 						<tr id="listItem">
-							<th>·çÆ¾¸í</th>
-							<th>µî·ÏÀÚ</th>
-							<th>¿îµ¿ºÎÀ§</th>
+							<th>ë£¨í‹´ëª…</th>
+							<th>ë“±ë¡ì</th>
+							<th>ìš´ë™ë¶€ìœ„</th>
 							<td><form name="sortForm" method="POST" action="<c:url value='/routine/list' />">
 								<select name="sortRoutine" style="width: 80px; height: 37px;" onchange="this.form.submit()">
 									<option value="1" 
-										<c:if test="${checkedOne}">selected</c:if>>ÀüÃ¼</option>
+										<c:if test="${checkedOne}">selected</c:if>>ì „ì²´</option>
 									<option value="2"
-										<c:if test="${checkedTwo}">selected</c:if>>°ø°³</option>
+										<c:if test="${checkedTwo}">selected</c:if>>ê³µê°œ</option>
 									<option value="3"
-										<c:if test="${checkedThree}">selected</c:if>>°³ÀÎ</option>
+										<c:if test="${checkedThree}">selected</c:if>>ê°œì¸</option>
 								</select>
 							</form></td>
 						</tr>
@@ -194,7 +197,7 @@ th, td {
 								<td>${routine.rName}</td>
 								<td>${routine.routineCreater}</td>
 								<td>${routine.part}</td>
-								<td><input id="etcButton" type='BUTTON' value="´õº¸±â"></td>
+								<td><input id="etcButton" type='BUTTON' value="ë”ë³´ê¸°"></td>
 							</tr>
 						</c:forEach>
 					</table>
