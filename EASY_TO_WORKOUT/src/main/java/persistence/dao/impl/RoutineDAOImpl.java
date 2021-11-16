@@ -2,11 +2,10 @@ package persistence.dao.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.*;
+import java.sql.ResultSet;
 
-import service.dto.*;
-import persistence.DAOFactory;
-import persistence.dao.*;
+import service.dto.RoutineDTO;
+import persistence.dao.RoutineDAO;
 import persistence.util.JDBCUtil;
 
 public class RoutineDAOImpl implements RoutineDAO {
@@ -18,7 +17,8 @@ public class RoutineDAOImpl implements RoutineDAO {
 	         "ROUTINE.RTIME AS ROUTINE_TIME, " +
 	         "ROUTINE.DIFFICULTY AS ROUTINE_DIFFICULTY, " +
 	         "ROUTINE.RTYPE AS ROUTINE_TYPE, " +
-	         "ROUTINE.PART AS ROUTINE_PART ";
+	         "ROUTINE.PART AS ROUTINE_PART, " +
+	         "ROUTINE.ROUTINECREATER AS ROUTINE_CREATER ";
 	
 	public RoutineDAOImpl() {
 		jdbcUtil = new JDBCUtil();
@@ -26,13 +26,13 @@ public class RoutineDAOImpl implements RoutineDAO {
 
 	@Override
 	public List<RoutineDTO> getRoutineList() {
-		String allQuery = query + ", " + "ROUTINE.ROUTINECREATER AS ROUTINE_CREATER " +
-		    "FROM ROUTINE ORDER BY ROUTINE.ROUTINEID ASC ";		
-		jdbcUtil.setSql(allQuery);		// JDBCUtil 에 query 설정
+		String allQuery = query + "FROM ROUTINE ORDER BY ROUTINE_ID ASC ";		
+		jdbcUtil.setSqlAndParameters(allQuery, null);		// JDBCUtil 에 query 설정
 
 		try { 
 				ResultSet rs = jdbcUtil.executeQuery();		// query 문 실행			
 				List<RoutineDTO> list = new ArrayList<RoutineDTO>();		// RoutineDTO 객체들을 담기위한 list 객체
+				
 				while (rs.next()) {	
 					RoutineDTO dto = new RoutineDTO();		// 하나의 RoutineDTO 객체 생성 후 정보 설정
 					dto.setRoutineId(rs.getInt("ROUTINE_ID"));
@@ -42,6 +42,7 @@ public class RoutineDAOImpl implements RoutineDAO {
 					dto.setrType(rs.getString("ROUTINE_TYPE"));
 					dto.setPart(rs.getString("ROUTINE_PART"));
 					dto.setRoutineCreater(rs.getString("ROUTINE_CREATER"));
+					
 					list.add(dto);		// list 객체에 정보를 설정한 RoutineDTO 객체 저장
 				}
 				return list;		// 루틴을 저장한 dto들의 목록을 반환
@@ -54,17 +55,18 @@ public class RoutineDAOImpl implements RoutineDAO {
 	}
 
 	@Override
-	public List<RoutineDTO> getRoutineListByPublic(String rType) {
-		String searchQuery = query + ", " + "ROUTINE.ROUTINECREATER AS ROUTINE_CREATER " +
+	public List<RoutineDTO> getRoutineListByPublic() {
+		String searchQuery = query +
 			        "FROM ROUTINE " +
-			        "WHERE ROUTINE.RTYPE = 0 ";
+			        "WHERE RTYPE = '0' ";
 			   	 
-		jdbcUtil.setSql(searchQuery);				// JDBCUtil 에 query 문 설정
+		jdbcUtil.setSqlAndParameters(searchQuery, null);				// JDBCUtil 에 query 문 설정
 
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();		// query 문 실행
 			List<RoutineDTO> list = new ArrayList<RoutineDTO>();	// RoutineDTO 객체들을 담기위한 list 객체
-			if (rs.next()) {						// 하나의 RoutineDTO 객체 생성 후 정보 설정
+			
+			while (rs.next()) {						// 하나의 RoutineDTO 객체 생성 후 정보 설정
 				RoutineDTO dto = new RoutineDTO();
 				dto.setRoutineId(rs.getInt("ROUTINE_ID"));
 				dto.setrName(rs.getString("ROUTINE_NAME"));
@@ -85,17 +87,18 @@ public class RoutineDAOImpl implements RoutineDAO {
 	}
 
 	@Override
-	public List<RoutineDTO> getRoutineListByPersonal(String rType) {
-		String searchQuery = query + ", " + "ROUTINE.ROUTINECREATER AS ROUTINE_CREATER " +
+	public List<RoutineDTO> getRoutineListByPersonal() {
+		String searchQuery = query + 
 		        "FROM ROUTINE " +
-		        "WHERE ROUTINE.RTYPE = 1 ";
+		        "WHERE RTYPE = '1' ";
 		   	 
-		jdbcUtil.setSql(searchQuery);				// JDBCUtil 에 query 문 설정
+		jdbcUtil.setSqlAndParameters(searchQuery, null);			// JDBCUtil 에 query 문 설정
 
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();		// query 문 실행
 			List<RoutineDTO> list = new ArrayList<RoutineDTO>();	// RoutineDTO 객체들을 담기위한 list 객체
-			if (rs.next()) {						// 하나의 RoutineDTO 객체 생성 후 정보 설정
+			
+			while (rs.next()) {						// 하나의 RoutineDTO 객체 생성 후 정보 설정
 				RoutineDTO dto = new RoutineDTO();
 				dto.setRoutineId(rs.getInt("ROUTINE_ID"));
 				dto.setrName(rs.getString("ROUTINE_NAME"));
@@ -117,23 +120,63 @@ public class RoutineDAOImpl implements RoutineDAO {
 
 	@Override
 	public int insertRoutine(RoutineDTO routine) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = 0;
+		String insertQuery = "INSERT INTO "
+				+ "ROUTINE (ROUTINEID, RNAME, RTIME, DIFFICULTY, RTYPE, RPART, ROUTINECREATER) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?)";
+		
+		Object[] param = new Object[] {routine.getRoutineId(), routine.getrName(), 
+				routine.getrTime(), routine.getDifficulty(), 
+				routine.getrType(), routine.getPart(), 
+				routine.getRoutineCreater()};
+		
+		jdbcUtil.setSqlAndParameters(insertQuery, param);
+		
+		try {
+			result = jdbcUtil.executeUpdate();
+		} catch (Exception e) {
+			jdbcUtil.rollback();
+			e.printStackTrace();
+		} finally {
+			jdbcUtil.commit();
+			jdbcUtil.close();
+		}
+		return result;
 	}
 
 	@Override
 	public int updateRoutine(RoutineDTO routine) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = 0;
+		String updateQuery = "UPDATE ROUTINE "
+				+ "SET RNAME=?, RTIME=?, DIFFICULTY=?, RTYPE=?, RPART=?, ROUTINECREATER=? "
+				+ "WHERE ROUTINEID=?";
+		
+		Object[] param = new Object[] {routine.getrName(), 
+				routine.getrTime(), routine.getDifficulty(), 
+				routine.getrType(), routine.getPart(), 
+				routine.getRoutineCreater(), routine.getRoutineId()};
+		
+		jdbcUtil.setSqlAndParameters(updateQuery, param);
+		
+		try {
+			result = jdbcUtil.executeUpdate();
+		} catch (Exception e) {
+			jdbcUtil.rollback();
+			e.printStackTrace();
+		} finally {
+			jdbcUtil.commit();
+			jdbcUtil.close();
+		}
+		return result;
 	}
 
 	@Override
 	public int deleteRoutine(int routineId) {
 		String deleteQuery = "DELETE FROM ROUTINE WHERE ROUTINEID = ?";
 		
-		jdbcUtil.setSql(deleteQuery);			// JDBCUtil 에 query 문 설정
 		Object[] param = new Object[] {routineId};
-		jdbcUtil.setParameters(param);			// JDBCUtil 에 매개변수 설정
+		
+		jdbcUtil.setSqlAndParameters(deleteQuery, param);
 		
 		try {
 			int result = jdbcUtil.executeUpdate();		// delete 문 실행
@@ -153,10 +196,10 @@ public class RoutineDAOImpl implements RoutineDAO {
 		String searchQuery = query + ", " + "ROUTINE.ROUTINECREATER AS ROUTINE_CREATER " +
 		        "FROM ROUTINE " +
 		        "WHERE ROUTINE.RNAME = ? ";
-		   	 
-		jdbcUtil.setSql(searchQuery);				// JDBCUtil 에 query 문 설정
+	
 		Object[] param = new Object[] { rName };
-		jdbcUtil.setParameters(param);
+		
+		jdbcUtil.setSqlAndParameters(searchQuery, param);
 
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();		// query 문 실행
@@ -180,4 +223,22 @@ public class RoutineDAOImpl implements RoutineDAO {
 		return null;
 	}
 
+	public boolean existingRoutine(String rName) {
+		String sql = "SELECT count(*) FROM ROUTINE WHERE RNAME=?";   
+		
+		jdbcUtil.setSqlAndParameters(sql, new Object[] {rName});	// JDBCUtil에 query문과 매개 변수 설정
+
+		try {
+			ResultSet rs = jdbcUtil.executeQuery();		// query 실행
+			if (rs.next()) {
+				int count = rs.getInt(1);
+				return (count == 1 ? true : false);
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			jdbcUtil.close();		// resource 반환
+		}
+		return false;
+	}
 }
