@@ -18,7 +18,6 @@ public class FindClubController implements Controller {
 		ClubServiceImpl service = ClubServiceImpl.getInstance();
 		
 		String clubName = request.getParameter("searchClub");
-		
 		try {
 			List<ClubDTO> clubList = service.getClubByName(clubName);
 			request.setAttribute("clubList", clubList);
@@ -30,7 +29,7 @@ public class FindClubController implements Controller {
 			request.setAttribute("exception", e);
 			
 			return "/club/clubPage.jsp";
-		}		
+		}
 	
 	}
 
