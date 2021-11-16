@@ -26,7 +26,7 @@ public class ExerciseDAOImpl implements ExerciseDAO {
 	public List<ExerciseDTO> getExerciseList() {
 		String allQuery = query +
 			   "FROM EXERCISE ORDER BY EXERCISE.EXERCISEID ASC ";		
-		jdbcUtil.setSql(allQuery);		// JDBCUtil 에 query 설정
+		jdbcUtil.setSqlAndParameters(allQuery, null);		// JDBCUtil 에 query 설정
 
 		try { 
 				ResultSet rs = jdbcUtil.executeQuery();		// query 문 실행			
@@ -54,9 +54,9 @@ public class ExerciseDAOImpl implements ExerciseDAO {
 		        "FROM EXERCISE " +
 		        "WHERE EXERCISE.NAME = ? ";
 		   	 
-		jdbcUtil.setSql(searchQuery);				// JDBCUtil 에 query 문 설정
 		Object[] param = new Object[] { name };
-		jdbcUtil.setParameters(param);
+		
+		jdbcUtil.setSqlAndParameters(searchQuery, param);
 
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();		// query 문 실행
