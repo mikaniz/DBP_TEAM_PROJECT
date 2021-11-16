@@ -29,7 +29,7 @@ public class ClubScheduleDAOImpl implements ClubScheduleDAO {
 		String allQuery = query + "FROM CLUBSCHEDULE ORDER BY CLUBID";
 		
 		// JDBCUtil에 query 설정
-		jdbcUtil.setSql(allQuery);
+		jdbcUtil.setSqlAndParameters(allQuery, null);
 		try {
 			ResultSet rs = jdbcUtil.executeQuery(); // query문 실행
 			List<ClubScheduleDTO> list = new ArrayList<ClubScheduleDTO>(); // DTO 객체 담기 위한 리스트 생성
@@ -59,9 +59,8 @@ public class ClubScheduleDAOImpl implements ClubScheduleDAO {
 		// TODO Auto-generated method stub
 		String searchQuery = query + "FROM CLUBSCHEDULE WHERE CLUBSCHEDULEID = ? AND CLUBID = ?";
 		
-		jdbcUtil.setSql(searchQuery);				// JDBCUtil 에 query 문 설정
 		Object[] param = new Object[] {clubScheduleId, clubId};		// 모임을 찾기 위한 조건으로 id 설정
-		jdbcUtil.setParameters(param);				// JDBCUtil 에 query 문의 매개변수 값으로 사용할 매개변수 설정
+		jdbcUtil.setSqlAndParameters(searchQuery, param);
 		
 		try {
 			ResultSet rs = jdbcUtil.executeQuery(); // query문 실행
