@@ -48,6 +48,7 @@ public class RequestMapping {
     	mappings.put("/club/schedule/create", new CreateScheduleController());
     	mappings.put("/club/schedule/view", new ViewScheduleController());
     	mappings.put("/club/join", new JoinClubController());
+    	mappings.put("/club/find", new FindClubController());
     	
     	// 루틴 관리
     	mappings.put("/routine/list", new ListRoutineController());
