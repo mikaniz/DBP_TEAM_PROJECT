@@ -5,7 +5,6 @@ import java.util.List;
 import java.sql.*;
 
 import service.dto.*;
-import persistence.DAOFactory;
 import persistence.dao.*;
 import persistence.util.JDBCUtil;
 
