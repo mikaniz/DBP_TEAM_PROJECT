@@ -18,7 +18,7 @@ public class DiaryDAOImpl implements DiaryDAO {
 	@Override
 	public List<DiaryDTO> getAllDiaryList() {
 		String allDiaryQuery = "SELECT * FROM diary WHERE private=0";
-		jdbcUtil.setSql(allDiaryQuery);
+		jdbcUtil.setSqlAndParameters(allDiaryQuery, null);
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();
 			List<DiaryDTO> list = new ArrayList<DiaryDTO>();
@@ -32,6 +32,8 @@ public class DiaryDAOImpl implements DiaryDAO {
 				dto.setContents(rs.getString("contents"));
 				dto.setIsPrivate(rs.getInt("private"));
 				dto.setAuthor(rs.getString("author"));
+				
+				list.add(dto);
 			}
 			return list;
 		} catch (Exception e) {
@@ -45,13 +47,11 @@ public class DiaryDAOImpl implements DiaryDAO {
 	@Override
 	public List<DiaryDTO> getMyDiaryList(String memberId) {
 		String myDiaryQuery = "SELECT * FROM diary WHERE author=?";
-		jdbcUtil.setSql(myDiaryQuery);
 		Object[] param = new Object[] {memberId};
-		jdbcUtil.setParameters(param);
+		jdbcUtil.setSqlAndParameters(myDiaryQuery, param);
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();
 			List<DiaryDTO> list = new ArrayList<DiaryDTO>();
-			
 			while (rs.next()) {
 				DiaryDTO dto = new DiaryDTO();
 				dto.setDiaryId(rs.getInt("diaryId"));
@@ -61,6 +61,79 @@ public class DiaryDAOImpl implements DiaryDAO {
 				dto.setContents(rs.getString("contents"));
 				dto.setIsPrivate(rs.getInt("private"));
 				dto.setAuthor(rs.getString("author"));
+				
+				list.add(dto);
+			}
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			jdbcUtil.close();
+		}
+		return null;
+	}
+
+	@Override
+	public List<DiaryDTO> getSortedAllDiary(String sortType) {
+		String sortQuery = "SELECT * FROM diary WHERE private=0";
+		if (sortType.equals("date")) {
+			sortQuery += " ORDER BY diaryDate";
+		}
+		else if (sortType.equals("workTime")) {
+			sortQuery += " ORDER BY workTime";
+		}
+		sortQuery += " DESC";
+		jdbcUtil.setSqlAndParameters(sortQuery, null);
+		try {
+			ResultSet rs = jdbcUtil.executeQuery();
+			List<DiaryDTO> list= new ArrayList<DiaryDTO>();
+			while (rs.next()) {
+				DiaryDTO dto = new DiaryDTO();
+				dto.setDiaryId(rs.getInt("diaryId"));
+				dto.setTitle(rs.getString("title"));
+				dto.setDate(rs.getTimestamp("diaryDate"));
+				dto.setWorkTime(rs.getInt("workTime"));
+				dto.setContents(rs.getString("contents"));
+				dto.setIsPrivate(rs.getInt("private"));
+				dto.setAuthor(rs.getString("author"));
+				
+				list.add(dto);
+			}
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			jdbcUtil.close();
+		}
+		return null;
+	}
+
+	@Override
+	public List<DiaryDTO> getSortedMyDiary(String memberId, String sortType) {
+		String sortQuery = "SELECT * FROM diary WHERE author=?";
+		Object[] param = new Object[] {memberId};
+		if (sortType.equals("date")) {
+			sortQuery += " ORDER BY diaryDate";
+		}
+		else if (sortType.equals("workTime")) {
+			sortQuery += " ORDER BY workTime";
+		}
+		sortQuery += " DESC";
+		jdbcUtil.setSqlAndParameters(sortQuery, param);
+		try {
+			ResultSet rs = jdbcUtil.executeQuery();
+			List<DiaryDTO> list= new ArrayList<DiaryDTO>();
+			while (rs.next()) {
+				DiaryDTO dto = new DiaryDTO();
+				dto.setDiaryId(rs.getInt("diaryId"));
+				dto.setTitle(rs.getString("title"));
+				dto.setDate(rs.getTimestamp("diaryDate"));
+				dto.setWorkTime(rs.getInt("workTime"));
+				dto.setContents(rs.getString("contents"));
+				dto.setIsPrivate(rs.getInt("private"));
+				dto.setAuthor(rs.getString("author"));
+				
+				list.add(dto);
 			}
 			return list;
 		} catch (Exception e) {
@@ -74,9 +147,8 @@ public class DiaryDAOImpl implements DiaryDAO {
 	@Override
 	public DiaryDTO getDiaryById(String id) {
 		String searchQuery = "SELECT * FROM diary WHERE diaryId=?";
-		jdbcUtil.setSql(searchQuery);
 		Object[] param = new Object[] {id};
-		jdbcUtil.setParameters(param);
+		jdbcUtil.setSqlAndParameters(searchQuery, param);
 		DiaryDTO dto = null;
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();
@@ -103,13 +175,10 @@ public class DiaryDAOImpl implements DiaryDAO {
 		int result = 0;
 		String insertQuery = "INSERT INTO "
 				+ "diary (diaryId, title, diaryDate, workTime, contents, private, author) "
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?)";
-		jdbcUtil.setSql(insertQuery);
-		Object[] param = new Object[] {diary.getDiaryId(), diary.getTitle(), 
-						diary.getDate(), diary.getWorkTime(), 
-						diary.getContents(), diary.getIsPrivate(), 
-						diary.getAuthor()};
-		jdbcUtil.setParameters(param);
+				+ "VALUES (DiaryIdSeq.NEXTVAL, ?, ?, ?, ?, ?, ?)";
+		Object[] param = new Object[] {diary.getTitle(), diary.getDate(), diary.getWorkTime(), 
+						diary.getContents(), diary.getIsPrivate(), diary.getAuthor()};
+		jdbcUtil.setSqlAndParameters(insertQuery, param);
 		try {
 			result = jdbcUtil.executeUpdate();
 		} catch (Exception e) {
@@ -128,12 +197,11 @@ public class DiaryDAOImpl implements DiaryDAO {
 		String updateQuery = "UPDATE diary "
 				+ "SET title=?, diaryDate=?, workTime=?, contents=?, private=?, author=? "
 				+ "WHERE diaryId=?";
-		jdbcUtil.setSql(updateQuery);
 		Object[] param = new Object[] {diary.getTitle(), diary.getDate(), 
 						diary.getWorkTime(), diary.getContents(), 
 						diary.getIsPrivate(), diary.getAuthor(), 
 						diary.getDiaryId()};
-		jdbcUtil.setParameters(param);
+		jdbcUtil.setSqlAndParameters(updateQuery, param);
 		try {
 			result = jdbcUtil.executeUpdate();
 		} catch (Exception e) {
@@ -150,9 +218,8 @@ public class DiaryDAOImpl implements DiaryDAO {
 	public int deleteDiary(String id) {
 		int result = 0;
 		String deleteQuery = "DELETE FROM diary WHERE diaryId=?";
-		jdbcUtil.setSql(deleteQuery);
 		Object[] param = new Object[] {id};
-		jdbcUtil.setParameters(param);
+		jdbcUtil.setSqlAndParameters(deleteQuery, param);
 		try {
 			result = jdbcUtil.executeUpdate();
 		} catch (Exception e) {
