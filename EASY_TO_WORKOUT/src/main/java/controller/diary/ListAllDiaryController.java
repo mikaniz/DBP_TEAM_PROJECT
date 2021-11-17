@@ -1,7 +1,6 @@
 package controller.diary;
 
 import java.util.List;
-import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
