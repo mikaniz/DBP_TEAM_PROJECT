@@ -29,10 +29,9 @@ public class LoginController implements Controller {
 			 * 다시 login form을 사용자에게 전송하고 오류 메세지도 출력
 			 */
 			
-//			redirect parameter 전달 방법 찾기
-//            request.setAttribute("loginFailed", true);
-//			request.setAttribute("exception", e);
-            return "redirect:/login";
+            request.setAttribute("loginFailed", true);
+			request.setAttribute("exception", e);
+            return "/member/memberLogin.jsp";
 		}
 	}
 
