@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
+<%@page contentType="text/html; charset=utf-8" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -105,17 +104,17 @@ th, td {
 <script>
 function diaryWriteBtn_click() {
 	if (writeForm.diaryTitle.value == "") {
-		alert("Á¦¸ñÀ» ÀÔ·ÂÇÏ¼¼¿ä.");
+		alert("ì œëª©ì„ ì…ë ¥í•˜ì„¸ìš”.");
 		writeForm.diaryTitle.focus();
 		return false;
 	}
 	if (writeForm.workTime.value == "") {
-		alert("¿îµ¿½Ã°£À» ÀÔ·ÂÇÏ¼¼¿ä.");
+		alert("ìš´ë™ì‹œê°„ì„ ì…ë ¥í•˜ì„¸ìš”.");
 		writeForm.workTime.focus();
 		return false;
 	}
 	if (writeForm.diaryContents.value == "") {
-		alert("³»¿ëÀ» ÀÔ·ÂÇÏ¼¼¿ä.");
+		alert("ë‚´ìš©ì„ ì…ë ¥í•˜ì„¸ìš”.");
 		writeForm.diaryContents.focus();
 		return false;
 	}
@@ -126,89 +125,89 @@ function diaryWriteBtn_click() {
 </head>
 
 <body>
-	<!-- ¿îµ¿ÇÏ±â ÆíÇÏ±º&·Î°í -->
+	<!-- ìš´ë™í•˜ê¸° í¸í•˜êµ°&ë¡œê³  -->
 	<div style="text-align: center">
 		<a href="<c:url value='/main' />"><img src="<c:url value='/images/logo.PNG' />"
 			width=500px height=130px /></a>
 	</div>
-	<!-- µ¹¾Æ°¡±â ¹öÆ° -->
+	<!-- ëŒì•„ê°€ê¸° ë²„íŠ¼ -->
 
 	<hr>
-	<!-- ¸Ş´º¹Ù -->
+	<!-- ë©”ë‰´ë°” -->
 	<nav class="menu">
 		<ul class="mainMenu">
-			<li><a href="<c:url value='/club' />">¸ğÀÓ</a></li>
-			<li><a href="<c:url value='/routine' />">·çÆ¾</a></li>
-			<li><a href='#'>´ÙÀÌ¾î¸®</a>
+			<li><a href="<c:url value='/club/list' />">ëª¨ì„</a></li>
+			<li><a href="<c:url value='/routine/list' />">ë£¨í‹´</a></li>
+			<li><a href='#'>ë‹¤ì´ì–´ë¦¬</a>
 				<ul class="subMenu">
-					<li><a href="<c:url value='/diary/my' />">MY ´ÙÀÌ¾î¸®</a></li>
-					<li><a href="<c:url value='/diary/all' />">ÀüÃ¼ ´ÙÀÌ¾î¸®</a></li>
+					<li><a href="<c:url value='/diary/my/list' />">MY ë‹¤ì´ì–´ë¦¬</a></li>
+					<li><a href="<c:url value='/diary/all/list' />">ì „ì²´ ë‹¤ì´ì–´ë¦¬</a></li>
 				</ul></li>
 		</ul>
 	</nav>
 
 	<hr>
 	<div class="container">
-		<!-- È¸¿øÁ¤º¸ Æ² -->
+		<!-- íšŒì›ì •ë³´ í‹€ -->
 		<div
 			style="width: 400px; height: 600px; border: 1px solid; float: left; margin-right: 10px;">
-			<h3 style="margin: 20px;">È¸¿øÁ¤º¸</h3>
+			<h3 style="margin: 20px;">íšŒì›ì •ë³´</h3>
 			<table id="memberDataTable">
 				<tr>
 					<td><img src="<c:url value='/images/somsom.jpg' />" width=150px height=230px />
 					</td>
-					<td>ÀÌ¸§ : ±èµ¿´ö
-						<p /> µî±Ş : »õ½Ï
-						<p /> <br> <a href='#'>È¸¿øÁ¤º¸ ¼öÁ¤</a>
+					<td>ì´ë¦„ : ê¹€ë™ë•
+						<p /> ë“±ê¸‰ : ìƒˆì‹¹
+						<p /> <br> <a href='#'>íšŒì›ì •ë³´ ìˆ˜ì •</a>
 						<p>
-							<a href='#'>·Î±×¾Æ¿ô</a>
+							<a href='#'>ë¡œê·¸ì•„ì›ƒ</a>
 					</td>
 				</tr>
 			</table>
 			<br>
 			<hr>
 			<article>
-				<h4 style="margin: 20px;">³» ¸ğÀÓ ¸ñ·Ï</h4>
+				<h4 style="margin: 20px;">ë‚´ ëª¨ì„ ëª©ë¡</h4>
 				<ul>
-					<li><a href='#'>ÅõÇöÁø</a></li>
+					<li><a href='#'>íˆ¬í˜„ì§„</a></li>
 					<li><a href='#'>ETW</a></li>
 				</ul>
 			</article>
 		</div>
 
 		<div style="float: right">
-			<!-- ´ÙÀÌ¾î¸® ÀÛ¼º ºÎºĞ  -->
+			<!-- ë‹¤ì´ì–´ë¦¬ ì‘ì„± ë¶€ë¶„  -->
 			<div id="diaryInput">
-				<h3 style="margin: 20px;">´ÙÀÌ¾î¸® ÀÛ¼º</h3>
+				<h3 style="margin: 20px;">ë‹¤ì´ì–´ë¦¬ ì‘ì„±</h3>
 				<hr>
 				<form name="writeForm" method="POST" action="<c:url value='/diary/create' />">
 				<table id="dairyTable">
 					<tr id="dairyTableTr">
-						<td style="width: 130px;">Á¦¸ñ :</td>
+						<td style="width: 130px;">ì œëª© :</td>
 						<td><input type="text" name="diaryTitle"
 							style="width: 500px; height: 20px; font-size: 15px;"></td>
 					</tr>
 					<tr id="diaryTableTr">
-						<td style="width: 130px;">°ø°³ ¿©ºÎ :</td>
+						<td style="width: 130px;">ê³µê°œ ì—¬ë¶€ :</td>
 						<td>
-							<input type="checkbox" name="isPrivate" />ºñ°ø°³
+							<input type="checkbox" name="isPrivate" />ë¹„ê³µê°œ
 						</td>
 					</tr>
 					<tr id="dairyTableTr">
-						<td style="width: 130px;">¿îµ¿ ½Ã°£ :</td>
+						<td style="width: 130px;">ìš´ë™ ì‹œê°„ :</td>
 						<td>
-							<input type="number" name="workTime" min="1" max="24" />½Ã°£
+							<input type="number" name="workTime" min="1" max="24" />ì‹œê°„
 						</td>
 					</tr>
 					<tr id="diaryTableTr">
-						<td style="width: 130px;">³»¿ë :</td>
+						<td style="width: 130px;">ë‚´ìš© :</td>
 						<td><textarea name="diaryContents" rows=15 cols=60 style="resize: none;"></textarea></td>
 					</tr>
 				</table>
 				<div style="text-align: center; margin-left: 130px;">
-					<input id="diaryWriteButton" type="button" value="´ÙÀÌ¾î¸® ÀÛ¼º"
+					<input id="diaryWriteButton" type="button" value="ë‹¤ì´ì–´ë¦¬ ì‘ì„±"
 						onclick="diaryWriteBtn_click()"> 
-					<input id="backButton" type="button" value="µ¹¾Æ°¡±â" 
+					<input id="backButton" type="button" value="ëŒì•„ê°€ê¸°" 
 						onclick="history.back()">
 				</div>
 				</form>

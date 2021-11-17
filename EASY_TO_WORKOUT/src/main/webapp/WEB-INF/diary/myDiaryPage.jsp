@@ -1,7 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@page contentType="text/html; charset=utf-8" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -111,82 +110,82 @@ th, td {
 </head>
 
 <body>
-	<!-- ��ϱ� ���ϱ�&�ΰ� -->
+	<!-- 운동하기 편하군&로고 -->
 	<div style="text-align: center">
 		<a href="<c:url value='/main' />"><img src="<c:url value='/images/logo.PNG' />"
 			width=500px height=130px /></a>
 	</div>
 
 	<hr>
-	<!-- �޴��� -->
+	<!-- 메뉴바 -->
 	<nav class="menu">
 		<ul class="mainMenu">
-			<li><a href="<c:url value='/club' />">����</a></li>
-			<li><a href="<c:url value='/routine' />">��ƾ</a></li>
-			<li><a href='#'>���̾</a>
+			<li><a href="<c:url value='/club/list' />">모임</a></li>
+			<li><a href="<c:url value='/routine/list' />">루틴</a></li>
+			<li><a href='#'>다이어리</a>
 				<ul class="subMenu">
-					<li><a href="<c:url value='/diary/my/list' />">MY ���̾</a></li>
-					<li><a href="<c:url value='/diary/all/list' />">��ü ���̾</a></li>
+					<li><a href="<c:url value='/diary/my/list' />">MY 다이어리</a></li>
+					<li><a href="<c:url value='/diary/all/list' />">전체 다이어리</a></li>
 				</ul></li>
 		</ul>
 	</nav>
 
 	<hr>
 	<div class="container">
-		<!-- ȸ������ Ʋ -->
+		<!-- 회원정보 틀 -->
 		<div style="width: 400px; height: 600px; border: 1px solid; float: left; margin-right: 10px;">
 			<div style="height: 530px;">
-				<h3 style="margin: 20px;">ȸ������</h3>
+				<h3 style="margin: 20px;">회원정보</h3>
 				<table id="memberDataTable">
 					<tr>
 						<td><img src="<c:url value='/images/somsom.jpg' />" width=150px height=230px />
 						</td>
-						<td>�̸� : �赿��
-							<p /> ��� : ����
-							<p /> <br> <a href='#'>ȸ������ ����</a>
+						<td>이름 : 김동덕
+							<p /> 등급 : 새싹
+							<p /> <br> <a href='#'>회원정보 수정</a>
 							<p>
-								<a href='../user/member_login.jsp'>�α׾ƿ�</a>
+								<a href='../user/member_login.jsp'>로그아웃</a>
 						</td>
 					</tr>
 				</table>
 				<br><hr>
 				<article>
-					<h4 style="margin: 20px;">�� ���� ���</h4>
+					<h4 style="margin: 20px;">내 모임 목록</h4>
 					<ul>
-						<li><a href='#'>������</a></li>
+						<li><a href='#'>투현진</a></li>
 						<li><a href='#'>ETW</a></li>
 					</ul>
 				</article>
 			</div>
 			<div style="height: 50px;">
-				<!-- ���̾ �ۼ� ��ư -->
-				<input id="writeButton" type="button" value="���̾ �ۼ�" 
+				<!-- 다이어리 작성 버튼 -->
+				<input id="writeButton" type="button" value="다이어리 작성" 
 					onclick="location.href='<c:url value='/diary/write' />'">
 			</div>
 		</div>
 
 		<div style="float: right">
-			<!-- �˻�â -->
+			<!-- 검색창 -->
 			<div id="search" style="width: 700px; height: 50px;">
 				<form name="searchForm" method="POST" action="<c:url value='/diary/my/list' />">
-					<input type="text" name="searchDiary" placeholder="�˻��� ���̾�� ������ �Է��ϼ���."
+					<input type="text" name="searchDiary" placeholder="검색할 다이어리의 제목을 입력하세요."
 						style="width: 580px; height: 42px;">
-						<input id="searchButton" type="button"value="�˻�" onclick="">
+						<input id="searchButton" type="button"value="검색" onclick="">
 				</form>
 			</div>
-			<!-- ��ü ���̾ ��� -->
+			<!-- 전체 다이어리 목록 -->
 			<div id="list">
 				<div style="width: 670px; height: 30px;">
 					<table id="listTable">
 						<tr id="listItem">
-							<th>����</th>
-							<th>��¥</th>
-							<th>� �ð�</th>
-							<th>�ۼ���</th>
+							<th>제목</th>
+							<th>날짜</th>
+							<th>운동 시간</th>
+							<th>작성자</th>
 							<td><form name="sortForm" method="POST" action="<c:url value='/diary/my/list' />">
 								<select name="sortDiary" style="width: 80px; height: 37px;" onchange="this.form.submit()">
-									<option value="1" <c:if test="${checkedOne}">selected</c:if>>��¥��</option>
-									<option value="2" <c:if test="${checkedTwo}">selected</c:if>>� �ð���</option>
+									<option value="1" <c:if test="${checkedOne}">selected</c:if>>날짜순</option>
+									<option value="2" <c:if test="${checkedTwo}">selected</c:if>>운동 시간순</option>
 								</select>
 							</form></td>
 						</tr>
@@ -197,7 +196,7 @@ th, td {
 								<td>${diary.workTime}</td>
 								<td>${diary.author}</td>
 								<td>
-									<input id="etcButton" type="button" value="������">
+									<input id="etcButton" type="button" value="더보기">
 								</td>
 						</c:forEach>
 					</table>
