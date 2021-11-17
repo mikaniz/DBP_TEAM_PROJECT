@@ -5,7 +5,6 @@ import java.util.List;
 import java.sql.SQLException;
 
 import persistence.dao.impl.DiaryDAOImpl;
-import persistence.dao.impl.MemberDAOImpl;
 import service.dto.DiaryDTO;
 
 public class DiaryServiceImpl {
