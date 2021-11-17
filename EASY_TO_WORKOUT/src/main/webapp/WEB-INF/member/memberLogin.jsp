@@ -1,5 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html; charset=utf-8" %>
 <!DOCTYPE html>
@@ -10,12 +8,12 @@
 <script>
 function login() {
 	if (form.loginId.value == "") {
-		alert("ID¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
+		alert("IDë¥¼ ìž…ë ¥í•˜ì„¸ìš”.");
 		form.loginId.focus();
 		return false;
 	}
 	if (form.loginPw.value == "") {
-		alert("ºñ¹Ð¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
+		alert("ë¹„ë°€ë²ˆí˜¸ë¥¼ ìž…ë ¥í•˜ì„¸ìš”.");
 		form.loginPw.focus();
 		return false;
 	}
@@ -26,20 +24,20 @@ function login() {
 
 <body>
 <form name="form" method="POST" action="<c:url value='/member/login' />">
-	<!-- ¿îµ¿ÇÏ±â ÆíÇÏ±º&·Î°í -->
+	<!-- ìš´ë™í•˜ê¸° íŽ¸í•˜êµ°&ë¡œê³  -->
 	<div style="text-align: center; margin: 80px 0 20px 0">
 		<a href=""><img src="<c:url value='/images/logo.PNG' />"
 			width=500px height=130px /></a>
 	</div>
 	<div style="text-align: center">
-		<input type="text" name="loginId" placeholder="¾ÆÀÌµð" style="width: 400px; height: 50px; margin: 10px">
+		<input type="text" name="loginId" placeholder="ì•„ì´ë””" style="width: 400px; height: 50px; margin: 10px">
 	</div>
 	<div style="text-align: center">
-		<input type="password" name="loginPw" placeholder="ºñ¹Ð¹øÈ£" style="width: 400px; height: 50px; margin: 10px">
+		<input type="password" name="loginPw" placeholder="ë¹„ë°€ë²ˆí˜¸" style="width: 400px; height: 50px; margin: 10px">
 	</div>
 	<div style="text-align: center">
-		<input type="button" onclick="login()" value="·Î±×ÀÎ" style="width: 190px; height: 50px; margin: 10px">
-		<input type="button" onclick="" value="È¸¿ø °¡ÀÔ" style="width: 190px; height: 50px; margin: 10px">
+		<input type="button" onclick="login()" value="ë¡œê·¸ì¸" style="width: 190px; height: 50px; margin: 10px">
+		<input type="button" onclick="" value="íšŒì› ê°€ìž…" style="width: 190px; height: 50px; margin: 10px">
 	</div>
 	<div style="text-align: center">
 		<c:if test="${loginFailed}">
