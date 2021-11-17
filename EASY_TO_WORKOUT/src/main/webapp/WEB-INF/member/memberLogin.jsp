@@ -40,7 +40,6 @@ function login() {
 		<input type="button" onclick="login()" value="로그인" style="width: 190px; height: 50px; margin: 10px">
 		<input type="button" onclick="" value="회원 가입" style="width: 190px; height: 50px; margin: 10px">
 	</div>
-	<!-- redirect parameter 전달 방법 찾기 -->
 	<div style="text-align: center">
 		<c:if test="${loginFailed}">
 		  <br><font color="red"><c:out value="${exception.getMessage()}" /></font><br>

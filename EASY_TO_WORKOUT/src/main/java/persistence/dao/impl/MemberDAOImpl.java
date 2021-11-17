@@ -18,7 +18,7 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public List<MemberDTO> getMemberList() {
 		String allQuery = "SELECT * FROM member";
-		jdbcUtil.setSql(allQuery);
+		jdbcUtil.setSqlAndParameters(allQuery, null);
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();
 			List<MemberDTO> list = new ArrayList<MemberDTO>();
@@ -44,9 +44,8 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public MemberDTO getMemberById(String id) {
 		String searchQuery = "SELECT * FROM member WHERE memberId=?";
-		jdbcUtil.setSql(searchQuery);
 		Object[] param = new Object[] {id};
-		jdbcUtil.setParameters(param);
+		jdbcUtil.setSqlAndParameters(searchQuery, param);
 		MemberDTO dto = null;
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();
@@ -73,10 +72,9 @@ public class MemberDAOImpl implements MemberDAO {
 		String insertQuery = "INSERT INTO "
 				+ "member (memberId, pw, name, phone, email, grade) "
 				+ "VALUES (?, ?, ?, ?, ?, ?)";
-		jdbcUtil.setSql(insertQuery);
 		Object[] param = new Object[] {member.getId(), member.getPw(), member.getName(), 
 						member.getPhone(), member.getEmail(), member.getGrade()};
-		jdbcUtil.setParameters(param);
+		jdbcUtil.setSqlAndParameters(insertQuery, param);
 		try {
 			result = jdbcUtil.executeUpdate();
 		} catch (Exception e) {
@@ -95,10 +93,9 @@ public class MemberDAOImpl implements MemberDAO {
 		String updateQuery = "UPDATE member "
 				+ "SET pw=?, name=?, phone=?, email=?, grade=? "
 				+ "WHERE memberId=?";
-		jdbcUtil.setSql(updateQuery);
 		Object[] param = new Object[] {member.getPw(), member.getName(), member.getPhone(), 
 						member.getEmail(), member.getGrade(), member.getId()};
-		jdbcUtil.setParameters(param);
+		jdbcUtil.setSqlAndParameters(updateQuery, param);
 		try {
 			result = jdbcUtil.executeUpdate();
 		} catch (Exception e) {
@@ -115,9 +112,8 @@ public class MemberDAOImpl implements MemberDAO {
 	public int deleteMember(String id) {
 		int result = 0;
 		String deleteQuery = "DELETE FROM member WHERE memberId=?";
-		jdbcUtil.setSql(deleteQuery);
 		Object[] param = new Object[] {id};
-		jdbcUtil.setParameters(param);
+		jdbcUtil.setSqlAndParameters(deleteQuery, param);
 		try {
 			result = jdbcUtil.executeUpdate();
 		} catch (Exception e) {
@@ -133,9 +129,8 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public boolean existingMember(String id) {
 		String query = "SELECT count(*) FROM member WHERE memberId=?";
-		jdbcUtil.setSql(query);
 		Object[] param = new Object[] {id};
-		jdbcUtil.setParameters(param);
+		jdbcUtil.setSqlAndParameters(query, param);
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();
 			if (rs.next()) {
@@ -153,9 +148,8 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public boolean isMaster(String id) {
 		String query = "SELECT grade FROM member WHERE memberId=?";
-		jdbcUtil.setSql(query);
 		Object[] param = new Object[] {id};
-		jdbcUtil.setParameters(param);
+		jdbcUtil.setSqlAndParameters(query, param);
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();
 			if (rs.next()) {

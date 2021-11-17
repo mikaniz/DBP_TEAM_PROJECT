@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -87,6 +88,22 @@
 	table-layout: fixed;
 }
 
+#etcButton {
+	background-color: #90ABDA;
+}
+
+#searchButton {
+	width: 100px; 
+	height: 47px;
+	background-color: #90ABDA;
+}
+
+#writeButton {
+	width: 400px; 
+	height: 50px;	
+	background-color: #90ABDA;
+}
+
 th, td {
 	text-align: center;
 }
@@ -108,8 +125,8 @@ th, td {
 			<li><a href="<c:url value='/routine' />">루틴</a></li>
 			<li><a href='#'>다이어리</a>
 				<ul class="subMenu">
-					<li><a href="<c:url value='/diary/my' />">MY 다이어리</a></li>
-					<li><a href="<c:url value='/diary/all' />">전체 다이어리</a></li>
+					<li><a href="<c:url value='/diary/my/list' />">MY 다이어리</a></li>
+					<li><a href="<c:url value='/diary/all/list' />">전체 다이어리</a></li>
 				</ul></li>
 		</ul>
 	</nav>
@@ -143,23 +160,18 @@ th, td {
 			</div>
 			<div style="height: 50px;">
 				<!-- 다이어리 작성 버튼 -->
-				<input type="button" value="다이어리 작성" onclick=""
-					style="width: 400px; height: 50px;">
+				<input id="writeButton" type="button" value="다이어리 작성" 
+					onclick="location.href='<c:url value='/diary/write' />'">
 			</div>
 		</div>
 
 		<div style="float: right">
 			<!-- 검색창 -->
 			<div id="search" style="width: 700px; height: 50px;">
-				<form action="" method="get">
-					<input type="text" name="diary"
-						style="width: 480px; height: 42px;"> <input type="button"
-						value="검색" onclick="" style="width: 100px; height: 47px;">
-					<select name="sort" style="width: 100px; height: 47px;">
-						<option value="1" selected>전체</option>
-						<option value="2">날짜순</option>
-						<option value="3">운동 시간순</option>
-					</select>
+				<form name="searchForm" method="POST" action="<c:url value='/diary/all/list' />">
+					<input type="text" name="searchDiary" placeholder="검색할 다이어리의 제목을 입력하세요."
+						style="width: 580px; height: 42px;">
+						<input id="searchButton" type="button"value="검색" onclick="">
 				</form>
 			</div>
 			<!-- 전체 다이어리 목록 -->
@@ -168,22 +180,26 @@ th, td {
 					<table id="listTable">
 						<tr id="listItem">
 							<th>제목</th>
-							<th>작성자</th>
 							<th>날짜</th>
 							<th>운동 시간</th>
+							<th>작성자</th>
+							<td><form name="sortForm" method="POST" action="<c:url value='/diary/all/list' />">
+								<select name="sortDiary" style="width: 80px; height: 37px;" onchange="this.form.submit()">
+									<option value="1" <c:if test="${checkedOne}">selected</c:if>>날짜순</option>
+									<option value="2" <c:if test="${checkedTwo}">selected</c:if>>운동 시간순</option>
+								</select>
+							</form></td>
 						</tr>
-						<tr id="listTr">
-							<td>아주 뿌듯하구나</td>
-							<td>김동덕</td>
-							<td>2021.10.05</td>
-							<td>1시간</td>
-						</tr>
-						<tr id="listTr">
-							<td>힘들어 힘들어</td>
-							<td>냠냠이</td>
-							<td>2021.10.05</td>
-							<td>2시간</td>
-						</tr>
+						<c:forEach var="diary" items="${diaryList}">
+							<tr id="listTr">
+								<td>${diary.title}</td>
+								<td><fmt:formatDate value="${diary.date}" pattern="yyyy-MM-dd" /></td>
+								<td>${diary.workTime}</td>
+								<td>${diary.author}</td>
+								<td>
+									<input id="etcButton" type="button" value="더보기">
+								</td>
+						</c:forEach>
 					</table>
 				</div>
 			</div>
