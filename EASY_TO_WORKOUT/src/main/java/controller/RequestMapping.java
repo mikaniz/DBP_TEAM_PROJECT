@@ -23,7 +23,7 @@ public class RequestMapping {
     	mappings.put("/routine", new ForwardController("/routine/routinePage.jsp"));
     	mappings.put("/diary/all", new ForwardController("/diary/allDiaryPage.jsp"));
     	mappings.put("/diary/my", new ForwardController("/diary/myDiaryPage.jsp"));
-    	mappings.put("/login", new ForwardController("/member/member_login.jsp"));
+    	mappings.put("/login", new ForwardController("/member/memberLogin.jsp"));
     	// 荤侩磊 包府
     	mappings.put("/", new ForwardController("index.jsp"));
     	mappings.put("/member/login", new LoginController()); 
@@ -34,11 +34,13 @@ public class RequestMapping {
     	mappings.put("/member/update", new UpdateMemberController());
     	
     	// 促捞绢府 包府
-    	mappings.put("/diary/list", new ListDiaryController());
-    	mappings.put("/diary/detail", new DetailDiaryController());
-//    	mappings.put("/diary/update/form", new ForwardController("/diary/update_form.jsp"));
+    	mappings.put("/diary/all/list", new ListAllDiaryController());
+    	mappings.put("/diary/my/list", new ListMyDiaryController());
+    	mappings.put("/diary/detail", new DetailDiaryController());//    	mappings.put("/diary/update/form", new ForwardController("/diary/update_form.jsp"));
 //    	mappings.put("/diary/update", new UpdateDiaryController());
     	mappings.put("/diary/update", new UpdateDiaryController());
+    	mappings.put("/diary/write", new ForwardController("/diary/diary_writeForm.jsp"));
+    	mappings.put("/diary/create", new WriteDiaryController());
     	
     	// 葛烙 包府
     	mappings.put("/club/open/form", new ForwardController("/club/club_openForm.jsp"));
@@ -49,6 +51,7 @@ public class RequestMapping {
     	mappings.put("/club/schedule/create", new CreateScheduleController());
     	mappings.put("/club/schedule/view", new ViewScheduleController());
     	mappings.put("/club/join", new JoinClubController());
+//    	mappings.put("/club/find", new FindClubController());
     	
     	// 风凭 包府
     	mappings.put("/routine/list", new ListRoutineController());
