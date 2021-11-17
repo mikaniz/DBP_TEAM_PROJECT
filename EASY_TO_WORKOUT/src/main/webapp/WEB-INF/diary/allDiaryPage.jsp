@@ -144,7 +144,7 @@ th, td {
 							<p /> 등급 : 새싹
 							<p /> <br> <a href='#'>회원정보 수정</a>
 							<p>
-								<a href='../user/member_login.jsp'>로그아웃</a>
+								<a href='#'>로그아웃</a>
 						</td>
 					</tr>
 				</table>
