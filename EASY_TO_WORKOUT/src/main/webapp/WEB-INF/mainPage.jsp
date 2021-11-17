@@ -134,8 +134,8 @@ th, td {
 			<li><a href='<c:url value='/routine/list' />'>루틴</a></li>
 			<li><a href='#'>다이어리</a>
 				<ul class="subMenu">
-					<li><a href='<c:url value='/diary/list' />'>MY 다이어리</a></li>
-					<li><a href='<c:url value='/diary/list' />'>전체 다이어리</a></li>
+					<li><a href='<c:url value='/diary/my/list' />'>MY 다이어리</a></li>
+					<li><a href='<c:url value='/diary/all/list' />'>전체 다이어리</a></li>
 				</ul></li>
 		</ul>
 	</nav>
