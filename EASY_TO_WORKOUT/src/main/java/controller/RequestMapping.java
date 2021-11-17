@@ -13,18 +13,18 @@ import controller.routine.*;
 public class RequestMapping {
     private static final Logger logger = LoggerFactory.getLogger(DispatcherServlet.class);
     
-    // °¢ ¿äÃ» uri¿¡ ´ëÇÑ controller °´Ã¼¸¦ ÀúÀåÇÒ HashMap »ı¼º
+    // ê° ìš”ì²­ uriì— ëŒ€í•œ controller ê°ì²´ë¥¼ ì €ì¥í•  HashMap ìƒì„±
     private Map<String, Controller> mappings = new HashMap<String, Controller>();
 
     public void initMapping() {
-    	// °¢ uri¿¡ ´ëÀÀµÇ´Â controller °´Ã¼¸¦ »ı¼º ¹× ÀúÀå
+    	// ê° uriì— ëŒ€ì‘ë˜ëŠ” controller ê°ì²´ë¥¼ ìƒì„± ë° ì €ì¥
     	mappings.put("/main", new ForwardController("/mainPage.jsp"));
     	mappings.put("/club", new ForwardController("/club/clubPage.jsp"));
     	mappings.put("/routine", new ForwardController("/routine/routinePage.jsp"));
     	mappings.put("/diary/all", new ForwardController("/diary/allDiaryPage.jsp"));
     	mappings.put("/diary/my", new ForwardController("/diary/myDiaryPage.jsp"));
     	mappings.put("/login", new ForwardController("/member/memberLogin.jsp"));
-    	// »ç¿ëÀÚ °ü¸®
+    	// ì‚¬ìš©ì ê´€ë¦¬
     	mappings.put("/", new ForwardController("index.jsp"));
     	mappings.put("/member/login", new LoginController()); 
     	mappings.put("/member/join/form", new ForwardController("/member/member_joinForm.jsp"));
@@ -33,7 +33,7 @@ public class RequestMapping {
 //    	mappings.put("/member/update", new ForwardController("/mainPage.jsp"));
     	mappings.put("/member/update", new UpdateMemberController());
     	
-    	// ´ÙÀÌ¾î¸® °ü¸®
+    	// ë‹¤ì´ì–´ë¦¬ ê´€ë¦¬
     	mappings.put("/diary/all/list", new ListAllDiaryController());
     	mappings.put("/diary/my/list", new ListMyDiaryController());
     	mappings.put("/diary/detail", new DetailDiaryController());//    	mappings.put("/diary/update/form", new ForwardController("/diary/update_form.jsp"));
@@ -42,7 +42,7 @@ public class RequestMapping {
     	mappings.put("/diary/write", new ForwardController("/diary/diary_writeForm.jsp"));
     	mappings.put("/diary/create", new WriteDiaryController());
     	
-    	// ¸ğÀÓ °ü¸®
+    	// ëª¨ì„ ê´€ë¦¬
     	mappings.put("/club/open/form", new ForwardController("/club/club_openForm.jsp"));
     	mappings.put("/club/open", new OpenClubController());
     	mappings.put("/club/list", new ListClubController());
@@ -51,9 +51,9 @@ public class RequestMapping {
     	mappings.put("/club/schedule/create", new CreateScheduleController());
     	mappings.put("/club/schedule/view", new ViewScheduleController());
     	mappings.put("/club/join", new JoinClubController());
-//    	mappings.put("/club/find", new FindClubController());
+    	mappings.put("/club/find", new FindClubController());
     	
-    	// ·çÆ¾ °ü¸®
+    	// ë£¨í‹´ ê´€ë¦¬
     	mappings.put("/routine/list", new ListRoutineController());
     	mappings.put("/routine/detail", new DetailRoutineController());
     	mappings.put("/routine/create/form", new ForwardController("/routine/routine_createForm.jsp"));
@@ -66,7 +66,7 @@ public class RequestMapping {
     }
 
     public Controller findController(String uri) {	
-    	// ÁÖ¾îÁø uri¿¡ ´ëÀÀµÇ´Â controller °´Ã¼¸¦ Ã£¾Æ ¹İÈ¯
+    	// ì£¼ì–´ì§„ uriì— ëŒ€ì‘ë˜ëŠ” controller ê°ì²´ë¥¼ ì°¾ì•„ ë°˜í™˜
         return mappings.get(uri);
     }
 }

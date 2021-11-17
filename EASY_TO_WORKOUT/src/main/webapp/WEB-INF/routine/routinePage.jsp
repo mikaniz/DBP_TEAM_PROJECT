@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page contentType="text/html; charset=utf-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -87,6 +86,10 @@
 	table-layout: fixed;
 }
 
+#etcButton{
+	background-color: #90ABDA;
+}
+
 #searchButton {
 	width: 100px; 
 	height: 47px;
@@ -107,22 +110,22 @@ th, td {
 </head>
 
 <body>
-	<!-- ��ϱ� ���ϱ�&�ΰ� -->
+	<!-- 운동하기 편하군&로고 -->
 	<div style="text-align: center">
 		<a href="<c:url value='/main' />"><img src="<c:url value='/images/logo.PNG' />" width=500px
 			height=130px /></a> 
 	</div>
 
 	<hr>
-	<!-- �޴��� -->
+	<!-- 메뉴바 -->
 	<nav class="menu">
 		<ul class="mainMenu">
-			<li><a href='<c:url value='/club' />'>����</a></li>
-			<li><a href='<c:url value='/routine' />'>��ƾ</a></li>
-			<li><a href='#'>���̾</a>
+			<li><a href='<c:url value='/club/list' />'>모임</a></li>
+			<li><a href='<c:url value='/routine/list' />'>루틴</a></li>
+			<li><a href='#'>다이어리</a>
 				<ul class="subMenu">
-					<li><a href='<c:url value='/diary/my' />'>MY ���̾</a></li>
-					<li><a href='<c:url value='/diary/all' />'>��ü ���̾</a></li>
+					<li><a href='<c:url value='/diary/my/list' />'>MY 다이어리</a></li>
+					<li><a href='<c:url value='/diary/all/list' />'>전체 다이어리</a></li>
 				</ul></li>
 		</ul>
 	</nav>
@@ -130,65 +133,73 @@ th, td {
 
 	<hr>
 	<div class="container">
-		<!-- ȸ������ Ʋ -->
+		<!-- 회원정보 틀 -->
 		<div style="width: 400px; height: 600px; border: 1px solid; float: left; margin-right: 10px;">
 			<div style="height: 530px;">
-				<h3 style="margin: 20px;">ȸ������</h3>
+				<h3 style="margin: 20px;">회원정보</h3>
 				<table id="memberDataTable">
 					<tr>
 						<td><img src="<c:url value='/images/somsom.jpg' />" width=150px height=230px />
 						</td>
-						<td>�̸� : �赿��
-							<p /> ��� : ����
-							<p /> <br> <a href='#'>ȸ������ ����</a>
+						<td>이름 : 김동덕
+							<p /> 등급 : 새싹
+							<p /> <br> <a href='#'>회원정보 수정</a>
 							<p>
-								<a href='#'>�α׾ƿ�</a>
+								<a href='#'>로그아웃</a>
 						</td>
 					</tr>
 				</table>
 				<br><hr>
 				<article>
-					<h4 style="margin: 20px;">�� ���� ���</h4>
+					<h4 style="margin: 20px;">내 모임 목록</h4>
 					<ul>
-						<li><a href='#'>������</a></li>
+						<li><a href='#'>투현진</a></li>
 						<li><a href='#'>ETW</a></li>
 					</ul>
 				</article>
 			</div>
 			<div style="height: 50px;">
-				<!-- ��ƾ ��� ��ư -->
-				<input id="createButton" type="button" value="��ƾ ���" onclick="location.href='<c:url value='/routine/create/form' />'">
+				<!-- 루틴 등록 버튼 -->
+				<input id="createButton" type="button" value="루틴 등록" onclick="location.href='<c:url value='/routine/create/form' />'">
 			</div>
 		</div>
 
 		<div style="float: right">
-			<!-- �˻�â -->
+			<!-- 검색창 -->
 			<div id="search" style="width: 700px; height: 50px;">
-				<form action="" method="get">
-					<input type="text" name="routine"
-						style="width: 480px; height: 42px;"> 
-					<input id="searchButton" type="button" value="�˻�" onclick="">
-					<select name="sort" style="width: 100px; height: 47px;">
-						<option value="1" selected>��ü</option>
-						<option value="2">����</option>
-						<option value="3">�α��</option>
-					</select>
+				<form name="searchForm" method="POST" action="<c:url value='/routine/list' />">
+					<input type="text" name="searchRoutine" placeholder="검색할 루틴을 입력하세요."
+						style="width: 580px; height: 42px;"> 
+					<input id="searchButton" type="button" value="검색" onclick="">
 				</form>
 			</div>
-			<!-- ��ü ��ƾ ��� -->
+			<!-- 전체 루틴 목록 -->
 			<div id="list">
 				<div style="width: 670px; height: 30px;">
 					<table id="listTable">
 						<tr id="listItem">
-							<th>��ƾ��</th>
-							<th>�����</th>
-							<th>�����</th>
+							<th>루틴명</th>
+							<th>등록자</th>
+							<th>운동부위</th>
+							<td><form name="sortForm" method="POST" action="<c:url value='/routine/list' />">
+								<select name="sortRoutine" style="width: 80px; height: 37px;" onchange="this.form.submit()">
+									<option value="1" 
+										<c:if test="${checkedOne}">selected</c:if>>전체</option>
+									<option value="2"
+										<c:if test="${checkedTwo}">selected</c:if>>공개</option>
+									<option value="3"
+										<c:if test="${checkedThree}">selected</c:if>>개인</option>
+								</select>
+							</form></td>
 						</tr>
-						<tr id="listTr">
-							<td>11�� ���� �����</td>
-							<td>�ؼ�</td>
-							<td>����</td>
-						</tr>
+						<c:forEach var="routine" items="${routineList}">
+							<tr id="listTr">
+								<td>${routine.rName}</td>
+								<td>${routine.routineCreater}</td>
+								<td>${routine.part}</td>
+								<td><input id="etcButton" type='BUTTON' value="더보기"></td>
+							</tr>
+						</c:forEach>
 					</table>
 				</div>
 			</div>

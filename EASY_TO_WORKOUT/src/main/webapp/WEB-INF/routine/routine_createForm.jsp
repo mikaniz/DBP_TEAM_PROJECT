@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page contentType="text/html; charset=utf-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -103,36 +102,38 @@ th, td {
 </style>
 
 <script>
-function createRequestBtn_click() {
-	theForm = document.openForm;
-	
-	if(theForm.routineName.value == "") alert("·çÆ¾¸íÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä.");
-	else {
-		alert("·çÆ¾ÀÌ µî·ÏµÇ¾ú½À´Ï´Ù.\n ·çÆ¾ ¸ñ·Ï¿¡¼­ È®ÀÎÀÌ °¡´ÉÇÕ´Ï´Ù.");
+function routineCreate() {
+	if(createForm.routineName.value == "") {
+		alert("ë£¨í‹´ëª…ì„ ì…ë ¥í•´ì£¼ì„¸ìš”.");
+		createForm.routineName.focus();
+		return false;
 	}
-	
+	else {
+		alert("ë£¨í‹´ì´ ë“±ë¡ë˜ì—ˆìŠµë‹ˆë‹¤.\n ë£¨í‹´ ëª©ë¡ì—ì„œ í™•ì¸ì´ ê°€ëŠ¥í•©ë‹ˆë‹¤.");
+	}
+	createForm.submit();
 }
 </script>
 
 </head>
 
 <body>
-	<!-- ¿îµ¿ÇÏ±â ÆíÇÏ±º&·Î°í -->
+	<!-- ìš´ë™í•˜ê¸° í¸í•˜êµ°&ë¡œê³  -->
 	<div style="text-align: center">
 		<a href="<c:url value='/main' />"><img src="<c:url value='/images/logo.PNG' />" width=500px
 			height=130px /></a> 
 	</div>
 
 	<hr>
-	<!-- ¸Ş´º¹Ù -->
+	<!-- ë©”ë‰´ë°” -->
 	<nav class="menu">
 		<ul class="mainMenu">
-			<li><a href='<c:url value='/club' />'>¸ğÀÓ</a></li>
-			<li><a href='<c:url value='/routine' />'>·çÆ¾</a></li>
-			<li><a href='#'>´ÙÀÌ¾î¸®</a>
+			<li><a href='<c:url value='/club/list' />'>ëª¨ì„</a></li>
+			<li><a href='<c:url value='/routine/list' />'>ë£¨í‹´</a></li>
+			<li><a href='#'>ë‹¤ì´ì–´ë¦¬</a>
 				<ul class="subMenu">
-					<li><a href='<c:url value='/diary/my' />'>MY ´ÙÀÌ¾î¸®</a></li>
-					<li><a href='<c:url value='/diary/all' />'>ÀüÃ¼ ´ÙÀÌ¾î¸®</a></li>
+					<li><a href='<c:url value='/diary/my/list' />'>MY ë‹¤ì´ì–´ë¦¬</a></li>
+					<li><a href='<c:url value='/diary/all/list' />'>ì „ì²´ ë‹¤ì´ì–´ë¦¬</a></li>
 				</ul></li>
 		</ul>
 	</nav>
@@ -140,71 +141,74 @@ function createRequestBtn_click() {
 
 	<hr>
 	<div class="container">
-		<!-- È¸¿øÁ¤º¸ Æ² -->
+		<!-- íšŒì›ì •ë³´ í‹€ -->
 		<div
 			style="width: 400px; height: 600px; border: 1px solid; float: left; margin-right: 10px;">
-			<h3 style="margin: 20px;">È¸¿øÁ¤º¸</h3>
+			<h3 style="margin: 20px;">íšŒì›ì •ë³´</h3>
 			<table id="memberDataTable">
 				<tr>
 					<td><img src="<c:url value='/images/somsom.jpg' />" width=150px height=230px />
 					</td>
-					<td>ÀÌ¸§ : ±èµ¿´ö
-						<p /> µî±Ş : »õ½Ï
-						<p /> <br> <a href='#'>È¸¿øÁ¤º¸ ¼öÁ¤</a>
+					<td>ì´ë¦„ : ê¹€ë™ë•
+						<p /> ë“±ê¸‰ : ìƒˆì‹¹
+						<p /> <br> <a href='#'>íšŒì›ì •ë³´ ìˆ˜ì •</a>
 						<p>
-							<a href='#'>·Î±×¾Æ¿ô</a>
+							<a href='#'>ë¡œê·¸ì•„ì›ƒ</a>
 					</td>
 				</tr>
 			</table>
 			<br>
 			<hr>
 			<article>
-				<h4 style="margin: 20px;">³» ¸ğÀÓ ¸ñ·Ï</h4>
+				<h4 style="margin: 20px;">ë‚´ ëª¨ì„ ëª©ë¡</h4>
 				<ul>
-					<li><a href='#'>ÅõÇöÁø</a></li>
+					<li><a href='#'>íˆ¬í˜„ì§„</a></li>
 					<li><a href='#'>ETW</a></li>
 				</ul>
 			</article>
 		</div>
 
 		<div style="float: right">
-			<!-- ·çÆ¾ µî·Ï Ç×¸ñ ÀÔ·Â ºÎºĞ  -->
+			<!-- ë£¨í‹´ ë“±ë¡ í•­ëª© ì…ë ¥ ë¶€ë¶„  -->
 			<div id="routineInfoInput">
-				<h3 style="margin: 20px;">·çÆ¾ Á¤º¸ ÀÔ·Â</h3>
+				<h3 style="margin: 20px;">ë£¨í‹´ ì •ë³´ ì…ë ¥</h3>
 				<hr>
-				<form name="openForm">
+				<form name="createForm" method="POST" action="<c:url value='/routine/create' />">
 				<table id="routineTable">
 					<tr id="routineTableTr">
-						<td style="width: 130px;">·çÆ¾¸í :</td>
+						<td style="width: 130px;">ë£¨í‹´ëª… :</td>
 						<td><input type="text" name="routineName"
+							<c:if test="${creationFailed}">value="${routine.rName}"</c:if>
 							style="width: 300px; height: 20px; font-size: 15px;"></td>
 					</tr>
 					<tr id="routineTableTr">
-						<td style="width: 130px;">µî·ÏÀÚ :</td>
-						<td><input type="text" name="routineCreator"
+						<td style="width: 130px;">ë“±ë¡ì :</td>
+						<td><input type="text" name="routineCreater"
+							<c:if test="${creationFailed}">value="${routine.routineCreater}"</c:if>
 							style="width: 300px; height: 20px; font-size: 15px;"></td>
 					</tr>
 					<tr id="routineTableTr">
-						<td style="width: 130px;">¿îµ¿ ºÎÀ§ :</td>
+						<td style="width: 130px;">ìš´ë™ ë¶€ìœ„ :</td>
 						<td>
-							<input type="checkbox" name="routinePart" value="»óÃ¼" />»óÃ¼
+							<input type="checkbox" name="routinePart" value="ìƒì²´" />ìƒì²´
 							&nbsp;&nbsp; 
-							<input type="checkbox" name="routinePart" value="ÇÏÃ¼" />ÇÏÃ¼
+							<input type="checkbox" name="routinePart" value="í•˜ì²´" />í•˜ì²´
 							&nbsp;&nbsp; 
-							<input type="checkbox" name="routinePart" value="º¹ºÎ" />º¹ºÎ
+							<input type="checkbox" name="routinePart" value="ë³µë¶€" />ë³µë¶€
 							&nbsp;&nbsp; 
-							<input type="checkbox" name="routinePart" value="¾î±ú" />¾î±ú
+							<input type="checkbox" name="routinePart" value="ì–´ê¹¨" />ì–´ê¹¨
 							&nbsp;&nbsp; 
-							<input type="checkbox" name="routinePart" value="Àü½Å" />Àü½Å
+							<input type="checkbox" name="routinePart" value="ì „ì‹ " />ì „ì‹ 
 						</td>
 					</tr>
 					<tr id="routineTableTr">
-						<td style="width: 130px;">¼Ò¿ä½Ã°£ :</td>
+						<td style="width: 130px;">ì†Œìš”ì‹œê°„ :</td>
 						<td><input type="text" name="routineTime"
+							<c:if test="${creationFailed}">value="${routine.rTime}"</c:if>
 							style="width: 300px; height: 20px; font-size: 15px;"></td>
 					</tr>
 					<tr id="routineTableTr">
-						<td style="width: 130px;">¿îµ¿ °­µµ :</td>
+						<td style="width: 130px;">ìš´ë™ ê°•ë„ :</td>
 						<td>
 							<input type="radio" name="routineLevel" value="1" checked />1
 							&nbsp;&nbsp; 
@@ -218,23 +222,23 @@ function createRequestBtn_click() {
 						</td>
 					</tr>
 					<tr id="routineTableTr">
-						<td style="width: 130px;">·çÆ¾ À¯Çü :</td>
+						<td style="width: 130px;">ë£¨í‹´ ìœ í˜• :</td>
 						<td>
-							<input type="radio" name="routineType" value="0" checked />ÀüÃ¼
+							<input type="radio" name="routineType" value="0" checked />ì „ì²´
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-							<input type="radio" name="routineType" value="1" />°³ÀÎ
+							<input type="radio" name="routineType" value="1" />ê°œì¸
 						</td>
 					</tr>
 					<tr id="routineTableTr">
-						<td style="width: 130px;">¿îµ¿ ¹æ¹ı :</td>
+						<td style="width: 130px;">ìš´ë™ ë°©ë²• :</td>
 						<td><textarea name="routineMethod" rows=10 cols=60 style="resize: none;"></textarea></td>
 					</tr>
 				</table>
 				<div style="text-align: center; margin-left: 130px;">
-					<input id="routineCreateButton" type="button" value="·çÆ¾ µî·Ï"
-						onclick="createRequestBtn_click()"> 
-					<input id="backButton" type="button" value="µ¹¾Æ°¡±â" 
-						onclick="location.href='<c:url value='/routine' />'">
+					<input id="routineCreateButton" type="button" value="ë£¨í‹´ ë“±ë¡"
+						onclick=""> 
+					<input id="backButton" type="button" value="ëŒì•„ê°€ê¸°" 
+						onclick="location.href='<c:url value='/routine/list' />'">
 				</div>
 				</form>
 			</div>

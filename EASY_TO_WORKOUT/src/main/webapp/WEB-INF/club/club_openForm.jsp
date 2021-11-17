@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@page contentType="text/html; charset=utf-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -102,110 +102,120 @@ th, td {
 </style>
 
 <script>
-function acceptRequestBtn_click() {
-	theForm = document.openForm;
-	
-	if(theForm.clubName.value == "") alert("¸ğÀÓ ÀÌ¸§À» ÀÔ·ÂÇØÁÖ¼¼¿ä.");
-	else {
-		alert("¸ğÀÓÀÌ °³¼³µÇ¾ú½À´Ï´Ù.");
-		location.href= "./club_detail.jsp"
+function clubCreate() {
+	if(openForm.clubMasterId.value == "") {
+		alert("íšŒì› ì•„ì´ë””ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.");
+		theForm.clubMasterId.focus();
+		return false;
 	}
+	if(openForm.clubName.value == "") {
+		alert("ëª¨ì„ ì´ë¦„ì„ ì…ë ¥í•´ì£¼ì„¸ìš”.");
+		theForm.clubName.focus();
+		return false;
+	}
+	openForm.submit();
 	
 }
+
 </script>
 
 </head>
 
 <body>
-	<!-- ¿îµ¿ÇÏ±â ÆíÇÏ±º&·Î°í -->
+	<!-- ìš´ë™í•˜ê¸° í¸í•˜êµ°&ë¡œê³  -->
 	<div style="text-align: center">
-		<a href="../../mainPage.jsp"><img src="../images/logo.PNG"
+		<a href="<c:url value='/main' />"><img src="<c:url value='/images/logo.PNG' />"
 			width=500px height=130px /></a>
 	</div>
-	<!-- µ¹¾Æ°¡±â ¹öÆ° -->
+	<!-- ëŒì•„ê°€ê¸° ë²„íŠ¼ -->
 
 	<hr>
-	<!-- ¸Ş´º¹Ù -->
+	<!-- ë©”ë‰´ë°” -->
 	<nav class="menu">
 		<ul class="mainMenu">
-			<li><a href='../club/clubPage.jsp'>¸ğÀÓ</a></li>
-			<li><a href='../routine/routinePage.jsp'>·çÆ¾</a></li>
-			<li><a href='#'>´ÙÀÌ¾î¸®</a>
+			<li><a href='<c:url value='/club/list' />'>ëª¨ì„</a></li>
+			<li><a href='<c:url value='/routine/list' />'>ë£¨í‹´</a></li>
+			<li><a href='#'>ë‹¤ì´ì–´ë¦¬</a>
 				<ul class="subMenu">
-					<li><a href='#'>MY ´ÙÀÌ¾î¸®</a></li>
-					<li><a href='#'>ÀüÃ¼ ´ÙÀÌ¾î¸®</a></li>
+					<li><a href='<c:url value='/diary/list' />'>MY ë‹¤ì´ì–´ë¦¬</a></li>
+					<li><a href='<c:url value='/diary/list' />'>ì „ì²´ ë‹¤ì´ì–´ë¦¬</a></li>
 				</ul></li>
 		</ul>
 	</nav>
 
 	<hr>
 	<div class="container">
-		<!-- È¸¿øÁ¤º¸ Æ² -->
+		<!-- íšŒì›ì •ë³´ í‹€ -->
 		<div
 			style="width: 400px; height: 600px; border: 1px solid; float: left; margin-right: 10px;">
-			<h3 style="margin: 20px;">È¸¿øÁ¤º¸</h3>
+			<h3 style="margin: 20px;">íšŒì›ì •ë³´</h3>
 			<table id="memberDataTable">
 				<tr>
-					<td><img src="../../images/somsom.jpg" width=150px height=230px />
+					<td><img src="<c:url value='/images/somsom.jpg' />" width=150px height=230px />
 					</td>
-					<td>ÀÌ¸§ : ±èµ¿´ö
-						<p /> µî±Ş : »õ½Ï
-						<p /> <br> <a href='#'>È¸¿øÁ¤º¸ ¼öÁ¤</a>
+					<td>ì´ë¦„ : ê¹€ë™ë•
+						<p /> ë“±ê¸‰ : ìƒˆì‹¹
+						<p /> <br> <a href='#'>íšŒì›ì •ë³´ ìˆ˜ì •</a>
 						<p>
-							<a href='#'>·Î±×¾Æ¿ô</a>
+							<a href='#'>ë¡œê·¸ì•„ì›ƒ</a>
 					</td>
 				</tr>
 			</table>
 			<br>
 			<hr>
 			<article>
-				<h4 style="margin: 20px;">³» ¸ğÀÓ ¸ñ·Ï</h4>
+				<h4 style="margin: 20px;">ë‚´ ëª¨ì„ ëª©ë¡</h4>
 				<ul>
-					<li><a href='#'>ÅõÇöÁø</a></li>
+					<li><a href='#'>íˆ¬í˜„ì§„</a></li>
 					<li><a href='#'>ETW</a></li>
 				</ul>
 			</article>
 		</div>
 
 		<div style="float: right">
-			<!-- ¸ğÀÓ °³¼³ Ç×¸ñ ÀÔ·Â ºÎºĞ  -->
+			<!-- ëª¨ì„ ê°œì„¤ í•­ëª© ì…ë ¥ ë¶€ë¶„  -->
 			<div id="clubInfoInput">
-				<h3 style="margin: 20px;">¸ğÀÓ Á¤º¸ ÀÔ·Â</h3>
+				<h3 style="margin: 20px;">ëª¨ì„ ì •ë³´ ì…ë ¥</h3>
 				<hr>
-				<form name="openForm">
-				<table id="clubTable">
-					<tr id="clubTableTr">
-						<td style="width: 130px;">¸ğÀÓ ÀÌ¸§ :</td>
-						<td><input type="text" name="clubName"
-							style="width: 300px; height: 20px; font-size: 15px;"></td>
-					</tr>
-					<tr id="clubTableTr">
-						<td style="width: 130px;">¸ğÀÓ À¯Çü :</td>
-						<td>
-							<input type="radio" name="clubOpenCycle" value="Á¤±âÀû" checked />Á¤±âÀû
-							 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-							<input type="radio" name="clubOpenCycle" value="ÀÏ½ÃÀû" />ÀÏ½ÃÀû
-						</td>
-					</tr>
-					<tr id="clubTableTr">
-						<td style="width: 130px;">ÃÊ´ë À¯Çü :</td>
-						<td>
-							<input type="radio" name="clubSignUp" value="ÀÚÀ¯ °¡ÀÔ" checked />ÀÚÀ¯ °¡ÀÔ 
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-							<input type="radio" name="clubSignUp" value="ÃÊ´ë °¡ÀÔ" />ÃÊ´ë °¡ÀÔ
-						</td>
-					</tr>
-					<tr id="clubTableTr">
-						<td style="width: 130px;">¸ğÀÓ ¼Ò°³ :</td>
-						<td><textarea name="clubIntro" rows=15 cols=60 style="resize: none;"></textarea></td>
-					</tr>
-				</table>
-				<div style="text-align: center; margin-left: 130px;">
-					<input id="clubAccpetButton" type="button" value="¸ğÀÓ ½ÂÀÎ ¿äÃ»"
-						onclick="acceptRequestBtn_click()"> 
-					<input id="backButton" type="button" value="µ¹¾Æ°¡±â" 
-						onclick="location.href='./clubPage.jsp'">
-				</div>
+				<form name="openForm" method="GET" action="<c:url value='/club/open' />">
+					<table id="clubTable">
+						<tr id="clubTableTr">
+							<td style="width: 130px;">íšŒì› ì•„ì´ë”” :</td>
+							<td><input type="text" name="clubMasterId"
+								style="width: 300px; height: 20px; font-size: 15px;"></td>
+						</tr>
+						<tr id="clubTableTr">
+							<td style="width: 130px;">ëª¨ì„ ì´ë¦„ :</td>
+							<td><input type="text" name="clubName"
+								style="width: 300px; height: 20px; font-size: 15px;"></td>
+						</tr>
+						<tr id="clubTableTr">
+							<td style="width: 130px;">ëª¨ì„ ìœ í˜• :</td>
+							<td>
+								<input type="radio" name="clubOpenCycle" value="0" checked />ì •ê¸°ì 
+								 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+								<input type="radio" name="clubOpenCycle" value="1" />ì¼ì‹œì 
+							</td>
+						</tr>
+						<tr id="clubTableTr">
+							<td style="width: 130px;">ì´ˆëŒ€ ìœ í˜• :</td>
+							<td>
+								<input type="radio" name="clubSignUp" value="1" checked />ììœ  ê°€ì… 
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+								<input type="radio" name="clubSignUp" value="0" />ì´ˆëŒ€ ê°€ì…
+							</td>
+						</tr>
+						<tr id="clubTableTr">
+							<td style="width: 130px;">ëª¨ì„ ì†Œê°œ :</td>
+							<td><textarea name="clubIntro" rows=15 cols=60 style="resize: none;"></textarea></td>
+						</tr>
+					</table>
+					<div style="text-align: center; margin-left: 130px;">
+						<input id="clubAccpetButton" type="button" value="ëª¨ì„ ìŠ¹ì¸ ìš”ì²­"
+							onclick="clubCreate()"> 
+						<input id="backButton" type="button" value="ëŒì•„ê°€ê¸°" 
+							onclick="location.href='<c:url value='/club/list' />'">
+					</div>
 				</form>
 			</div>
 		</div>

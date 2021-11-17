@@ -130,12 +130,12 @@ th, td {
 	<!-- 메뉴바 -->
 	<nav class="menu">
 		<ul class="mainMenu">
-			<li><a href='<c:url value='/club' />'>모임</a></li>
-			<li><a href='<c:url value='/routine' />'>루틴</a></li>
+			<li><a href='<c:url value='/club/list' />'>모임</a></li>
+			<li><a href='<c:url value='/routine/list' />'>루틴</a></li>
 			<li><a href='#'>다이어리</a>
 				<ul class="subMenu">
-					<li><a href='<c:url value='/diary/my' />'>MY 다이어리</a></li>
-					<li><a href='<c:url value='/diary/all' />'>전체 다이어리</a></li>
+					<li><a href='<c:url value='/diary/list' />'>MY 다이어리</a></li>
+					<li><a href='<c:url value='/diary/list' />'>전체 다이어리</a></li>
 				</ul></li>
 		</ul>
 	</nav>

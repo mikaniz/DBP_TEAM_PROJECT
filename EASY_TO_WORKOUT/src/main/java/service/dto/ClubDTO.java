@@ -8,7 +8,8 @@ public class ClubDTO {
 	private String clubIntro = null; // 모임 소개
 	private String clubName = null; // 모임 이름
 	private String clubMaster = null; // 모임 개설
-
+	private int countClub = 0; // 회원 수
+	
 	public int getClubId() { return clubId; }
 	public void setClubId(int clubId) { this.clubId = clubId; }
 	
@@ -26,6 +27,9 @@ public class ClubDTO {
 	
 	public String getClubMaster() { return clubMaster; }
 	public void setClubMaster(String clubMaster) { this.clubMaster = clubMaster; }
+	
+	public int getCountClub() {	return countClub;	}
+	public void setCountClub(int countClub) {	this.countClub = countClub;	}
 	
 }
  
