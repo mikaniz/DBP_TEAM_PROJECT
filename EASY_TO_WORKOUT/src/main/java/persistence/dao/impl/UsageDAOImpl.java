@@ -18,7 +18,7 @@ public class UsageDAOImpl implements UsageDAO {
 	@Override
 	public List<UsageDTO> getUsageList() {
 		String allQuery = "SELECT * FROM usage";
-		jdbcUtil.setSql(allQuery);
+		jdbcUtil.setSqlAndParameters(allQuery, null);
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();
 			List<UsageDTO> list = new ArrayList<UsageDTO>();
@@ -41,9 +41,8 @@ public class UsageDAOImpl implements UsageDAO {
 	@Override
 	public List<UsageDTO> getUsageListByClubId(int clubId) {
 		String searchListQuery = "SELECT * FROM usage WHERE clubId=?";
-		jdbcUtil.setSql(searchListQuery);
 		Object[] param = new Object[] {clubId};
-		jdbcUtil.setParameters(param);
+		jdbcUtil.setSqlAndParameters(searchListQuery, param);
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();
 			List<UsageDTO> list = new ArrayList<UsageDTO>();
@@ -66,9 +65,8 @@ public class UsageDAOImpl implements UsageDAO {
 	@Override
 	public UsageDTO getUsageByClubIdAndScheduleId(int clubId, String scheduleId) {
 		String searchQuery = "SELECT * FROM usage WHERE clubId=? and scheduleId=?";
-		jdbcUtil.setSql(searchQuery);
 		Object[] param = new Object[] {clubId, scheduleId};
-		jdbcUtil.setParameters(param);
+		jdbcUtil.setSqlAndParameters(searchQuery, param);
 		UsageDTO dto = null;
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();
@@ -92,9 +90,8 @@ public class UsageDAOImpl implements UsageDAO {
 		String insertQuery = "INSERT INTO "
 				+ "usage (clubId, scheduleId, routineId) "
 				+ "VALUES (?, ?, ?)";
-		jdbcUtil.setSql(insertQuery);
 		Object[] param = new Object[] {usage.getClubId(), usage.getScheduleId(), usage.getRoutineId()};
-		jdbcUtil.setParameters(param);
+		jdbcUtil.setSqlAndParameters(insertQuery, param);
 		try {
 			result = jdbcUtil.executeUpdate();
 		} catch (Exception e) {
@@ -113,9 +110,8 @@ public class UsageDAOImpl implements UsageDAO {
 		String updateQuery = "UPDATE usage "
 				+ "SET routineId=? "
 				+ "WHERE clubId=? and scheduleId=?";
-		jdbcUtil.setSql(updateQuery);
 		Object[] param = new Object[] {usage.getRoutineId(), usage.getClubId(), usage.getScheduleId()};
-		jdbcUtil.setParameters(param);
+		jdbcUtil.setSqlAndParameters(updateQuery, param);
 		try {
 			result = jdbcUtil.executeUpdate();
 		} catch (Exception e) {
@@ -132,9 +128,8 @@ public class UsageDAOImpl implements UsageDAO {
 	public int deleteUsage(int clubId, String scheduleId, int routineId) {
 		int result = 0;
 		String deleteQuery = "DELETE FROM usage WHERE clubId=? and scheduleId=? and routineId=?";
-		jdbcUtil.setSql(deleteQuery);
 		Object[] param = new Object[] {clubId, scheduleId, routineId};
-		jdbcUtil.setParameters(param);
+		jdbcUtil.setSqlAndParameters(deleteQuery, param);
 		try {
 			result = jdbcUtil.executeUpdate();
 		} catch (Exception e) {
