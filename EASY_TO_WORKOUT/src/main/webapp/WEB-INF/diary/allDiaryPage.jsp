@@ -107,6 +107,11 @@ th, td {
 	text-align: center;
 }
 </style>
+<script>
+function search() {
+	searchForm.submit();
+}
+</script>
 </head>
 
 <body>
@@ -167,10 +172,14 @@ th, td {
 		<div style="float: right">
 			<!-- 검색창 -->
 			<div id="search" style="width: 700px; height: 50px;">
-				<form name="searchForm" method="POST" action="<c:url value='/diary/all/list' />">
-					<input type="text" name="searchDiary" placeholder="검색할 다이어리의 제목을 입력하세요."
-						style="width: 580px; height: 42px;">
-						<input id="searchButton" type="button"value="검색" onclick="">
+				<form name="searchForm" method="POST" action="<c:url value='/diary/all/find' />">
+					<input type="text" name="searchAllDiary" placeholder="
+						<c:choose>
+							<c:when test="${findDiaryFailed}">${exception.getMessage()}</c:when>
+							<c:otherwise>제목을 입력하세요.</c:otherwise>
+						</c:choose>	
+					" style="width: 580px; height: 42px;">
+						<input id="searchButton" type="button" value="검색" onclick="search()">
 				</form>
 			</div>
 			<!-- 전체 다이어리 목록 -->
