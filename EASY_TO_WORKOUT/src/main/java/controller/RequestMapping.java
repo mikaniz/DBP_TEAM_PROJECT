@@ -62,6 +62,7 @@ public class RequestMapping {
 //    	mappings.put("/routine/update/form", new ForwardController("/routine/routine_updateForm.jsp"));
 //    	mappings.put("/routine/update", new UpdateRoutineController());
     	mappings.put("/routine/update", new UpdateRoutineController());
+    	mappings.put("/routine/find", new FindRoutineController());
         
         logger.info("Initialized Request Mapping!");
     }
