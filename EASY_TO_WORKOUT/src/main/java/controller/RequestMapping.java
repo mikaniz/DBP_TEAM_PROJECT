@@ -13,18 +13,18 @@ import controller.routine.*;
 public class RequestMapping {
     private static final Logger logger = LoggerFactory.getLogger(DispatcherServlet.class);
     
-    // 각 요청 uri에 대한 controller 객체를 저장할 HashMap 생성
+    // 媛� �슂泥� uri�뿉 ���븳 controller 媛앹껜瑜� ���옣�븷 HashMap �깮�꽦
     private Map<String, Controller> mappings = new HashMap<String, Controller>();
 
     public void initMapping() {
-    	// 각 uri에 대응되는 controller 객체를 생성 및 저장
+    	// 媛� uri�뿉 ���쓳�릺�뒗 controller 媛앹껜瑜� �깮�꽦 諛� ���옣
     	mappings.put("/main", new ForwardController("/mainPage.jsp"));
     	mappings.put("/club", new ForwardController("/club/clubPage.jsp"));
     	mappings.put("/routine", new ForwardController("/routine/routinePage.jsp"));
     	mappings.put("/diary/all", new ForwardController("/diary/allDiaryPage.jsp"));
     	mappings.put("/diary/my", new ForwardController("/diary/myDiaryPage.jsp"));
     	mappings.put("/login", new ForwardController("/member/memberLogin.jsp"));
-    	// 사용자 관리
+    	// �궗�슜�옄 愿�由�
     	mappings.put("/", new ForwardController("index.jsp"));
     	mappings.put("/member/login", new LoginController()); 
     	mappings.put("/member/join/form", new ForwardController("/member/member_joinForm.jsp"));
@@ -33,16 +33,17 @@ public class RequestMapping {
 //    	mappings.put("/member/update", new ForwardController("/mainPage.jsp"));
     	mappings.put("/member/update", new UpdateMemberController());
     	
-    	// 다이어리 관리
+    	// �떎�씠�뼱由� 愿�由�
     	mappings.put("/diary/all/list", new ListAllDiaryController());
     	mappings.put("/diary/my/list", new ListMyDiaryController());
-    	mappings.put("/diary/detail", new DetailDiaryController());//    	mappings.put("/diary/update/form", new ForwardController("/diary/update_form.jsp"));
+    	mappings.put("/diary/detail", new DetailDiaryController());
+ //    	mappings.put("/diary/update/form", new ForwardController("/diary/update_form.jsp"));
 //    	mappings.put("/diary/update", new UpdateDiaryController());
     	mappings.put("/diary/update", new UpdateDiaryController());
     	mappings.put("/diary/write", new ForwardController("/diary/diary_writeForm.jsp"));
     	mappings.put("/diary/create", new WriteDiaryController());
     	
-    	// 모임 관리
+    	// 紐⑥엫 愿�由�
     	mappings.put("/club/open/form", new ForwardController("/club/club_openForm.jsp"));
     	mappings.put("/club/open", new OpenClubController());
     	mappings.put("/club/list", new ListClubController());
@@ -53,12 +54,12 @@ public class RequestMapping {
     	mappings.put("/club/join", new JoinClubController());
     	mappings.put("/club/find", new FindClubController());
     	
-    	// 루틴 관리
+    	// 猷⑦떞 愿�由�
     	mappings.put("/routine/list", new ListRoutineController());
     	mappings.put("/routine/detail", new DetailRoutineController());
     	mappings.put("/routine/create/form", new ForwardController("/routine/routine_createForm.jsp"));
     	mappings.put("/routine/create", new CreateRoutineController());
-//    	mappings.put("/routine/update/form", new ForwardController("/routine/update_form.jsp"));
+//    	mappings.put("/routine/update/form", new ForwardController("/routine/routine_updateForm.jsp"));
 //    	mappings.put("/routine/update", new UpdateRoutineController());
     	mappings.put("/routine/update", new UpdateRoutineController());
         
@@ -66,7 +67,7 @@ public class RequestMapping {
     }
 
     public Controller findController(String uri) {	
-    	// 주어진 uri에 대응되는 controller 객체를 찾아 반환
+    	// 二쇱뼱吏� uri�뿉 ���쓳�릺�뒗 controller 媛앹껜瑜� 李얠븘 諛섑솚
         return mappings.get(uri);
     }
 }
