@@ -36,7 +36,8 @@ public class RequestMapping {
     	// 다이어리 관리
     	mappings.put("/diary/all/list", new ListAllDiaryController());
     	mappings.put("/diary/my/list", new ListMyDiaryController());
-    	mappings.put("/diary/detail", new DetailDiaryController());//    	mappings.put("/diary/update/form", new ForwardController("/diary/update_form.jsp"));
+    	mappings.put("/diary/detail", new DetailDiaryController());
+//    	mappings.put("/diary/update/form", new ForwardController("/diary/update_form.jsp"));
 //    	mappings.put("/diary/update", new UpdateDiaryController());
     	mappings.put("/diary/update", new UpdateDiaryController());
     	mappings.put("/diary/write", new ForwardController("/diary/diary_writeForm.jsp"));
@@ -58,9 +59,10 @@ public class RequestMapping {
     	mappings.put("/routine/detail", new DetailRoutineController());
     	mappings.put("/routine/create/form", new ForwardController("/routine/routine_createForm.jsp"));
     	mappings.put("/routine/create", new CreateRoutineController());
-//    	mappings.put("/routine/update/form", new ForwardController("/routine/update_form.jsp"));
+//    	mappings.put("/routine/update/form", new ForwardController("/routine/routine_updateForm.jsp"));
 //    	mappings.put("/routine/update", new UpdateRoutineController());
     	mappings.put("/routine/update", new UpdateRoutineController());
+    	mappings.put("/routine/find", new FindRoutineController());
         
         logger.info("Initialized Request Mapping!");
     }
