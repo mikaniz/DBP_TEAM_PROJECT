@@ -17,7 +17,7 @@ public class RequestMapping {
     private Map<String, Controller> mappings = new HashMap<String, Controller>();
 
     public void initMapping() {
-    	// 각 uri에 대응되는 controller 객체를 생성 및 저장
+    	// 각 uri에 대응되는 controller  객체를 생성 및 저장
     	mappings.put("/main", new ForwardController("/mainPage.jsp"));
     	mappings.put("/club", new ForwardController("/club/clubPage.jsp"));
     	mappings.put("/routine", new ForwardController("/routine/routinePage.jsp"));
