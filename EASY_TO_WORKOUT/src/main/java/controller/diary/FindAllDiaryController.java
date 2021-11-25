@@ -14,11 +14,11 @@ public class FindAllDiaryController implements Controller {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		DiaryManager service = DiaryManager.getInstance();
+		DiaryManager manager = DiaryManager.getInstance();
 		
 		String diaryTitle = request.getParameter("searchAllDiary");
 		try {
-			List<Diary> diaryList = service.getAllDiaryByTitle(diaryTitle);
+			List<Diary> diaryList = manager.getAllDiaryByTitle(diaryTitle);
 			request.setAttribute("diaryList", diaryList);
 			
 			return "/diary/allDiaryPage.jsp";

@@ -19,11 +19,11 @@ public class FindMyDiaryController implements Controller {
 		HttpSession session = request.getSession();
 		String id = MemberSessionUtils.getLoginMemberId(session);
 		
-		DiaryManager service = DiaryManager.getInstance();
+		DiaryManager manager = DiaryManager.getInstance();
 		
 		String diaryTitle = request.getParameter("searchMyDiary");
 		try {
-			List<Diary> diaryList = service.getMyDiaryByTitle(id, diaryTitle);
+			List<Diary> diaryList = manager.getMyDiaryByTitle(id, diaryTitle);
 			request.setAttribute("diaryList", diaryList);
 			
 			return "/diary/myDiaryPage.jsp";
