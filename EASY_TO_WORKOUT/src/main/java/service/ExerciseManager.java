@@ -3,23 +3,23 @@ package service;
 import java.util.List;
 import persistence.DAOFactory;
 import persistence.dao.ExerciseDAO;
-import service.dto.ExerciseDTO;
+import service.dto.Exercise;
 
 
-public class ExerciseServiceImpl {
+public class ExerciseManager {
 
 	private ExerciseDAO dao = null;
 	
-	public ExerciseServiceImpl() {
+	public ExerciseManager() {
 		DAOFactory factory = new DAOFactory();
 		dao = factory.getExerciseDAO();
 	}
 	
-	public List<ExerciseDTO> ListingExercises() {
+	public List<Exercise> ListingExercises() {
 		return dao.getExerciseList();
 	}
 	
-	public ExerciseDTO getExercise(String name) {
+	public Exercise getExercise(String name) {
 		return dao.getExerciseByName(name);
 	}
 }

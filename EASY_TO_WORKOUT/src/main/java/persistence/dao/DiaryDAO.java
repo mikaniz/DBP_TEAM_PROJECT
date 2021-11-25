@@ -14,15 +14,15 @@ public class DiaryDAO {
 		jdbcUtil = new JDBCUtil();
 	}
 	
-	public List<DiaryDTO> getAllDiaryList() {
+	public List<Diary> getAllDiaryList() {
 		String allDiaryQuery = "SELECT * FROM diary WHERE private=0";
 		jdbcUtil.setSqlAndParameters(allDiaryQuery, null);
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();
-			List<DiaryDTO> list = new ArrayList<DiaryDTO>();
+			List<Diary> list = new ArrayList<Diary>();
 			
 			while (rs.next()) {
-				DiaryDTO dto = new DiaryDTO();
+				Diary dto = new Diary();
 				dto.setDiaryId(rs.getInt("diaryId"));
 				dto.setTitle(rs.getString("title"));
 				dto.setDate(rs.getTimestamp("diaryDate"));
@@ -42,15 +42,15 @@ public class DiaryDAO {
 		return null;
 	}
 
-	public List<DiaryDTO> getMyDiaryList(String memberId) {
+	public List<Diary> getMyDiaryList(String memberId) {
 		String myDiaryQuery = "SELECT * FROM diary WHERE author=?";
 		Object[] param = new Object[] {memberId};
 		jdbcUtil.setSqlAndParameters(myDiaryQuery, param);
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();
-			List<DiaryDTO> list = new ArrayList<DiaryDTO>();
+			List<Diary> list = new ArrayList<Diary>();
 			while (rs.next()) {
-				DiaryDTO dto = new DiaryDTO();
+				Diary dto = new Diary();
 				dto.setDiaryId(rs.getInt("diaryId"));
 				dto.setTitle(rs.getString("title"));
 				dto.setDate(rs.getTimestamp("diaryDate"));
@@ -70,7 +70,7 @@ public class DiaryDAO {
 		return null;
 	}
 
-	public List<DiaryDTO> getSortedAllDiary(String sortType) {
+	public List<Diary> getSortedAllDiary(String sortType) {
 		String sortQuery = "SELECT * FROM diary WHERE private=0";
 		if (sortType.equals("date")) {
 			sortQuery += " ORDER BY diaryDate";
@@ -82,9 +82,9 @@ public class DiaryDAO {
 		jdbcUtil.setSqlAndParameters(sortQuery, null);
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();
-			List<DiaryDTO> list= new ArrayList<DiaryDTO>();
+			List<Diary> list= new ArrayList<Diary>();
 			while (rs.next()) {
-				DiaryDTO dto = new DiaryDTO();
+				Diary dto = new Diary();
 				dto.setDiaryId(rs.getInt("diaryId"));
 				dto.setTitle(rs.getString("title"));
 				dto.setDate(rs.getTimestamp("diaryDate"));
@@ -104,7 +104,7 @@ public class DiaryDAO {
 		return null;
 	}
 
-	public List<DiaryDTO> getSortedMyDiary(String memberId, String sortType) {
+	public List<Diary> getSortedMyDiary(String memberId, String sortType) {
 		String sortQuery = "SELECT * FROM diary WHERE author=?";
 		Object[] param = new Object[] {memberId};
 		if (sortType.equals("date")) {
@@ -117,9 +117,9 @@ public class DiaryDAO {
 		jdbcUtil.setSqlAndParameters(sortQuery, param);
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();
-			List<DiaryDTO> list= new ArrayList<DiaryDTO>();
+			List<Diary> list= new ArrayList<Diary>();
 			while (rs.next()) {
-				DiaryDTO dto = new DiaryDTO();
+				Diary dto = new Diary();
 				dto.setDiaryId(rs.getInt("diaryId"));
 				dto.setTitle(rs.getString("title"));
 				dto.setDate(rs.getTimestamp("diaryDate"));
@@ -139,15 +139,15 @@ public class DiaryDAO {
 		return null;
 	}
 
-	public DiaryDTO getDiaryById(String id) {
+	public Diary getDiaryById(String id) {
 		String searchQuery = "SELECT * FROM diary WHERE diaryId=?";
 		Object[] param = new Object[] {id};
 		jdbcUtil.setSqlAndParameters(searchQuery, param);
-		DiaryDTO dto = null;
+		Diary dto = null;
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();
 			if (rs.next()) {
-				dto = new DiaryDTO();
+				dto = new Diary();
 				dto.setDiaryId(rs.getInt("diaryId"));
 				dto.setTitle(rs.getString("title"));
 				dto.setDate(rs.getTimestamp("diaryDate"));
@@ -164,15 +164,15 @@ public class DiaryDAO {
 		return dto;
 	}
 
-	public List<DiaryDTO> getAllDiaryByTitle(String title) {
+	public List<Diary> getAllDiaryByTitle(String title) {
 		String searchQuery = "SELECT * FROM diary WHERE private=0 and title LIKE ?";
 		Object[] param = new Object[] {"%" + title + "%"};
 		jdbcUtil.setSqlAndParameters(searchQuery, param);
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();
-			List<DiaryDTO> list= new ArrayList<DiaryDTO>();
+			List<Diary> list= new ArrayList<Diary>();
 			while (rs.next()) {
-				DiaryDTO dto = new DiaryDTO();
+				Diary dto = new Diary();
 				dto.setDiaryId(rs.getInt("diaryId"));
 				dto.setTitle(rs.getString("title"));
 				dto.setDate(rs.getTimestamp("diaryDate"));
@@ -192,15 +192,15 @@ public class DiaryDAO {
 		return null;
 	}
 
-	public List<DiaryDTO> getMyDiaryByTitle(String memberId, String title) {
+	public List<Diary> getMyDiaryByTitle(String memberId, String title) {
 		String searchQuery = "SELECT * FROM diary WHERE author=? and title LIKE ?";
 		Object[] param = new Object[] {memberId, "%" + title + "%"};
 		jdbcUtil.setSqlAndParameters(searchQuery, param);
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();
-			List<DiaryDTO> list= new ArrayList<DiaryDTO>();
+			List<Diary> list= new ArrayList<Diary>();
 			while (rs.next()) {
-				DiaryDTO dto = new DiaryDTO();
+				Diary dto = new Diary();
 				dto.setDiaryId(rs.getInt("diaryId"));
 				dto.setTitle(rs.getString("title"));
 				dto.setDate(rs.getTimestamp("diaryDate"));
@@ -256,7 +256,7 @@ public class DiaryDAO {
 		return false;
 	}
 
-	public int insertDiary(DiaryDTO diary) {
+	public int insertDiary(Diary diary) {
 		int result = 0;
 		String insertQuery = "INSERT INTO "
 				+ "diary (diaryId, title, diaryDate, workTime, contents, private, author) "
@@ -276,7 +276,7 @@ public class DiaryDAO {
 		return result;
 	}
 
-	public int updateDiary(DiaryDTO diary) {
+	public int updateDiary(Diary diary) {
 		int result = 0;
 		String updateQuery = "UPDATE diary "
 				+ "SET title=?, diaryDate=?, workTime=?, contents=?, private=?, author=? "

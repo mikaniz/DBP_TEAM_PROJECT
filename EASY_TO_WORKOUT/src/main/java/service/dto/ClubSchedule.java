@@ -1,6 +1,6 @@
 package service.dto;
 
-public class ClubScheduleDTO {
+public class ClubSchedule {
 	private int scheduleId = 0; // 스케줄 id(PK)
 	private int clubId = 0; // 모임 id (PK)
 	private String contactAddress = null; // 접속 주소

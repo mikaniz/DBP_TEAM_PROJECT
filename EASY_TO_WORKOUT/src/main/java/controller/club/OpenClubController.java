@@ -7,8 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import controller.Controller;
-import service.ClubServiceImpl;
-import service.dto.ClubDTO;
+import service.ClubManager;
+import service.dto.Club;
 import service.exception.ExistingClubException;
 
 public class OpenClubController implements Controller {
@@ -17,7 +17,7 @@ public class OpenClubController implements Controller {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub				
-		ClubDTO club = new ClubDTO();
+		Club club = new Club();
 		club.setClubMaster(request.getParameter("clubMasterId"));
 		club.setClubName(request.getParameter("clubName"));
 		club.setOpenCycle(request.getParameter("clubOpenCycle"));
@@ -27,7 +27,7 @@ public class OpenClubController implements Controller {
 		log.debug("Create club : {}", club);
 		
 		try {
-			ClubServiceImpl service = ClubServiceImpl.getInstance();
+			ClubManager service = ClubManager.getInstance();
 			service.insertClub(club);
 			
 			return "redirect:/club/list";

@@ -14,15 +14,15 @@ public class UsageDAO {
 		jdbcUtil = new JDBCUtil();
 	}
 
-	public List<UsageDTO> getUsageList() {
+	public List<Usage> getUsageList() {
 		String allQuery = "SELECT * FROM usage";
 		jdbcUtil.setSqlAndParameters(allQuery, null);
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();
-			List<UsageDTO> list = new ArrayList<UsageDTO>();
+			List<Usage> list = new ArrayList<Usage>();
 			
 			while (rs.next()) {
-				UsageDTO dto = new UsageDTO();
+				Usage dto = new Usage();
 				dto.setClubId(rs.getInt("clubId"));
 				dto.setScheduleId(rs.getString("scheduleId"));
 				dto.setRoutineId(rs.getInt("routineId"));
@@ -36,16 +36,16 @@ public class UsageDAO {
 		return null;
 	}
 
-	public List<UsageDTO> getUsageListByClubId(int clubId) {
+	public List<Usage> getUsageListByClubId(int clubId) {
 		String searchListQuery = "SELECT * FROM usage WHERE clubId=?";
 		Object[] param = new Object[] {clubId};
 		jdbcUtil.setSqlAndParameters(searchListQuery, param);
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();
-			List<UsageDTO> list = new ArrayList<UsageDTO>();
+			List<Usage> list = new ArrayList<Usage>();
 			
 			while (rs.next()) {
-				UsageDTO dto = new UsageDTO();
+				Usage dto = new Usage();
 				dto.setClubId(rs.getInt("clubId"));
 				dto.setScheduleId(rs.getString("scheduleId"));
 				dto.setRoutineId(rs.getInt("routineId"));
@@ -59,15 +59,15 @@ public class UsageDAO {
 		return null;
 	}
 
-	public UsageDTO getUsageByClubIdAndScheduleId(int clubId, String scheduleId) {
+	public Usage getUsageByClubIdAndScheduleId(int clubId, String scheduleId) {
 		String searchQuery = "SELECT * FROM usage WHERE clubId=? and scheduleId=?";
 		Object[] param = new Object[] {clubId, scheduleId};
 		jdbcUtil.setSqlAndParameters(searchQuery, param);
-		UsageDTO dto = null;
+		Usage dto = null;
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();
 			if (rs.next()) {
-				dto = new UsageDTO();
+				dto = new Usage();
 				dto.setClubId(rs.getInt("clubId"));
 				dto.setScheduleId(rs.getString("scheduleId"));
 				dto.setRoutineId(rs.getInt("routineId"));
@@ -80,7 +80,7 @@ public class UsageDAO {
 		return dto;
 	}
 
-	public int insertUsage(UsageDTO usage) {
+	public int insertUsage(Usage usage) {
 		int result = 0;
 		String insertQuery = "INSERT INTO "
 				+ "usage (clubId, scheduleId, routineId) "
@@ -99,7 +99,7 @@ public class UsageDAO {
 		return result;
 	}
 
-	public int updateUsage(UsageDTO usage) {
+	public int updateUsage(Usage usage) {
 		int result = 0;
 		String updateQuery = "UPDATE usage "
 				+ "SET routineId=? "

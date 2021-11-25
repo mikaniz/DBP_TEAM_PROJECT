@@ -20,16 +20,16 @@ public class ExerciseDAO {
 		jdbcUtil = new JDBCUtil();
 	}
 	
-	public List<ExerciseDTO> getExerciseList() {
+	public List<Exercise> getExerciseList() {
 		String allQuery = query +
 			   "FROM EXERCISE ORDER BY EXERCISE.EXERCISEID ASC ";		
 		jdbcUtil.setSqlAndParameters(allQuery, null);		// JDBCUtil 에 query 설정
 
 		try { 
 				ResultSet rs = jdbcUtil.executeQuery();		// query 문 실행			
-				List<ExerciseDTO> list = new ArrayList<ExerciseDTO>();		// ExerciseDTO 객체들을 담기위한 list 객체
+				List<Exercise> list = new ArrayList<Exercise>();		// ExerciseDTO 객체들을 담기위한 list 객체
 				while (rs.next()) {	
-					ExerciseDTO dto = new ExerciseDTO();		// 하나의 ExerciseDTO 객체 생성 후 정보 설정
+					Exercise dto = new Exercise();		// 하나의 ExerciseDTO 객체 생성 후 정보 설정
 					dto.setExerciseId(rs.getInt("EXERCISE_ID"));
 					dto.setName(rs.getString("EXERCISE_NAME"));
 					dto.setPart(rs.getString("EXERCISE_PART"));
@@ -45,7 +45,7 @@ public class ExerciseDAO {
 		return null;
 	}
 
-	public ExerciseDTO getExerciseByName(String name) {
+	public Exercise getExerciseByName(String name) {
 		String searchQuery = query +
 		        "FROM EXERCISE " +
 		        "WHERE EXERCISE.NAME = ? ";
@@ -56,9 +56,9 @@ public class ExerciseDAO {
 
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();		// query 문 실행
-			ExerciseDTO dto = null;
+			Exercise dto = null;
 			if (rs.next()) {						// 찾은 운동의 정보를 ExerciseDTO 객체에 설정
-				dto = new ExerciseDTO();
+				dto = new Exercise();
 				dto.setExerciseId(rs.getInt("EXERCISE_ID"));
 				dto.setName(rs.getString("EXERCISE_NAME"));
 				dto.setPart(rs.getString("EXERCISE_PART"));

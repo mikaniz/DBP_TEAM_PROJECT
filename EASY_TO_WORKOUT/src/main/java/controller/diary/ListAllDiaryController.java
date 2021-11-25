@@ -6,17 +6,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import controller.Controller;
-import service.DiaryServiceImpl;
-import service.dto.DiaryDTO;
+import service.DiaryManager;
+import service.dto.Diary;
 
 public class ListAllDiaryController implements Controller {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		DiaryServiceImpl manager = DiaryServiceImpl.getInstance();
+		DiaryManager manager = DiaryManager.getInstance();
 		
 		if (request.getMethod().equals("GET")) {
-			List<DiaryDTO> diaryList = manager.findAllDiaryList();
+			List<Diary> diaryList = manager.findAllDiaryList();
 			request.setAttribute("diaryList", diaryList);
 			return "/diary/allDiaryPage.jsp";
 		}
@@ -24,13 +24,13 @@ public class ListAllDiaryController implements Controller {
 		if (request.getParameter("sortDiary").equals("1")) {
 			request.setAttribute("checkedOne", true);
 			
-			List<DiaryDTO> diaryList = manager.getSortedAllDiary("date");
+			List<Diary> diaryList = manager.getSortedAllDiary("date");
 			request.setAttribute("diaryList", diaryList);
 		}
 		else if (request.getParameter("sortDiary").equals("2")) {
 			request.setAttribute("checkedTwo", true);
 			
-			List<DiaryDTO> diaryList = manager.getSortedAllDiary("workTime");
+			List<Diary> diaryList = manager.getSortedAllDiary("workTime");
 			request.setAttribute("diaryList", diaryList);
 		}
 		

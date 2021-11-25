@@ -6,15 +6,15 @@ import persistence.dao.DiaryDAO;
 
 import java.sql.SQLException;
 
-import service.dto.DiaryDTO;
+import service.dto.Diary;
 import service.exception.DiaryNotFoundException;
 
-public class DiaryServiceImpl {
+public class DiaryManager {
 
-	private static DiaryServiceImpl diaryService = new DiaryServiceImpl();
+	private static DiaryManager diaryService = new DiaryManager();
 	private DiaryDAO diaryDAO;
 	
-	private DiaryServiceImpl() {
+	private DiaryManager() {
 		try {
 			diaryDAO = new DiaryDAO();
 		} catch (Exception e) {
@@ -22,31 +22,31 @@ public class DiaryServiceImpl {
 		}
 	}
 	
-	public static DiaryServiceImpl getInstance() {
+	public static DiaryManager getInstance() {
 		return diaryService;
 	}
 
-	public int create(DiaryDTO diary) throws SQLException {
+	public int create(Diary diary) throws SQLException {
 		return diaryDAO.insertDiary(diary);
 	}
 	
-	public List<DiaryDTO> findMyDiaryList(String id) throws SQLException {
+	public List<Diary> findMyDiaryList(String id) throws SQLException {
 		return diaryDAO.getMyDiaryList(id);
 	}
 	
-	public List<DiaryDTO> findAllDiaryList() throws SQLException {
+	public List<Diary> findAllDiaryList() throws SQLException {
 		return diaryDAO.getAllDiaryList();
 	}
 	
-	public List<DiaryDTO> getSortedAllDiary(String sortType) throws SQLException {
+	public List<Diary> getSortedAllDiary(String sortType) throws SQLException {
 		return diaryDAO.getSortedAllDiary(sortType);
 	}
 	
-	public List<DiaryDTO> getSortedMyDiary(String id, String sortType) throws SQLException {
+	public List<Diary> getSortedMyDiary(String id, String sortType) throws SQLException {
 		return diaryDAO.getSortedMyDiary(id, sortType);
 	}
 	
-	public List<DiaryDTO> getMyDiaryByTitle(String id, String title) throws DiaryNotFoundException, SQLException {
+	public List<Diary> getMyDiaryByTitle(String id, String title) throws DiaryNotFoundException, SQLException {
 		if (title.equals("")) {
 			throw new DiaryNotFoundException("제목을 다시 입력하세요.");
 		} else if (!existingMyDiary(id, title)) {
@@ -55,7 +55,7 @@ public class DiaryServiceImpl {
 		return diaryDAO.getMyDiaryByTitle(id, title);
 	}
 	
-	public List<DiaryDTO> getAllDiaryByTitle(String title) throws DiaryNotFoundException, SQLException {
+	public List<Diary> getAllDiaryByTitle(String title) throws DiaryNotFoundException, SQLException {
 		if (title.equals("")) {
 			throw new DiaryNotFoundException("제목을 다시 입력하세요.");
 		} else if (!existingAllDiary(title)) {

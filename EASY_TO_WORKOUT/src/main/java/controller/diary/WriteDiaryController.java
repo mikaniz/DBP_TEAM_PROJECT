@@ -7,8 +7,8 @@ import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
 
 import controller.Controller;
-import service.DiaryServiceImpl;
-import service.dto.DiaryDTO;
+import service.DiaryManager;
+import service.dto.Diary;
 import controller.member.MemberSessionUtils;
 
 public class WriteDiaryController implements Controller {
@@ -19,7 +19,7 @@ public class WriteDiaryController implements Controller {
 		int workTime = Integer.parseInt(request.getParameter("workTime"));
 		String contents = request.getParameter("diaryContents");
 		
-		DiaryDTO diary = new DiaryDTO();
+		Diary diary = new Diary();
 		diary.setTitle(title);
 		diary.setWorkTime(workTime);
 		diary.setContents(contents);
@@ -36,7 +36,7 @@ public class WriteDiaryController implements Controller {
             String author = MemberSessionUtils.getLoginMemberId(session);
             diary.setAuthor(author);
             
-			DiaryServiceImpl manager = DiaryServiceImpl.getInstance();
+			DiaryManager manager = DiaryManager.getInstance();
 			manager.create(diary);
             
             return "redirect:/diary/all/list";			

@@ -1,6 +1,6 @@
 package service.dto;
 
-public class MemberDTO {
+public class Member {
 	
 	private String id = null;
 	private String pw = null;

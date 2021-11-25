@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 //import org.slf4j.LoggerFactory;
 
 import controller.Controller;
-import service.ClubServiceImpl;
-import service.dto.ClubDTO;
+import service.ClubManager;
+import service.dto.Club;
 
 public class ListClubController implements Controller {
 	
@@ -19,10 +19,10 @@ public class ListClubController implements Controller {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
-		ClubServiceImpl service = ClubServiceImpl.getInstance();
+		ClubManager service = ClubManager.getInstance();
 		
 		if (request.getMethod().equals("GET")) {
-			List<ClubDTO> clubList = service.listingClub();
+			List<Club> clubList = service.listingClub();
 			request.setAttribute("clubList",  clubList);
 			
 			return "/club/clubPage.jsp";
@@ -34,19 +34,19 @@ public class ListClubController implements Controller {
 		if (request.getParameter("sortClub").equals("1")) { // 이름순
 			request.setAttribute("checkedOne", true);
 			
-			List<ClubDTO> clubList = service.getSortedClub("clubName");
+			List<Club> clubList = service.getSortedClub("clubName");
 			request.setAttribute("clubList",  clubList);
 		}
 		else if (request.getParameter("sortClub").equals("2")) { // 회원순
 			request.setAttribute("checkedTwo", true);
 			
-			List<ClubDTO> clubList = service.getSortedClub("countMember");
+			List<Club> clubList = service.getSortedClub("countMember");
 			request.setAttribute("clubList",  clubList);
 		}
 		else if (request.getParameter("sortClub").equals("3")) { // 자유가입만
 			request.setAttribute("checkedThree", true);
 			
-			List<ClubDTO> clubList = service.getSortedClub("freeSignUp");
+			List<Club> clubList = service.getSortedClub("freeSignUp");
 			request.setAttribute("clubList",  clubList);
 		}
 		

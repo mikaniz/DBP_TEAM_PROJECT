@@ -6,19 +6,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import controller.Controller;
-import service.DiaryServiceImpl;
-import service.dto.DiaryDTO;
+import service.DiaryManager;
+import service.dto.Diary;
 import service.exception.DiaryNotFoundException;
 
 public class FindAllDiaryController implements Controller {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		DiaryServiceImpl service = DiaryServiceImpl.getInstance();
+		DiaryManager service = DiaryManager.getInstance();
 		
 		String diaryTitle = request.getParameter("searchAllDiary");
 		try {
-			List<DiaryDTO> diaryList = service.getAllDiaryByTitle(diaryTitle);
+			List<Diary> diaryList = service.getAllDiaryByTitle(diaryTitle);
 			request.setAttribute("diaryList", diaryList);
 			
 			return "/diary/allDiaryPage.jsp";

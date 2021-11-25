@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import controller.Controller;
-import service.DiaryServiceImpl;
-import service.dto.DiaryDTO;
+import service.DiaryManager;
+import service.dto.Diary;
 import controller.member.MemberSessionUtils;
 
 public class ListMyDiaryController implements Controller {
@@ -18,10 +18,10 @@ public class ListMyDiaryController implements Controller {
 		HttpSession session = request.getSession();
 		String id = MemberSessionUtils.getLoginMemberId(session);
 
-		DiaryServiceImpl manager = DiaryServiceImpl.getInstance();
+		DiaryManager manager = DiaryManager.getInstance();
 		
 		if (request.getMethod().equals("GET")) {
-			List<DiaryDTO> diaryList = manager.findMyDiaryList(id);
+			List<Diary> diaryList = manager.findMyDiaryList(id);
 			request.setAttribute("diaryList", diaryList);
 			return "/diary/myDiaryPage.jsp";
 		}
@@ -29,13 +29,13 @@ public class ListMyDiaryController implements Controller {
 		if (request.getParameter("sortDiary").equals("1")) {
 			request.setAttribute("checkedOne", true);
 			
-			List<DiaryDTO> diaryList = manager.getSortedMyDiary(id, "date");
+			List<Diary> diaryList = manager.getSortedMyDiary(id, "date");
 			request.setAttribute("diaryList", diaryList);
 		}
 		else if (request.getParameter("sortDiary").equals("2")) {
 			request.setAttribute("checkedTwo", true);
 			
-			List<DiaryDTO> diaryList = manager.getSortedMyDiary(id, "workTime");
+			List<Diary> diaryList = manager.getSortedMyDiary(id, "workTime");
 			request.setAttribute("diaryList", diaryList);
 		}
 		

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.sql.ResultSet;
 
-import service.dto.RoutineDTO;
+import service.dto.Routine;
 import persistence.util.JDBCUtil;
 
 public class RoutineDAO {
@@ -23,16 +23,16 @@ public class RoutineDAO {
 		jdbcUtil = new JDBCUtil();
 	}
 
-	public List<RoutineDTO> getRoutineList() {
+	public List<Routine> getRoutineList() {
 		String allQuery = query + "FROM ROUTINE ORDER BY ROUTINE_ID ASC ";		
 		jdbcUtil.setSqlAndParameters(allQuery, null);		// JDBCUtil 에 query 설정
 
 		try { 
 				ResultSet rs = jdbcUtil.executeQuery();		// query 문 실행			
-				List<RoutineDTO> list = new ArrayList<RoutineDTO>();		// RoutineDTO 객체들을 담기위한 list 객체
+				List<Routine> list = new ArrayList<Routine>();		// RoutineDTO 객체들을 담기위한 list 객체
 				
 				while (rs.next()) {	
-					RoutineDTO dto = new RoutineDTO();		// 하나의 RoutineDTO 객체 생성 후 정보 설정
+					Routine dto = new Routine();		// 하나의 RoutineDTO 객체 생성 후 정보 설정
 					dto.setRoutineId(rs.getInt("ROUTINE_ID"));
 					dto.setrName(rs.getString("ROUTINE_NAME"));
 					dto.setrTime(rs.getInt("ROUTINE_TIME"));
@@ -52,7 +52,7 @@ public class RoutineDAO {
 		return null;
 	}
 
-	public List<RoutineDTO> getRoutineListByPublic() {
+	public List<Routine> getRoutineListByPublic() {
 		String searchQuery = query +
 			        "FROM ROUTINE " +
 			        "WHERE RTYPE = '0' ";
@@ -61,10 +61,10 @@ public class RoutineDAO {
 
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();		// query 문 실행
-			List<RoutineDTO> list = new ArrayList<RoutineDTO>();	// RoutineDTO 객체들을 담기위한 list 객체
+			List<Routine> list = new ArrayList<Routine>();	// RoutineDTO 객체들을 담기위한 list 객체
 			
 			while (rs.next()) {						// 하나의 RoutineDTO 객체 생성 후 정보 설정
-				RoutineDTO dto = new RoutineDTO();
+				Routine dto = new Routine();
 				dto.setRoutineId(rs.getInt("ROUTINE_ID"));
 				dto.setrName(rs.getString("ROUTINE_NAME"));
 				dto.setrTime(rs.getInt("ROUTINE_TIME"));
@@ -83,7 +83,7 @@ public class RoutineDAO {
 		return null;
 	}
 
-	public List<RoutineDTO> getRoutineListByPersonal() {
+	public List<Routine> getRoutineListByPersonal() {
 		String searchQuery = query + 
 		        "FROM ROUTINE " +
 		        "WHERE RTYPE = '1' ";
@@ -92,10 +92,10 @@ public class RoutineDAO {
 
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();		// query 문 실행
-			List<RoutineDTO> list = new ArrayList<RoutineDTO>();	// RoutineDTO 객체들을 담기위한 list 객체
+			List<Routine> list = new ArrayList<Routine>();	// RoutineDTO 객체들을 담기위한 list 객체
 			
 			while (rs.next()) {						// 하나의 RoutineDTO 객체 생성 후 정보 설정
-				RoutineDTO dto = new RoutineDTO();
+				Routine dto = new Routine();
 				dto.setRoutineId(rs.getInt("ROUTINE_ID"));
 				dto.setrName(rs.getString("ROUTINE_NAME"));
 				dto.setrTime(rs.getInt("ROUTINE_TIME"));
@@ -114,7 +114,7 @@ public class RoutineDAO {
 		return null;
 	}
 	
-	public List<RoutineDTO> getRoutineByName(String rName) { // 루틴 이름으로 모임 검색
+	public List<Routine> getRoutineByName(String rName) { // 루틴 이름으로 모임 검색
 		// TODO Auto-generated method stub
 		String searchQuery = query +
 				"FROM ROUTINE " +
@@ -125,10 +125,10 @@ public class RoutineDAO {
 		
 		try {
 			ResultSet rs = jdbcUtil.executeQuery(); // query문 실행
-			List<RoutineDTO> list = new ArrayList<RoutineDTO>();
+			List<Routine> list = new ArrayList<Routine>();
 			
 			while (rs.next()) {
-				RoutineDTO dto = new RoutineDTO(); // RoutineDTO 객체 생성 후 검색 결과 저장
+				Routine dto = new Routine(); // RoutineDTO 객체 생성 후 검색 결과 저장
 				dto.setRoutineId(rs.getInt("ROUTINE_ID"));
 				dto.setrName(rs.getString("ROUTINE_NAME"));
 				dto.setrTime(rs.getInt("ROUTINE_TIME"));
@@ -149,7 +149,7 @@ public class RoutineDAO {
 		return null;
 	}
 
-	public int insertRoutine(RoutineDTO routine) {
+	public int insertRoutine(Routine routine) {
 		int result = 0;
 		String insertQuery = "INSERT INTO "
 				+ "ROUTINE (ROUTINEID, RNAME, RTIME, DIFFICULTY, RTYPE, RPART, ROUTINECREATER) "
@@ -174,7 +174,7 @@ public class RoutineDAO {
 		return result;
 	}
 
-	public int updateRoutine(RoutineDTO routine) {
+	public int updateRoutine(Routine routine) {
 		int result = 0;
 		String updateQuery = "UPDATE ROUTINE "
 				+ "SET RNAME=?, RTIME=?, DIFFICULTY=?, RTYPE=?, RPART=?, ROUTINECREATER=? "
@@ -219,7 +219,7 @@ public class RoutineDAO {
 		return 0;
 	}
 
-	public RoutineDTO getRoutineById(int routineId) {
+	public Routine getRoutineById(int routineId) {
 		String searchQuery = query +
 		        "FROM ROUTINE " +
 		        "WHERE ROUTINE.ROUTINEID = ? ";
@@ -230,9 +230,9 @@ public class RoutineDAO {
 
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();		// query 문 실행
-			RoutineDTO dto = null;
+			Routine dto = null;
 			if (rs.next()) {						// 찾은 루틴의 정보를 RoutineDTO 객체에 설정
-				dto = new RoutineDTO();
+				dto = new Routine();
 				dto.setRoutineId(rs.getInt("ROUTINE_ID"));
 				dto.setrName(rs.getString("ROUTINE_NAME"));
 				dto.setrTime(rs.getInt("ROUTINE_TIME"));
