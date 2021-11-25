@@ -72,7 +72,7 @@ public class ClubScheduleDAO {
 		} catch(Exception ex) {
 			ex.printStackTrace();
 		} finally {
-			jdbcUtil.close(); // ResultSet, PreparedStatement, Connection ��ȯ
+			jdbcUtil.close(); 
 		}
 		
 		return null;
