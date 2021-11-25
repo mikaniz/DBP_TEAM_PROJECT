@@ -2,7 +2,6 @@ package persistence;
 
 import persistence.dao.*;
 
-// DAO �� ������ Implementation ��ü�� �����ϴ� Ŭ����
 public class DAOFactory {
 	
 //	public ChoiceDAO getChoiceDAO() {
