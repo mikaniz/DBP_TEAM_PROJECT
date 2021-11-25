@@ -61,14 +61,14 @@ public class ClubScheduleDAO {
 			ClubScheduleDTO schedule = null;
 			
 			if (rs.next()) {
-				schedule = new ClubScheduleDTO(); // clubDTO ��ü�� �����Ͽ� ���� ���� ����
+				schedule = new ClubScheduleDTO(); 
 				schedule.setClubId(rs.getInt("CLUBID"));
 				schedule.setScheduleId(rs.getInt("SCHEDULEID"));
 				schedule.setContactAddress(rs.getString("CONTACTADDRESS"));
 				schedule.setNotice(rs.getString("NOTICE"));
 				schedule.setCreationDate(rs.getString("CREATIONDATE"));
 			}
-			return schedule; // ���� ������ ��� �ִ� ClubDTO ��ü ��ȯ
+			return schedule; 
 		} catch(Exception ex) {
 			ex.printStackTrace();
 		} finally {
