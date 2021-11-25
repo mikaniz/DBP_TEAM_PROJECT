@@ -2,7 +2,7 @@ package persistence;
 
 import persistence.dao.*;
 
-// DAO ¸¦ ±¸ÇöÇÑ Implementation °´Ã¼¸¦ »ý¼ºÇÏ´Â Å¬·¡½º
+// DAO ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Implementation ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½
 public class DAOFactory {
 	
 //	public ChoiceDAO getChoiceDAO() {
@@ -10,23 +10,23 @@ public class DAOFactory {
 //	}
 	
 	public ClubDAO getClubDAO() {
-		return new ClubDAOImpl();
+		return new ClubDAO();
 	}
 	
 	public ClubScheduleDAO getClubScheduleDAO() {
-		return new ClubScheduleDAOImpl();
+		return new ClubScheduleDAO();
 	}
 	
 	public DiaryDAO getDiaryDAO() {
-		return new DiaryDAOImpl();
+		return new DiaryDAO();
 	}
 	
 	public ExerciseDAO getExerciseDAO() {
-		return new ExerciseDAOImpl();
+		return new ExerciseDAO();
 	}
 	
 	public MemberDAO getMemberDAO() {
-		return new MemberDAOImpl();
+		return new MemberDAO();
 	}
 	
 //	public MembershipDAO getMembershipDAO() {
@@ -34,7 +34,7 @@ public class DAOFactory {
 //	}
 //	
 	public RoutineDAO getRoutineDAO() {
-		return new RoutineDAOImpl();
+		return new RoutineDAO();
 	}
 //	
 //	public UsageDAO getUsageDAO() {
