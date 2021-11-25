@@ -15,11 +15,11 @@ public class FindClubController implements Controller {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
-		ClubManager service = ClubManager.getInstance();
+		ClubManager manager = ClubManager.getInstance();
 		
 		String clubName = request.getParameter("searchClub");
 		try {
-			List<Club> clubList = service.getClubByName(clubName);
+			List<Club> clubList = manager.getClubByName(clubName);
 			request.setAttribute("clubList", clubList);
 			
 			return "/club/clubPage.jsp";

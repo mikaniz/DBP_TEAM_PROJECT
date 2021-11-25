@@ -35,16 +35,16 @@ public class ClubDAO  {
 			List<Club> list = new ArrayList<Club>(); 
 			
 			while (rs.next()) {
-				Club dto = new Club(); 
-				dto.setClubId(rs.getInt("CLUBID"));
-				dto.setSignUp(rs.getString("SIGNUP"));
-				dto.setOpenCycle(rs.getString("OPENCYCLE"));
-				dto.setClubIntro(rs.getString("CLUBINTRO"));
-				dto.setClubName(rs.getString("CLUBNAME"));
-				dto.setClubMaster(rs.getString("CLUBMASTER"));
-				dto.setCountClub(rs.getInt("COUNTMEMBER"));
+				Club club = new Club(); 
+				club.setClubId(rs.getInt("CLUBID"));
+				club.setSignUp(rs.getString("SIGNUP"));
+				club.setOpenCycle(rs.getString("OPENCYCLE"));
+				club.setClubIntro(rs.getString("CLUBINTRO"));
+				club.setClubName(rs.getString("CLUBNAME"));
+				club.setClubMaster(rs.getString("CLUBMASTER"));
+				club.setCountClub(rs.getInt("COUNTMEMBER"));
 				
-				list.add(dto); 
+				list.add(club); 
 			}
 			return list; 
 		} catch(Exception ex) {
