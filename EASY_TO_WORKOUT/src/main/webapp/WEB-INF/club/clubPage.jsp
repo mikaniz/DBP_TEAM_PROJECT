@@ -198,6 +198,7 @@ function search() {
 							<th>인원 수</th>
 							<td><form name="sortForm" method="POST" action="<c:url value='/club/list' />">
 								<select name="sortClub" style="width: 80px; height: 37px;" onchange="this.form.submit()">
+									<option value="0" selected>전체</option>
 									<option value="1" 
 										<c:if test="${checkedOne}">selected</c:if>>이름순</option>
 									<option value="2"

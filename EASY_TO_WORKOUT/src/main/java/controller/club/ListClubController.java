@@ -19,10 +19,10 @@ public class ListClubController implements Controller {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
-		ClubManager service = ClubManager.getInstance();
+		ClubManager manager = ClubManager.getInstance();
 		
 		if (request.getMethod().equals("GET")) {
-			List<Club> clubList = service.listingClub();
+			List<Club> clubList = manager.listingClub();
 			request.setAttribute("clubList",  clubList);
 			
 			return "/club/clubPage.jsp";
@@ -31,22 +31,26 @@ public class ListClubController implements Controller {
 		//log.debug("sort club : {}", request.getParameter("sortClub"));
 		
 		/* 모임 목록 정렬 */
-		if (request.getParameter("sortClub").equals("1")) { // 이름순
+		if (request.getParameter("sortClub").equals("0")) {
+			List<Club> clubList = manager.listingClub();
+			request.setAttribute("clubList",  clubList);
+		}
+		else if (request.getParameter("sortClub").equals("1")) { // 이름순
 			request.setAttribute("checkedOne", true);
 			
-			List<Club> clubList = service.getSortedClub("clubName");
+			List<Club> clubList = manager.getSortedClub("clubName");
 			request.setAttribute("clubList",  clubList);
 		}
 		else if (request.getParameter("sortClub").equals("2")) { // 회원순
 			request.setAttribute("checkedTwo", true);
 			
-			List<Club> clubList = service.getSortedClub("countMember");
+			List<Club> clubList = manager.getSortedClub("countMember");
 			request.setAttribute("clubList",  clubList);
 		}
 		else if (request.getParameter("sortClub").equals("3")) { // 자유가입만
 			request.setAttribute("checkedThree", true);
 			
-			List<Club> clubList = service.getSortedClub("freeSignUp");
+			List<Club> clubList = manager.getSortedClub("freeSignUp");
 			request.setAttribute("clubList",  clubList);
 		}
 		

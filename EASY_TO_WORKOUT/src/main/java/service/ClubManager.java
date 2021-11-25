@@ -5,20 +5,21 @@ import java.util.List;
 
 import persistence.DAOFactory;
 import persistence.dao.ClubDAO;
-//import persistence.dao.MemberDAO;
+import persistence.dao.MemberDAO;
 import service.dto.Club;
+import service.exception.CannotOpenClubException;
 import service.exception.ExistingClubException;
 
 public class ClubManager {
 	
 	private static ClubManager clubService = new ClubManager(); 
 	private ClubDAO clubDao;
-//	private MemberDAO memberDao;
+	private MemberDAO memberDao;
 	
 	private ClubManager() {							// DAOFactory 클래스의 객체 생성
 		DAOFactory factory = new DAOFactory();
 		clubDao = factory.getClubDAO();
-//		memberDao = factory.getMemberDAO();
+		memberDao = factory.getMemberDAO();
 	}
 	
 	public static ClubManager getInstance() {	return clubService;		}
@@ -52,15 +53,12 @@ public class ClubManager {
 		return clubDao.existingClub(clubName);
 	}
 	
-	public int insertClub(Club club) throws ExistingClubException, SQLException {				// ClubDAO를 통해 모임 정보 추가
+	public int insertClub(String masterId, Club club) throws CannotOpenClubException, SQLException {				// ClubDAO를 통해 모임 정보 추가
 		// TODO Auto-generated method stub
 		
-/*		if (!memberDao.isMaster(club.getMasterId())) {	// clubMaster가 마스터 등급이 아닐 경우 예외 발생
-			throw new ExistingClubException("마스터 등급이 아닙니다.");
+		if (!memberDao.isMaster(masterId)) {	// clubMaster가 마스터 등급이 아닐 경우 예외 발생
+			throw new CannotOpenClubException("마스터 등급만 모임 개설이 가능합니다.");
 		}
-		else if (!memberDao.existingUser(masterId)) {	// clubMaster가 존재하지 않는 아이디일 경우 예외 발생
-			throw new ExistingClubException("존재하지 않는 회원 아이디입니다.");
-		}*/
 		
 		return clubDao.insertClub(club);
 	}

@@ -103,11 +103,6 @@ th, td {
 
 <script>
 function clubCreate() {
-	if(openForm.clubMasterId.value == "") {
-		alert("회원 아이디를 입력해주세요.");
-		theForm.clubMasterId.focus();
-		return false;
-	}
 	if(openForm.clubName.value == "") {
 		alert("모임 이름을 입력해주세요.");
 		theForm.clubName.focus();
@@ -175,15 +170,13 @@ function clubCreate() {
 		<div style="float: right">
 			<!-- 모임 개설 항목 입력 부분  -->
 			<div id="clubInfoInput">
-				<h3 style="margin: 20px;">모임 정보 입력</h3>
+				<h3 style="margin: 20px;">
+					모임 정보 입력 &nbsp;&nbsp;
+					<c:if test="${openClubFailed}"><font color="red">${exception.getMessage()}</font></c:if>
+				</h3>
 				<hr>
 				<form name="openForm" method="GET" action="<c:url value='/club/open' />">
 					<table id="clubTable">
-						<tr id="clubTableTr">
-							<td style="width: 130px;">회원 아이디 :</td>
-							<td><input type="text" name="clubMasterId"
-								style="width: 300px; height: 20px; font-size: 15px;"></td>
-						</tr>
 						<tr id="clubTableTr">
 							<td style="width: 130px;">모임 이름 :</td>
 							<td><input type="text" name="clubName"
