@@ -3,19 +3,17 @@ package persistence.dao;
 import java.util.List;
 import java.util.ArrayList;
 import java.sql.*;
-import persistence.dao.*;
 import persistence.util.*;
 import service.dto.*;
 
-public class UsageDAOImpl implements UsageDAO {
+public class UsageDAO {
 
 	private JDBCUtil jdbcUtil = null;
 	
-	public UsageDAOImpl() {
+	public UsageDAO() {
 		jdbcUtil = new JDBCUtil();
 	}
 
-	@Override
 	public List<UsageDTO> getUsageList() {
 		String allQuery = "SELECT * FROM usage";
 		jdbcUtil.setSqlAndParameters(allQuery, null);
@@ -38,7 +36,6 @@ public class UsageDAOImpl implements UsageDAO {
 		return null;
 	}
 
-	@Override
 	public List<UsageDTO> getUsageListByClubId(int clubId) {
 		String searchListQuery = "SELECT * FROM usage WHERE clubId=?";
 		Object[] param = new Object[] {clubId};
@@ -62,7 +59,6 @@ public class UsageDAOImpl implements UsageDAO {
 		return null;
 	}
 
-	@Override
 	public UsageDTO getUsageByClubIdAndScheduleId(int clubId, String scheduleId) {
 		String searchQuery = "SELECT * FROM usage WHERE clubId=? and scheduleId=?";
 		Object[] param = new Object[] {clubId, scheduleId};
@@ -84,7 +80,6 @@ public class UsageDAOImpl implements UsageDAO {
 		return dto;
 	}
 
-	@Override
 	public int insertUsage(UsageDTO usage) {
 		int result = 0;
 		String insertQuery = "INSERT INTO "
@@ -104,7 +99,6 @@ public class UsageDAOImpl implements UsageDAO {
 		return result;
 	}
 
-	@Override
 	public int updateUsage(UsageDTO usage) {
 		int result = 0;
 		String updateQuery = "UPDATE usage "
@@ -124,7 +118,6 @@ public class UsageDAOImpl implements UsageDAO {
 		return result;
 	}
 
-	@Override
 	public int deleteUsage(int clubId, String scheduleId, int routineId) {
 		int result = 0;
 		String deleteQuery = "DELETE FROM usage WHERE clubId=? and scheduleId=? and routineId=?";
