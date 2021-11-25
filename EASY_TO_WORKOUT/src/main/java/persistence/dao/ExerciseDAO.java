@@ -5,10 +5,9 @@ import java.util.List;
 import java.sql.*;
 
 import service.dto.*;
-import persistence.dao.*;
 import persistence.util.JDBCUtil;
 
-public class ExerciseDAOImpl implements ExerciseDAO {
+public class ExerciseDAO {
 
 	private JDBCUtil jdbcUtil = null;
 	
@@ -17,11 +16,10 @@ public class ExerciseDAOImpl implements ExerciseDAO {
 	         "EXERCISE.PART AS EXERCISE_PART, " +
 	         "EXERCISE.METHOD AS EXERCISE_METHOD ";
 	
-	public ExerciseDAOImpl() {
+	public ExerciseDAO() {
 		jdbcUtil = new JDBCUtil();
 	}
 	
-	@Override
 	public List<ExerciseDTO> getExerciseList() {
 		String allQuery = query +
 			   "FROM EXERCISE ORDER BY EXERCISE.EXERCISEID ASC ";		
@@ -47,7 +45,6 @@ public class ExerciseDAOImpl implements ExerciseDAO {
 		return null;
 	}
 
-	@Override
 	public ExerciseDTO getExerciseByName(String name) {
 		String searchQuery = query +
 		        "FROM EXERCISE " +

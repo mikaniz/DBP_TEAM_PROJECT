@@ -1,5 +1,5 @@
 package persistence.dao;
 
-public class ChoiceDAOImpl {
+public class ChoiceDAO {
 
 }
