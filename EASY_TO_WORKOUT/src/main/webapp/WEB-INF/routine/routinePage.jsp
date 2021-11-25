@@ -106,6 +106,11 @@ th, td {
 	text-align: center;
 }
 </style>
+<script>
+function search() {
+	searchForm.submit();
+}
+</script>
 
 </head>
 
@@ -167,10 +172,15 @@ th, td {
 		<div style="float: right">
 			<!-- 검색창 -->
 			<div id="search" style="width: 700px; height: 50px;">
-				<form name="searchForm" method="POST" action="<c:url value='/routine/list' />">
-					<input type="text" name="searchRoutine" placeholder="검색할 루틴을 입력하세요."
-						style="width: 580px; height: 42px;"> 
-					<input id="searchButton" type="button" value="검색" onclick="">
+				<form name="searchForm" method="POST" action="<c:url value='/routine/find' />">
+					<input type="text" name="searchRoutine" placeholder="
+						<c:choose>
+							<c:when test="${findRoutineFailed}">${exception.getMessage()}</c:when>
+							<c:otherwise>루틴을 입력하세요</c:otherwise>
+						</c:choose>
+					" style="width: 580px; height: 42px;"> 
+	    			<input id="searchButton" type="button"
+						value="검색" onclick="search()">
 				</form>
 			</div>
 			<!-- 전체 루틴 목록 -->
@@ -197,7 +207,7 @@ th, td {
 								<td>${routine.rName}</td>
 								<td>${routine.routineCreater}</td>
 								<td>${routine.part}</td>
-								<td><input id="etcButton" type='BUTTON' value="더보기"></td>
+								<td><input id="etcButton" type='BUTTON' value="더보기" onclick="location.href='<c:url value='/routine/detail' />'"></td>
 							</tr>
 						</c:forEach>
 					</table>
