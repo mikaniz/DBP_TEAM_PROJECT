@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import persistence.util.JDBCUtil;
-import service.dto.ClubScheduleDTO;
+import service.dto.ClubSchedule;
 
 public class ClubScheduleDAO {
 	private JDBCUtil jdbcUtil = null;	
@@ -20,17 +20,17 @@ public class ClubScheduleDAO {
 		jdbcUtil = new JDBCUtil(); 
 	}
 
-	public List<ClubScheduleDTO> getClubScheduleList() {
+	public List<ClubSchedule> getClubScheduleList() {
 		// TODO Auto-generated method stub
 		String allQuery = query + "FROM CLUBSCHEDULE ORDER BY CLUBID";
 		
 		jdbcUtil.setSqlAndParameters(allQuery, null);
 		try {
 			ResultSet rs = jdbcUtil.executeQuery(); 
-			List<ClubScheduleDTO> list = new ArrayList<ClubScheduleDTO>(); 
+			List<ClubSchedule> list = new ArrayList<ClubSchedule>(); 
 			
 			while (rs.next()) {
-				ClubScheduleDTO dto = new ClubScheduleDTO(); 
+				ClubSchedule dto = new ClubSchedule(); 
 				dto.setClubId(rs.getInt("CLUBID"));
 				dto.setScheduleId(rs.getInt("SCHEDULEID"));
 				dto.setContactAddress(rs.getString("CONTACTADDRESS"));
@@ -49,7 +49,7 @@ public class ClubScheduleDAO {
 		return null;
 	}
 
-	public ClubScheduleDTO getClubScheduleById(int clubScheduleId, int clubId) {
+	public ClubSchedule getClubScheduleById(int clubScheduleId, int clubId) {
 		// TODO Auto-generated method stub
 		String searchQuery = query + "FROM CLUBSCHEDULE WHERE CLUBSCHEDULEID = ? AND CLUBID = ?";
 		
@@ -58,10 +58,10 @@ public class ClubScheduleDAO {
 		
 		try {
 			ResultSet rs = jdbcUtil.executeQuery(); 
-			ClubScheduleDTO schedule = null;
+			ClubSchedule schedule = null;
 			
 			if (rs.next()) {
-				schedule = new ClubScheduleDTO(); 
+				schedule = new ClubSchedule(); 
 				schedule.setClubId(rs.getInt("CLUBID"));
 				schedule.setScheduleId(rs.getInt("SCHEDULEID"));
 				schedule.setContactAddress(rs.getString("CONTACTADDRESS"));
@@ -78,7 +78,7 @@ public class ClubScheduleDAO {
 		return null;
 	}
 
-	public int insertClubSchedule(ClubScheduleDTO clubSchedule) {
+	public int insertClubSchedule(ClubSchedule clubSchedule) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

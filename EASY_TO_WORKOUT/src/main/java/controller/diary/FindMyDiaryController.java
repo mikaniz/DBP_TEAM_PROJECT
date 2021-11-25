@@ -8,7 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import controller.Controller;
 import service.DiaryServiceImpl;
-import service.dto.DiaryDTO;
+import service.dto.Diary;
 import service.exception.DiaryNotFoundException;
 import controller.member.MemberSessionUtils;
 
@@ -23,7 +23,7 @@ public class FindMyDiaryController implements Controller {
 		
 		String diaryTitle = request.getParameter("searchMyDiary");
 		try {
-			List<DiaryDTO> diaryList = service.getMyDiaryByTitle(id, diaryTitle);
+			List<Diary> diaryList = service.getMyDiaryByTitle(id, diaryTitle);
 			request.setAttribute("diaryList", diaryList);
 			
 			return "/diary/myDiaryPage.jsp";

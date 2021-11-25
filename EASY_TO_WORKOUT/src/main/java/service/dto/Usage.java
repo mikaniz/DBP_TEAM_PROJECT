@@ -1,6 +1,6 @@
 package service.dto;
 
-public class UsageDTO {
+public class Usage {
 
 	private int clubId = 0;
 	private String scheduleId = null;

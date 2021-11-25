@@ -1,6 +1,6 @@
 package service.dto;
 
-public class RoutineDTO {
+public class Routine {
 	private int routineId = 0;
 	private String rName = null;
 	private int rTime = 0;

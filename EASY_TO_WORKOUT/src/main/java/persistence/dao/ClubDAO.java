@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import persistence.util.JDBCUtil;
-import service.dto.ClubDTO;
+import service.dto.Club;
 import service.exception.ExistingClubException;
 
 public class ClubDAO  {
@@ -23,7 +23,7 @@ public class ClubDAO  {
 		jdbcUtil = new JDBCUtil(); 
 	}
 	
-	public List<ClubDTO> getClubList() throws SQLException {
+	public List<Club> getClubList() throws SQLException {
 		// TODO Auto-generated method stub
 		String allQuery = query + ", COUNT(MEMBERSHIP.CLUBID) AS COUNTMEMBER " + 
 				"FROM CLUB LEFT OUTER JOIN MEMBERSHIP ON CLUB.CLUBID = MEMBERSHIP.CLUBID " + 
@@ -32,10 +32,10 @@ public class ClubDAO  {
 		jdbcUtil.setSqlAndParameters(allQuery, null);
 		try {
 			ResultSet rs = jdbcUtil.executeQuery(); 
-			List<ClubDTO> list = new ArrayList<ClubDTO>(); 
+			List<Club> list = new ArrayList<Club>(); 
 			
 			while (rs.next()) {
-				ClubDTO dto = new ClubDTO(); 
+				Club dto = new Club(); 
 				dto.setClubId(rs.getInt("CLUBID"));
 				dto.setSignUp(rs.getString("SIGNUP"));
 				dto.setOpenCycle(rs.getString("OPENCYCLE"));
@@ -56,7 +56,7 @@ public class ClubDAO  {
 		return null;
 	}	
 
-	public ClubDTO getClubById(int clubId) { 
+	public Club getClubById(int clubId) { 
 		// TODO Auto-generated method stub
 		String searchQuery = query + " FROM CLUB WHERE CLUBID = ?";
 		
@@ -65,10 +65,10 @@ public class ClubDAO  {
 		
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();
-			ClubDTO club = null;
+			Club club = null;
 			
 			if (rs.next()) {
-				club = new ClubDTO(); 
+				club = new Club(); 
 				club.setClubId(rs.getInt("CLUBID"));
 				club.setSignUp(rs.getString("SIGNUP"));
 				club.setOpenCycle(rs.getString("OPENCYCLE"));
@@ -86,7 +86,7 @@ public class ClubDAO  {
 		return null;
 	}
 
-	public List<ClubDTO> getClubByName(String clubName) throws ExistingClubException, SQLException {
+	public List<Club> getClubByName(String clubName) throws ExistingClubException, SQLException {
 		// TODO Auto-generated method stub
 		String searchQuery = query + ", COUNT(MEMBERSHIP.CLUBID) AS COUNTMEMBER " + 
 				"FROM CLUB LEFT OUTER JOIN MEMBERSHIP ON CLUB.CLUBID = MEMBERSHIP.CLUBID " + 
@@ -98,10 +98,10 @@ public class ClubDAO  {
 		
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();
-			List<ClubDTO> list = new ArrayList<ClubDTO>();
+			List<Club> list = new ArrayList<Club>();
 			
 			while (rs.next()) {
-				ClubDTO dto = new ClubDTO(); 
+				Club dto = new Club(); 
 				dto.setClubId(rs.getInt("CLUBID"));
 				dto.setSignUp(rs.getString("SIGNUP"));
 				dto.setOpenCycle(rs.getString("OPENCYCLE"));
@@ -121,7 +121,7 @@ public class ClubDAO  {
 		return null;
 	}
 
-	public List<ClubDTO> getSortedClub(String sortWith) { 
+	public List<Club> getSortedClub(String sortWith) { 
 		// TODO Auto-generated method stub
 		if (sortWith.equals("clubName")) {
 			String sortQuery = query + ", COUNT(MEMBERSHIP.CLUBID) AS COUNTMEMBER " + 
@@ -150,10 +150,10 @@ public class ClubDAO  {
 		
 		try {
 			ResultSet rs = jdbcUtil.executeQuery(); 
-			List<ClubDTO> list = new ArrayList<ClubDTO>(); 
+			List<Club> list = new ArrayList<Club>(); 
 			
 			while (rs.next()) {
-				ClubDTO dto = new ClubDTO(); 
+				Club dto = new Club(); 
 				dto.setClubId(rs.getInt("CLUBID"));
 				dto.setSignUp(rs.getString("SIGNUP"));
 				dto.setOpenCycle(rs.getString("OPENCYCLE"));
@@ -194,7 +194,7 @@ public class ClubDAO  {
 		return false;
 	}
 	
-	public int insertClub(ClubDTO club) throws SQLException { 
+	public int insertClub(Club club) throws SQLException { 
 		// TODO Auto-generated method stub
 		String insertQuery = "INSERT INTO "
 				+ "CLUB (CLUBID, SIGNUP, OPENCYCLE, CLUBINTRO, CLUBNAME, CLUBMASTER) "

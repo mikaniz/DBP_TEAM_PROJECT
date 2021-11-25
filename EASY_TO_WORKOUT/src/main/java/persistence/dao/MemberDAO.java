@@ -14,15 +14,15 @@ public class MemberDAO {
 		jdbcUtil = new JDBCUtil();
 	}
 	
-	public List<MemberDTO> getMemberList() {
+	public List<Member> getMemberList() {
 		String allQuery = "SELECT * FROM member";
 		jdbcUtil.setSqlAndParameters(allQuery, null);
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();
-			List<MemberDTO> list = new ArrayList<MemberDTO>();
+			List<Member> list = new ArrayList<Member>();
 			
 			while (rs.next()) {
-				MemberDTO dto = new MemberDTO();
+				Member dto = new Member();
 				dto.setId(rs.getString("memberId"));
 				dto.setPw(rs.getString("pw"));
 				dto.setName(rs.getString("name"));
@@ -39,15 +39,15 @@ public class MemberDAO {
 		return null;
 	}
 
-	public MemberDTO getMemberById(String id) {
+	public Member getMemberById(String id) {
 		String searchQuery = "SELECT * FROM member WHERE memberId=?";
 		Object[] param = new Object[] {id};
 		jdbcUtil.setSqlAndParameters(searchQuery, param);
-		MemberDTO dto = null;
+		Member dto = null;
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();
 			if (rs.next()) {
-				dto = new MemberDTO();
+				dto = new Member();
 				dto.setId(rs.getString("memberId"));
 				dto.setPw(rs.getString("pw"));
 				dto.setName(rs.getString("name"));
@@ -63,7 +63,7 @@ public class MemberDAO {
 		return dto;
 	}
 
-	public int insertMember(MemberDTO member) {
+	public int insertMember(Member member) {
 		int result = 0;
 		String insertQuery = "INSERT INTO "
 				+ "member (memberId, pw, name, phone, email, grade) "
@@ -83,7 +83,7 @@ public class MemberDAO {
 		return result;
 	}
 
-	public int updateMember(MemberDTO member) {
+	public int updateMember(Member member) {
 		int result = 0;
 		String updateQuery = "UPDATE member "
 				+ "SET pw=?, name=?, phone=?, email=?, grade=? "

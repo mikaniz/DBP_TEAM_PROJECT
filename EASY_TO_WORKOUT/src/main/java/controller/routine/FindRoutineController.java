@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import controller.Controller;
 import service.RoutineServiceImpl;
-import service.dto.RoutineDTO;
+import service.dto.Routine;
 import service.exception.ExistingRoutineException;
 
 
@@ -21,7 +21,7 @@ public class FindRoutineController implements Controller{
 		String routineName = request.getParameter("searchRoutine");
 		
 		try {
-			List<RoutineDTO> routineList = service.getRoutineByName(routineName);
+			List<Routine> routineList = service.getRoutineByName(routineName);
 			request.setAttribute("routineList", routineList);
 			
 			return "/routine/routinePage.jsp";

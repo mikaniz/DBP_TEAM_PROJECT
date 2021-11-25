@@ -2,7 +2,7 @@ package service.dto;
 
 import java.sql.Timestamp;
 
-public class DiaryDTO {
+public class Diary {
 
 	private int diaryId = 0;
 	private String title = null;

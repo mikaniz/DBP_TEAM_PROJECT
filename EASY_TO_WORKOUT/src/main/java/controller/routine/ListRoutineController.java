@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import controller.Controller;
-import service.dto.RoutineDTO;
+import service.dto.Routine;
 import service.RoutineServiceImpl;
 
 public class ListRoutineController implements Controller {
@@ -15,7 +15,7 @@ public class ListRoutineController implements Controller {
 		RoutineServiceImpl manager = RoutineServiceImpl.getInstance();
 		
 		if (request.getMethod().equals("GET")) {
-			List<RoutineDTO> routineList = manager.ListingRoutines();
+			List<Routine> routineList = manager.ListingRoutines();
 			request.setAttribute("routineList", routineList);
 			
 			return "/routine/routinePage.jsp";
@@ -26,19 +26,19 @@ public class ListRoutineController implements Controller {
 		if (type.equals("1")) {
 			request.setAttribute("checkedOne", true);
 			
-			List<RoutineDTO> routineList = manager.ListingRoutines();
+			List<Routine> routineList = manager.ListingRoutines();
 			request.setAttribute("routineList", routineList);
 		}
 		else if (type.equals("2")) {
 			request.setAttribute("checkedTwo", true);
 			
-			List<RoutineDTO> routineList = manager.ListingRoutinesByPublic();
+			List<Routine> routineList = manager.ListingRoutinesByPublic();
 			request.setAttribute("routineList", routineList);
 		}
 		else if (type.equals("3")) {
 			request.setAttribute("checkedThree", true);
 			
-			List<RoutineDTO> routineList = manager.ListingRoutinesByPersonal();
+			List<Routine> routineList = manager.ListingRoutinesByPersonal();
 			request.setAttribute("routineList", routineList);
 		}
 		

@@ -1,6 +1,6 @@
 package service.dto;
 
-public class ExerciseDTO {
+public class Exercise {
 	private int exerciseId = 0;
 	private String name = null;
 	private String part = null;

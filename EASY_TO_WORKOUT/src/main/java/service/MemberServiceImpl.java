@@ -3,7 +3,7 @@ package service;
 import java.sql.SQLException;
 
 import persistence.dao.MemberDAO;
-import service.dto.MemberDTO;
+import service.dto.Member;
 import service.exception.MemberNotFoundException;
 import service.exception.PasswordMismatchException;
 
@@ -24,9 +24,9 @@ public class MemberServiceImpl {
 		return memberService;
 	}
 	
-	public MemberDTO findMember(String id)
+	public Member findMember(String id)
 		throws SQLException, MemberNotFoundException {
-		MemberDTO member = memberDAO.getMemberById(id);
+		Member member = memberDAO.getMemberById(id);
 		
 		if (member == null) {
 			throw new MemberNotFoundException(id + "는 존재하지 않는 아이디입니다.");
@@ -36,7 +36,7 @@ public class MemberServiceImpl {
 	
 	public boolean login(String id, String pw)
 		throws SQLException, MemberNotFoundException, PasswordMismatchException {
-		MemberDTO member = findMember(id);
+		Member member = findMember(id);
 		
 		if (!member.matchPassword(pw)) {
 			throw new PasswordMismatchException("비밀번호가 일치하지 않습니다.");

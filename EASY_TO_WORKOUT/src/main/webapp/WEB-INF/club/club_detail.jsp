@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@page contentType="text/html; charset=utf-8" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -101,52 +100,52 @@ th, td {
 </head>
 
 <body>
-	<!-- ¿îµ¿ÇÏ±â ÆíÇÏ±º&·Î°í -->
+	<!-- ìš´ë™í•˜ê¸° íŽ¸í•˜êµ°&ë¡œê³  -->
 	<div style="text-align: center">
-		<a href="../../mainPage.jsp"><img src="../images/logo.PNG"
+		<a href="<c:url value='/main' />"><img src="<c:url value='/images/logo.PNG' />"
 			width=500px height=130px /></a>
 	</div>
-	<!-- µ¹¾Æ°¡±â ¹öÆ° -->
+	<!-- ëŒì•„ê°€ê¸° ë²„íŠ¼ -->
 
 	<hr>
-	<!-- ¸Þ´º¹Ù -->
+	<!-- ë©”ë‰´ë°” -->
 	<nav class="menu">
 		<ul class="mainMenu">
-			<li><a href='../club/clubPage.jsp'>¸ðÀÓ</a></li>
-			<li><a href='../routine/routinePage.jsp'>·çÆ¾</a></li>
-			<li><a href='#'>´ÙÀÌ¾î¸®</a>
+			<li><a href='<c:url value='/club/list' />'>ëª¨ìž„</a></li>
+			<li><a href='<c:url value='/routine/list' />'>ë£¨í‹´</a></li>
+			<li><a href='#'>ë‹¤ì´ì–´ë¦¬</a>
 				<ul class="subMenu">
-					<li><a href='#'>MY ´ÙÀÌ¾î¸®</a></li>
-					<li><a href='#'>ÀüÃ¼ ´ÙÀÌ¾î¸®</a></li>
+					<li><a href='<c:url value='/diary/my/list' />'>MY ë‹¤ì´ì–´ë¦¬</a></li>
+					<li><a href='<c:url value='/diary/all/list' />'>ì „ì²´ ë‹¤ì´ì–´ë¦¬</a></li>
 				</ul></li>
 		</ul>
 	</nav>
 
 	<hr>
 	<div class="container">
-		<!-- È¸¿øÁ¤º¸ Æ² -->
+		<!-- íšŒì›ì •ë³´ í‹€ -->
 		<div
 			style="width: 400px; height: 600px; border: 1px solid; float: left; margin-right: 10px;">
 			<div style="height: 530px;">
-				<h3 style="margin: 20px;">È¸¿øÁ¤º¸</h3>
+				<h3 style="margin: 20px;">íšŒì›ì •ë³´</h3>
 				<table id="memberDataTable">
 					<tr>
-						<td><img src="../../images/somsom.jpg" width=150px height=230px />
+						<td><img src="<c:url value='/images/somsom.jpg' />" width=150px height=230px />
 						</td>
-						<td>ÀÌ¸§ : ±èµ¿´ö
-							<p /> µî±Þ : »õ½Ï
-							<p /> <br> <a href='#'>È¸¿øÁ¤º¸ ¼öÁ¤</a>
+						<td>ì´ë¦„ : ê¹€ë™ë•
+							<p /> ë“±ê¸‰ : ìƒˆì‹¹
+							<p /> <br> <a href='#'>íšŒì›ì •ë³´ ìˆ˜ì •</a>
 							<p>
-								<a href='#'>·Î±×¾Æ¿ô</a>
+								<a href='#'>ë¡œê·¸ì•„ì›ƒ</a>
 						</td>
 					</tr>
 				</table>
 				<br>
 				<hr>
 				<article>
-					<h4 style="margin: 20px;">³» ¸ðÀÓ ¸ñ·Ï</h4>
+					<h4 style="margin: 20px;">ë‚´ ëª¨ìž„ ëª©ë¡</h4>
 					<ul>
-						<li><a href='#'>ÅõÇöÁø</a></li>
+						<li><a href='#'>íˆ¬í˜„ì§„</a></li>
 						<li><a href='#'>ETW</a></li>
 					</ul>
 				</article>
@@ -154,45 +153,45 @@ th, td {
 		</div>
 
 		<div style="float: right">
-			<!-- ¸ðÀÓ »ó¼¼ Á¤º¸ Ãâ·Â ºÎºÐ  -->
+			<!-- ëª¨ìž„ ìƒì„¸ ì •ë³´ ì¶œë ¥ ë¶€ë¶„  -->
 			<div id="clubInfoOutput">
-				<h3 style="margin: 20px;">¸ðÀÓ »ó¼¼ Á¤º¸</h3>
+				<h3 style="margin: 20px;">ëª¨ìž„ ìƒì„¸ ì •ë³´</h3>
 				<hr>
 				<table id="clubTable">
 					<tr id="clubTableTr">
-						<td style="width: 130px;">¸ðÀÓ ÀÌ¸§ :</td>
+						<td style="width: 130px;">ëª¨ìž„ ì´ë¦„ :</td>
 						<td style="text-align:left;">
-							<p>¸ðÀÓ ÀÌ¸§ Ãâ·Â
+							<p>ëª¨ìž„ ì´ë¦„ ì¶œë ¥
 						</td>
 						<td >
-						<input id="scheduleDetailButton" type="button" value="ÀÏÁ¤ º¸±â"
-							onclick="location.href='./schedule_list.jsp'">
+						<input id="scheduleDetailButton" type="button" value="ì¼ì • ë³´ê¸°"
+							onclick="">
 					</td>
 					</tr>
 					<tr id="clubTableTr">
-						<td style="width: 130px;">¸ðÀÓ À¯Çü :</td>
+						<td style="width: 130px;">ëª¨ìž„ ìœ í˜• :</td>
 						<td colspan=2 style="text-align:left;">
-							<p>Á¤±âÀû or ÀÏ½ÃÀû
+							<p>ì •ê¸°ì  or ì¼ì‹œì 
 						</td>
 					</tr>
 					<tr id="clubTableTr">
-						<td style="width: 130px;">ÃÊ´ë À¯Çü :</td>
+						<td style="width: 130px;">ì´ˆëŒ€ ìœ í˜• :</td>
 						<td colspan=2 style="text-align:left;">
-							<p>ÃÊ´ë or ÀÚÀ¯
+							<p>ì´ˆëŒ€ or ìžìœ 
 						</td>
 					</tr>
 					<tr id="clubTableTr">
-						<td style="width: 130px;">¸ðÀÓ ¼Ò°³ :</td>
+						<td style="width: 130px;">ëª¨ìž„ ì†Œê°œ :</td>
 						<td colspan=2 style="text-align:left;">
 							<textarea rows=13 cols=60
 								style="resize: none; font-size: 14px;" readonly="readonly" disabled>
-								°³¼³ÀÚ ¼Ò°³ ¹× ¸ðÀÓ ÁøÇà ¹æ¹ý, °øÁö»çÇ×, ±ÔÄ¢ µî
+								ê°œì„¤ìž ì†Œê°œ ë° ëª¨ìž„ ì§„í–‰ ë°©ë²•, ê³µì§€ì‚¬í•­, ê·œì¹™ ë“±
 							</textarea></td>
 					</tr>
 				</table>
 				<div style="text-align: center;">
-					<input id="backButton" type="button" value="µ¹¾Æ°¡±â"
-						onclick="location.href='./clubPage.jsp'">
+					<input id="backButton" type="button" value="ëŒì•„ê°€ê¸°"
+						onclick="location.href='<c:url value='/club/list' />'">
 				</div>
 			</div>
 		</div>

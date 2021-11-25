@@ -1,6 +1,6 @@
 package service.dto;
 
-public class ClubDTO {
+public class Club {
 	
 	private int clubId = 0; // 모임 id (PK)
 	private String signUp = null; // 가입 방법 (0-초대가입/1-자유가입)

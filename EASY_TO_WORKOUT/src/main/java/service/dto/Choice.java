@@ -1,6 +1,6 @@
 package service.dto;
 
-public class ChoiceDTO {
+public class Choice {
 	private int exerciseId = 0;
 	private int routineId = 0;
 	private int sequence = 0;
