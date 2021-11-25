@@ -5,10 +5,9 @@ import java.util.List;
 import java.sql.ResultSet;
 
 import service.dto.RoutineDTO;
-import persistence.dao.RoutineDAO;
 import persistence.util.JDBCUtil;
 
-public class RoutineDAOImpl implements RoutineDAO {
+public class RoutineDAO {
 	
 	private JDBCUtil jdbcUtil = null;
 	
@@ -20,11 +19,10 @@ public class RoutineDAOImpl implements RoutineDAO {
 	         "ROUTINE.PART AS ROUTINE_PART, " +
 	         "ROUTINE.ROUTINECREATER AS ROUTINE_CREATER ";
 	
-	public RoutineDAOImpl() {
+	public RoutineDAO() {
 		jdbcUtil = new JDBCUtil();
 	}
 
-	@Override
 	public List<RoutineDTO> getRoutineList() {
 		String allQuery = query + "FROM ROUTINE ORDER BY ROUTINE_ID ASC ";		
 		jdbcUtil.setSqlAndParameters(allQuery, null);		// JDBCUtil 에 query 설정
@@ -54,7 +52,6 @@ public class RoutineDAOImpl implements RoutineDAO {
 		return null;
 	}
 
-	@Override
 	public List<RoutineDTO> getRoutineListByPublic() {
 		String searchQuery = query +
 			        "FROM ROUTINE " +
@@ -86,7 +83,6 @@ public class RoutineDAOImpl implements RoutineDAO {
 		return null;
 	}
 
-	@Override
 	public List<RoutineDTO> getRoutineListByPersonal() {
 		String searchQuery = query + 
 		        "FROM ROUTINE " +
@@ -118,7 +114,6 @@ public class RoutineDAOImpl implements RoutineDAO {
 		return null;
 	}
 	
-	@Override
 	public List<RoutineDTO> getRoutineByName(String rName) { // 루틴 이름으로 모임 검색
 		// TODO Auto-generated method stub
 		String searchQuery = query +
@@ -154,7 +149,6 @@ public class RoutineDAOImpl implements RoutineDAO {
 		return null;
 	}
 
-	@Override
 	public int insertRoutine(RoutineDTO routine) {
 		int result = 0;
 		String insertQuery = "INSERT INTO "
@@ -180,7 +174,6 @@ public class RoutineDAOImpl implements RoutineDAO {
 		return result;
 	}
 
-	@Override
 	public int updateRoutine(RoutineDTO routine) {
 		int result = 0;
 		String updateQuery = "UPDATE ROUTINE "
@@ -206,7 +199,6 @@ public class RoutineDAOImpl implements RoutineDAO {
 		return result;
 	}
 
-	@Override
 	public int deleteRoutine(int routineId) {
 		String deleteQuery = "DELETE FROM ROUTINE WHERE ROUTINEID = ?";
 		
@@ -227,7 +219,6 @@ public class RoutineDAOImpl implements RoutineDAO {
 		return 0;
 	}
 
-	@Override
 	public RoutineDTO getRoutineById(int routineId) {
 		String searchQuery = query +
 		        "FROM ROUTINE " +
