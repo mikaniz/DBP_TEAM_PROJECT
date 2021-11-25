@@ -117,6 +117,42 @@ public class RoutineDAOImpl implements RoutineDAO {
 		}
 		return null;
 	}
+	
+	@Override
+	public List<RoutineDTO> getRoutineByName(String rName) { // 루틴 이름으로 모임 검색
+		// TODO Auto-generated method stub
+		String searchQuery = query +
+				"FROM ROUTINE " +
+		        "WHERE RNAME = ? ";
+		
+		Object[] param = new Object[] {rName}; // 루틴 이름으로 검색 후 정렬 조건 설정
+		jdbcUtil.setSqlAndParameters(searchQuery, param);
+		
+		try {
+			ResultSet rs = jdbcUtil.executeQuery(); // query문 실행
+			List<RoutineDTO> list = new ArrayList<RoutineDTO>();
+			
+			while (rs.next()) {
+				RoutineDTO dto = new RoutineDTO(); // RoutineDTO 객체 생성 후 검색 결과 저장
+				dto.setRoutineId(rs.getInt("ROUTINE_ID"));
+				dto.setrName(rs.getString("ROUTINE_NAME"));
+				dto.setrTime(rs.getInt("ROUTINE_TIME"));
+				dto.setDifficulty(rs.getInt("ROUTINE_DIFFICULTY"));
+				dto.setrType(rs.getString("ROUTINE_TYPE"));
+				dto.setPart(rs.getString("ROUTINE_PART"));
+				dto.setRoutineCreater(rs.getString("ROUTINE_CREATER"));
+				
+				list.add(dto); // 리스트에 DTO 객체 저장
+			}
+			return list; // 루틴 정보를 저장한 DTO 객체들의 리스트 반환
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			jdbcUtil.close(); // ResultSet, PreparedStatement, Connection 반환
+		}
+		
+		return null;
+	}
 
 	@Override
 	public int insertRoutine(RoutineDTO routine) {
@@ -192,12 +228,12 @@ public class RoutineDAOImpl implements RoutineDAO {
 	}
 
 	@Override
-	public RoutineDTO getRoutineByName(String rName) {
-		String searchQuery = query + ", " + "ROUTINE.ROUTINECREATER AS ROUTINE_CREATER " +
+	public RoutineDTO getRoutineById(int routineId) {
+		String searchQuery = query +
 		        "FROM ROUTINE " +
-		        "WHERE ROUTINE.RNAME = ? ";
+		        "WHERE ROUTINE.ROUTINEID = ? ";
 	
-		Object[] param = new Object[] { rName };
+		Object[] param = new Object[] { routineId };
 		
 		jdbcUtil.setSqlAndParameters(searchQuery, param);
 

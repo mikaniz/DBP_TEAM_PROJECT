@@ -9,18 +9,6 @@ public class RoutineDTO {
 	private String part = null;
 	private String routineCreater = null;
 	
-	public RoutineDTO() {}
-	
-	public RoutineDTO(int routineId, String rName, int rTime, int difficulty, String rType, String part, String routineCreater) {
-		this.routineId = routineId;
-		this.rName = rName;
-		this.rTime = rTime;
-		this.difficulty = difficulty;
-		this.rType = rType;
-		this.part = part;
-		this.routineCreater = routineCreater;
-	}
-	
 	public int getRoutineId() {
 		return routineId;
 	}
