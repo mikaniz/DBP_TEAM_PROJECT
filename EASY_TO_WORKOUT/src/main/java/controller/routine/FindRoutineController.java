@@ -16,12 +16,12 @@ public class FindRoutineController implements Controller{
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
-		RoutineManager service = RoutineManager.getInstance();
+		RoutineManager manager = RoutineManager.getInstance();
 		
 		String routineName = request.getParameter("searchRoutine");
 		
 		try {
-			List<Routine> routineList = service.getRoutineByName(routineName);
+			List<Routine> routineList = manager.getRoutineByName(routineName);
 			request.setAttribute("routineList", routineList);
 			
 			return "/routine/routinePage.jsp";
