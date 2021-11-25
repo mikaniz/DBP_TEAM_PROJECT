@@ -66,6 +66,11 @@ public class RequestMapping {
     	mappings.put("/routine/update", new UpdateRoutineController());
     	mappings.put("/routine/find", new FindRoutineController());
         
+    	// 운동 관리
+    	mappings.put("/exercise/list", new ListExerciseController());
+    	mappings.put("/exercise/detail", new DetailExerciseController());
+    	mappings.put("/exercise/find", new FindExerciseController());
+    	
         logger.info("Initialized Request Mapping!");
     }
 
