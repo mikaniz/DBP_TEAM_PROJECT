@@ -6,11 +6,11 @@ import persistence.dao.ExerciseDAO;
 import service.dto.Exercise;
 
 
-public class ExerciseServiceImpl {
+public class ExerciseManager {
 
 	private ExerciseDAO dao = null;
 	
-	public ExerciseServiceImpl() {
+	public ExerciseManager() {
 		DAOFactory factory = new DAOFactory();
 		dao = factory.getExerciseDAO();
 	}

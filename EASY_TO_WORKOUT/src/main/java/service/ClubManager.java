@@ -9,19 +9,19 @@ import persistence.dao.ClubDAO;
 import service.dto.Club;
 import service.exception.ExistingClubException;
 
-public class ClubServiceImpl {
+public class ClubManager {
 	
-	private static ClubServiceImpl clubService = new ClubServiceImpl(); 
+	private static ClubManager clubService = new ClubManager(); 
 	private ClubDAO clubDao;
 //	private MemberDAO memberDao;
 	
-	private ClubServiceImpl() {							// DAOFactory 클래스의 객체 생성
+	private ClubManager() {							// DAOFactory 클래스의 객체 생성
 		DAOFactory factory = new DAOFactory();
 		clubDao = factory.getClubDAO();
 //		memberDao = factory.getMemberDAO();
 	}
 	
-	public static ClubServiceImpl getInstance() {	return clubService;		}
+	public static ClubManager getInstance() {	return clubService;		}
 
 	public List<Club> listingClub() throws SQLException {				// ClubDAO를 통해 모임 정보 목록 획득
 		// TODO Auto-generated method stub

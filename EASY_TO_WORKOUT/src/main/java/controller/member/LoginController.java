@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import controller.Controller;
-import service.MemberServiceImpl;
+import service.MemberManager;
 
 public class LoginController implements Controller {
 
@@ -16,7 +16,7 @@ public class LoginController implements Controller {
 		
 		try {
 			// 모델에 로그인 처리를 위임
-			MemberServiceImpl manager = MemberServiceImpl.getInstance();
+			MemberManager manager = MemberManager.getInstance();
 			manager.login(id, pw);
 	
 			// 세션에 사용자 이이디 저장

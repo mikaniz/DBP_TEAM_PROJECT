@@ -9,12 +9,12 @@ import java.sql.SQLException;
 import service.dto.Diary;
 import service.exception.DiaryNotFoundException;
 
-public class DiaryServiceImpl {
+public class DiaryManager {
 
-	private static DiaryServiceImpl diaryService = new DiaryServiceImpl();
+	private static DiaryManager diaryService = new DiaryManager();
 	private DiaryDAO diaryDAO;
 	
-	private DiaryServiceImpl() {
+	private DiaryManager() {
 		try {
 			diaryDAO = new DiaryDAO();
 		} catch (Exception e) {
@@ -22,7 +22,7 @@ public class DiaryServiceImpl {
 		}
 	}
 	
-	public static DiaryServiceImpl getInstance() {
+	public static DiaryManager getInstance() {
 		return diaryService;
 	}
 

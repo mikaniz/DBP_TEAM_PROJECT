@@ -7,12 +7,12 @@ import service.dto.Member;
 import service.exception.MemberNotFoundException;
 import service.exception.PasswordMismatchException;
 
-public class MemberServiceImpl {
+public class MemberManager {
 
-	private static MemberServiceImpl memberService = new MemberServiceImpl();
+	private static MemberManager memberService = new MemberManager();
 	private MemberDAO memberDAO;
 	
-	private MemberServiceImpl() {
+	private MemberManager() {
 		try {
 			memberDAO = new MemberDAO();
 		} catch (Exception e) {
@@ -20,7 +20,7 @@ public class MemberServiceImpl {
 		}
 	}
 	
-	public static MemberServiceImpl getInstance() {
+	public static MemberManager getInstance() {
 		return memberService;
 	}
 	

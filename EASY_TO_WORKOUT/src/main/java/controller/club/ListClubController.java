@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 //import org.slf4j.LoggerFactory;
 
 import controller.Controller;
-import service.ClubServiceImpl;
+import service.ClubManager;
 import service.dto.Club;
 
 public class ListClubController implements Controller {
@@ -19,7 +19,7 @@ public class ListClubController implements Controller {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
-		ClubServiceImpl service = ClubServiceImpl.getInstance();
+		ClubManager service = ClubManager.getInstance();
 		
 		if (request.getMethod().equals("GET")) {
 			List<Club> clubList = service.listingClub();

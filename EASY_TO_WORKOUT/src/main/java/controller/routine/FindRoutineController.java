@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import controller.Controller;
-import service.RoutineServiceImpl;
+import service.RoutineManager;
 import service.dto.Routine;
 import service.exception.ExistingRoutineException;
 
@@ -16,7 +16,7 @@ public class FindRoutineController implements Controller{
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
-		RoutineServiceImpl service = RoutineServiceImpl.getInstance();
+		RoutineManager service = RoutineManager.getInstance();
 		
 		String routineName = request.getParameter("searchRoutine");
 		

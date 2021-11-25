@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import controller.Controller;
-import service.DiaryServiceImpl;
+import service.DiaryManager;
 import service.dto.Diary;
 import service.exception.DiaryNotFoundException;
 import controller.member.MemberSessionUtils;
@@ -19,7 +19,7 @@ public class FindMyDiaryController implements Controller {
 		HttpSession session = request.getSession();
 		String id = MemberSessionUtils.getLoginMemberId(session);
 		
-		DiaryServiceImpl service = DiaryServiceImpl.getInstance();
+		DiaryManager service = DiaryManager.getInstance();
 		
 		String diaryTitle = request.getParameter("searchMyDiary");
 		try {

@@ -6,14 +6,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import controller.Controller;
-import service.DiaryServiceImpl;
+import service.DiaryManager;
 import service.dto.Diary;
 
 public class ListAllDiaryController implements Controller {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		DiaryServiceImpl manager = DiaryServiceImpl.getInstance();
+		DiaryManager manager = DiaryManager.getInstance();
 		
 		if (request.getMethod().equals("GET")) {
 			List<Diary> diaryList = manager.findAllDiaryList();

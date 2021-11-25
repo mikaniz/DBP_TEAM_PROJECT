@@ -7,13 +7,13 @@ import persistence.DAOFactory;
 import persistence.dao.RoutineDAO;
 import service.dto.Routine;
 
-public class RoutineServiceImpl {
+public class RoutineManager {
 
-	private static RoutineServiceImpl rouSI = new RoutineServiceImpl();
+	private static RoutineManager rouSI = new RoutineManager();
 	private RoutineDAO dao;
 	private DAOFactory factory;
 	
-	public RoutineServiceImpl() {
+	public RoutineManager() {
 		try {
 			factory = new DAOFactory();
 			dao = factory.getRoutineDAO();
@@ -22,7 +22,7 @@ public class RoutineServiceImpl {
 		}
 	}
 	
-	public static RoutineServiceImpl getInstance() {
+	public static RoutineManager getInstance() {
 		return rouSI;
 	}
 	

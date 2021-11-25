@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import controller.Controller;
-import service.DiaryServiceImpl;
+import service.DiaryManager;
 import service.dto.Diary;
 import controller.member.MemberSessionUtils;
 
@@ -18,7 +18,7 @@ public class ListMyDiaryController implements Controller {
 		HttpSession session = request.getSession();
 		String id = MemberSessionUtils.getLoginMemberId(session);
 
-		DiaryServiceImpl manager = DiaryServiceImpl.getInstance();
+		DiaryManager manager = DiaryManager.getInstance();
 		
 		if (request.getMethod().equals("GET")) {
 			List<Diary> diaryList = manager.findMyDiaryList(id);

@@ -6,13 +6,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import controller.Controller;
 import service.dto.Routine;
-import service.RoutineServiceImpl;
+import service.RoutineManager;
 
 public class ListRoutineController implements Controller {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		RoutineServiceImpl manager = RoutineServiceImpl.getInstance();
+		RoutineManager manager = RoutineManager.getInstance();
 		
 		if (request.getMethod().equals("GET")) {
 			List<Routine> routineList = manager.ListingRoutines();

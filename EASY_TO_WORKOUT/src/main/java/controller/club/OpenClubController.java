@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import controller.Controller;
-import service.ClubServiceImpl;
+import service.ClubManager;
 import service.dto.Club;
 import service.exception.ExistingClubException;
 
@@ -27,7 +27,7 @@ public class OpenClubController implements Controller {
 		log.debug("Create club : {}", club);
 		
 		try {
-			ClubServiceImpl service = ClubServiceImpl.getInstance();
+			ClubManager service = ClubManager.getInstance();
 			service.insertClub(club);
 			
 			return "redirect:/club/list";

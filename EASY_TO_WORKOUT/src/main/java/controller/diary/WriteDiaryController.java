@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
 
 import controller.Controller;
-import service.DiaryServiceImpl;
+import service.DiaryManager;
 import service.dto.Diary;
 import controller.member.MemberSessionUtils;
 
@@ -36,7 +36,7 @@ public class WriteDiaryController implements Controller {
             String author = MemberSessionUtils.getLoginMemberId(session);
             diary.setAuthor(author);
             
-			DiaryServiceImpl manager = DiaryServiceImpl.getInstance();
+			DiaryManager manager = DiaryManager.getInstance();
 			manager.create(diary);
             
             return "redirect:/diary/all/list";			
