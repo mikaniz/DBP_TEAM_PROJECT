@@ -2,9 +2,10 @@ package service;
 
 import java.util.List;
 
+import persistence.dao.DiaryDAOImpl;
+
 import java.sql.SQLException;
 
-import persistence.dao.impl.DiaryDAOImpl;
 import service.dto.DiaryDTO;
 import service.exception.DiaryNotFoundException;
 

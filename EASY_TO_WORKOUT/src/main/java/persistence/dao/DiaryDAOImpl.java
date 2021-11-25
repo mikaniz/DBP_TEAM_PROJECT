@@ -1,4 +1,4 @@
-package persistence.dao.impl;
+package persistence.dao;
 
 import java.util.List;
 import java.util.ArrayList;

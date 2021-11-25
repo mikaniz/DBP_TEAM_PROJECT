@@ -2,7 +2,7 @@ package service;
 
 import java.sql.SQLException;
 
-import persistence.dao.impl.MemberDAOImpl;
+import persistence.dao.MemberDAOImpl;
 import service.dto.MemberDTO;
 import service.exception.MemberNotFoundException;
 import service.exception.PasswordMismatchException;

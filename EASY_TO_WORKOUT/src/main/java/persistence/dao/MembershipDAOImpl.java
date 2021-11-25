@@ -1,4 +1,4 @@
-package persistence.dao.impl;
+package persistence.dao;
 
 public class MembershipDAOImpl {
 

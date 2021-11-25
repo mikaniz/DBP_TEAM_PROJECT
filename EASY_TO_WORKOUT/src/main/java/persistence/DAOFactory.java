@@ -1,7 +1,6 @@
 package persistence;
 
 import persistence.dao.*;
-import persistence.dao.impl.*;
 
 // DAO 를 구현한 Implementation 객체를 생성하는 클래스
 public class DAOFactory {
