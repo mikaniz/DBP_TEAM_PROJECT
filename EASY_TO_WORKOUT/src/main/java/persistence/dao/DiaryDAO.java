@@ -3,19 +3,17 @@ package persistence.dao;
 import java.util.List;
 import java.util.ArrayList;
 import java.sql.*;
-import persistence.dao.*;
 import persistence.util.*;
 import service.dto.*;
 
-public class DiaryDAOImpl implements DiaryDAO {
+public class DiaryDAO {
 
 	private JDBCUtil jdbcUtil = null;
 	
-	public DiaryDAOImpl() {
+	public DiaryDAO() {
 		jdbcUtil = new JDBCUtil();
 	}
 	
-	@Override
 	public List<DiaryDTO> getAllDiaryList() {
 		String allDiaryQuery = "SELECT * FROM diary WHERE private=0";
 		jdbcUtil.setSqlAndParameters(allDiaryQuery, null);
@@ -44,7 +42,6 @@ public class DiaryDAOImpl implements DiaryDAO {
 		return null;
 	}
 
-	@Override
 	public List<DiaryDTO> getMyDiaryList(String memberId) {
 		String myDiaryQuery = "SELECT * FROM diary WHERE author=?";
 		Object[] param = new Object[] {memberId};
@@ -73,7 +70,6 @@ public class DiaryDAOImpl implements DiaryDAO {
 		return null;
 	}
 
-	@Override
 	public List<DiaryDTO> getSortedAllDiary(String sortType) {
 		String sortQuery = "SELECT * FROM diary WHERE private=0";
 		if (sortType.equals("date")) {
@@ -108,7 +104,6 @@ public class DiaryDAOImpl implements DiaryDAO {
 		return null;
 	}
 
-	@Override
 	public List<DiaryDTO> getSortedMyDiary(String memberId, String sortType) {
 		String sortQuery = "SELECT * FROM diary WHERE author=?";
 		Object[] param = new Object[] {memberId};
@@ -144,7 +139,6 @@ public class DiaryDAOImpl implements DiaryDAO {
 		return null;
 	}
 
-	@Override
 	public DiaryDTO getDiaryById(String id) {
 		String searchQuery = "SELECT * FROM diary WHERE diaryId=?";
 		Object[] param = new Object[] {id};
@@ -170,7 +164,6 @@ public class DiaryDAOImpl implements DiaryDAO {
 		return dto;
 	}
 
-	@Override
 	public List<DiaryDTO> getAllDiaryByTitle(String title) {
 		String searchQuery = "SELECT * FROM diary WHERE private=0 and title LIKE ?";
 		Object[] param = new Object[] {"%" + title + "%"};
@@ -199,7 +192,6 @@ public class DiaryDAOImpl implements DiaryDAO {
 		return null;
 	}
 
-	@Override
 	public List<DiaryDTO> getMyDiaryByTitle(String memberId, String title) {
 		String searchQuery = "SELECT * FROM diary WHERE author=? and title LIKE ?";
 		Object[] param = new Object[] {memberId, "%" + title + "%"};
@@ -228,7 +220,6 @@ public class DiaryDAOImpl implements DiaryDAO {
 		return null;
 	}
 
-	@Override
 	public boolean existingAllDiary(String title) {
 		String query = "SELECT count(*) FROM diary WHERE private=0 and title LIKE ?";
 		Object[] param = new Object[] {"%" + title + "%"};
@@ -247,7 +238,6 @@ public class DiaryDAOImpl implements DiaryDAO {
 		return false;
 	}
 
-	@Override
 	public boolean existingMyDiary(String memberId, String title) {
 		String query = "SELECT count(*) FROM diary WHERE author=? and title LIKE ?";
 		Object[] param = new Object[] {memberId, "%" + title + "%"};
@@ -266,7 +256,6 @@ public class DiaryDAOImpl implements DiaryDAO {
 		return false;
 	}
 
-	@Override
 	public int insertDiary(DiaryDTO diary) {
 		int result = 0;
 		String insertQuery = "INSERT INTO "
@@ -287,7 +276,6 @@ public class DiaryDAOImpl implements DiaryDAO {
 		return result;
 	}
 
-	@Override
 	public int updateDiary(DiaryDTO diary) {
 		int result = 0;
 		String updateQuery = "UPDATE diary "
@@ -310,7 +298,6 @@ public class DiaryDAOImpl implements DiaryDAO {
 		return result;
 	}
 
-	@Override
 	public int deleteDiary(String id) {
 		int result = 0;
 		String deleteQuery = "DELETE FROM diary WHERE diaryId=?";

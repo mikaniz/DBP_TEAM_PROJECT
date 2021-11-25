@@ -2,7 +2,7 @@ package service;
 
 import java.sql.SQLException;
 
-import persistence.dao.MemberDAOImpl;
+import persistence.dao.MemberDAO;
 import service.dto.MemberDTO;
 import service.exception.MemberNotFoundException;
 import service.exception.PasswordMismatchException;
@@ -10,11 +10,11 @@ import service.exception.PasswordMismatchException;
 public class MemberServiceImpl {
 
 	private static MemberServiceImpl memberService = new MemberServiceImpl();
-	private MemberDAOImpl memberDAO;
+	private MemberDAO memberDAO;
 	
 	private MemberServiceImpl() {
 		try {
-			memberDAO = new MemberDAOImpl();
+			memberDAO = new MemberDAO();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

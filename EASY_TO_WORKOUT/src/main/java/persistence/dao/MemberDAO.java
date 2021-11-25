@@ -3,19 +3,17 @@ package persistence.dao;
 import java.util.List;
 import java.util.ArrayList;
 import java.sql.*;
-import persistence.dao.*;
 import persistence.util.*;
 import service.dto.*;
 
-public class MemberDAOImpl implements MemberDAO {
+public class MemberDAO {
 
 	private JDBCUtil jdbcUtil = null;
 	
-	public MemberDAOImpl() {
+	public MemberDAO() {
 		jdbcUtil = new JDBCUtil();
 	}
 	
-	@Override
 	public List<MemberDTO> getMemberList() {
 		String allQuery = "SELECT * FROM member";
 		jdbcUtil.setSqlAndParameters(allQuery, null);
@@ -41,7 +39,6 @@ public class MemberDAOImpl implements MemberDAO {
 		return null;
 	}
 
-	@Override
 	public MemberDTO getMemberById(String id) {
 		String searchQuery = "SELECT * FROM member WHERE memberId=?";
 		Object[] param = new Object[] {id};
@@ -66,7 +63,6 @@ public class MemberDAOImpl implements MemberDAO {
 		return dto;
 	}
 
-	@Override
 	public int insertMember(MemberDTO member) {
 		int result = 0;
 		String insertQuery = "INSERT INTO "
@@ -87,7 +83,6 @@ public class MemberDAOImpl implements MemberDAO {
 		return result;
 	}
 
-	@Override
 	public int updateMember(MemberDTO member) {
 		int result = 0;
 		String updateQuery = "UPDATE member "
@@ -108,7 +103,6 @@ public class MemberDAOImpl implements MemberDAO {
 		return result;
 	}
 
-	@Override
 	public int deleteMember(String id) {
 		int result = 0;
 		String deleteQuery = "DELETE FROM member WHERE memberId=?";
@@ -126,7 +120,6 @@ public class MemberDAOImpl implements MemberDAO {
 		return result;
 	}
 
-	@Override
 	public boolean existingMember(String id) {
 		String query = "SELECT count(*) FROM member WHERE memberId=?";
 		Object[] param = new Object[] {id};
@@ -144,8 +137,7 @@ public class MemberDAOImpl implements MemberDAO {
 		}
 		return false;
 	}
-
-	@Override
+	
 	public boolean isMaster(String id) {
 		String query = "SELECT grade FROM member WHERE memberId=?";
 		Object[] param = new Object[] {id};

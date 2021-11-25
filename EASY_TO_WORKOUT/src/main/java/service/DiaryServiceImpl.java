@@ -2,7 +2,7 @@ package service;
 
 import java.util.List;
 
-import persistence.dao.DiaryDAOImpl;
+import persistence.dao.DiaryDAO;
 
 import java.sql.SQLException;
 
@@ -12,11 +12,11 @@ import service.exception.DiaryNotFoundException;
 public class DiaryServiceImpl {
 
 	private static DiaryServiceImpl diaryService = new DiaryServiceImpl();
-	private DiaryDAOImpl diaryDAO;
+	private DiaryDAO diaryDAO;
 	
 	private DiaryServiceImpl() {
 		try {
-			diaryDAO = new DiaryDAOImpl();
+			diaryDAO = new DiaryDAO();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
