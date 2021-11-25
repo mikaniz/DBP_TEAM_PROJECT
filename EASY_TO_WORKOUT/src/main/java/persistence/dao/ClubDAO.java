@@ -5,15 +5,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import persistence.dao.ClubDAO;
 import persistence.util.JDBCUtil;
 import service.dto.ClubDTO;
 import service.exception.ExistingClubException;
 
-public class ClubDAOImpl implements ClubDAO {
-	private JDBCUtil jdbcUtil = null;	// JDBCUtil °´Ã¼ ÀÌ¿ë
+public class ClubDAO  {
+	private JDBCUtil jdbcUtil = null;	
 	
-	// ¸ðÀÓ ±âº» Á¤º¸¸¦ Æ÷ÇÔÇÏ´Â SELCT¹®
 	private static String query = "SELECT CLUB.CLUBID AS CLUBID, " + 
 			"CLUB.SIGNUP AS SIGNUP, " + 
 			"CLUB.OPENCYCLE AS OPENCYCLE, " + 
@@ -21,26 +19,23 @@ public class ClubDAOImpl implements ClubDAO {
 			"CLUB.CLUBNAME AS CLUBNAME, " + 
 			"CLUB.CLUBMASTER AS CLUBMASTER";
 	
-	// »ý¼ºÀÚ
-	public ClubDAOImpl() {
-		jdbcUtil = new JDBCUtil(); // ClubDAOImpl °´Ã¼ »ý¼º ½Ã JDBC °´Ã¼ »ý¼º
+	public ClubDAO() {
+		jdbcUtil = new JDBCUtil(); 
 	}
 	
-	@Override
-	public List<ClubDTO> getClubList() throws SQLException { // ¸ðÀÓ ¸ñ·Ï
+	public List<ClubDTO> getClubList() throws SQLException {
 		// TODO Auto-generated method stub
 		String allQuery = query + ", COUNT(MEMBERSHIP.CLUBID) AS COUNTMEMBER " + 
 				"FROM CLUB LEFT OUTER JOIN MEMBERSHIP ON CLUB.CLUBID = MEMBERSHIP.CLUBID " + 
 				"GROUP BY CLUB.CLUBID, CLUB.SIGNUP, CLUB.OPENCYCLE, CLUB.CLUBINTRO, CLUB.CLUBNAME, CLUB.CLUBMASTER ";
 		
-		// JDBCUtil¿¡ query ¼³Á¤
 		jdbcUtil.setSqlAndParameters(allQuery, null);
 		try {
-			ResultSet rs = jdbcUtil.executeQuery(); // query¹® ½ÇÇà
-			List<ClubDTO> list = new ArrayList<ClubDTO>(); // DTO °´Ã¼ ´ã±â À§ÇÑ ¸®½ºÆ® »ý¼º
+			ResultSet rs = jdbcUtil.executeQuery(); 
+			List<ClubDTO> list = new ArrayList<ClubDTO>(); 
 			
 			while (rs.next()) {
-				ClubDTO dto = new ClubDTO(); // ClubDTO °´Ã¼ »ý¼º ÈÄ °Ë»ö °á°ú ÀúÀå
+				ClubDTO dto = new ClubDTO(); 
 				dto.setClubId(rs.getInt("CLUBID"));
 				dto.setSignUp(rs.getString("SIGNUP"));
 				dto.setOpenCycle(rs.getString("OPENCYCLE"));
@@ -49,32 +44,31 @@ public class ClubDAOImpl implements ClubDAO {
 				dto.setClubMaster(rs.getString("CLUBMASTER"));
 				dto.setCountClub(rs.getInt("COUNTMEMBER"));
 				
-				list.add(dto); // ¸®½ºÆ®¿¡ DTO °´Ã¼ ÀúÀå
+				list.add(dto); 
 			}
-			return list; // ¸ðÀÓ Á¤º¸¸¦ ÀúÀåÇÑ DTO °´Ã¼µéÀÇ ¸®½ºÆ® ¹ÝÈ¯
+			return list; 
 		} catch(Exception ex) {
 			ex.printStackTrace();
 		} finally {
-			jdbcUtil.close(); // ResultSet, PreparedStatement, Connection ¹ÝÈ¯
+			jdbcUtil.close();
 		}
 		
 		return null;
 	}	
 
-	@Override
-	public ClubDTO getClubById(int clubId) { // ¸ðÀÓ id¸¦ ÅëÇÑ ¸ðÀÓ »ó¼¼Á¤º¸
+	public ClubDTO getClubById(int clubId) { 
 		// TODO Auto-generated method stub
 		String searchQuery = query + " FROM CLUB WHERE CLUBID = ?";
 		
-		Object[] param = new Object[] {clubId};		// ¸ðÀÓÀ» Ã£±â À§ÇÑ Á¶°ÇÀ¸·Î id ¼³Á¤
+		Object[] param = new Object[] {clubId};		
 		jdbcUtil.setSqlAndParameters(searchQuery, param);
 		
 		try {
-			ResultSet rs = jdbcUtil.executeQuery(); // query¹® ½ÇÇà
+			ResultSet rs = jdbcUtil.executeQuery();
 			ClubDTO club = null;
 			
 			if (rs.next()) {
-				club = new ClubDTO(); // clubDTO °´Ã¼¸¦ »ý¼ºÇÏ¿© ¸ðÀÓ Á¤º¸ ÀúÀå
+				club = new ClubDTO(); 
 				club.setClubId(rs.getInt("CLUBID"));
 				club.setSignUp(rs.getString("SIGNUP"));
 				club.setOpenCycle(rs.getString("OPENCYCLE"));
@@ -82,33 +76,32 @@ public class ClubDAOImpl implements ClubDAO {
 				club.setClubName(rs.getString("CLUBNAME"));
 				club.setClubMaster(rs.getString("CLUBMASTER"));
 			}
-			return club; // ¸ðÀÓ Á¤º¸¸¦ ´ã°í ÀÖ´Â ClubDTO °´Ã¼ ¹ÝÈ¯
+			return club; 
 		} catch(Exception ex) {
 			ex.printStackTrace();
 		} finally {
-			jdbcUtil.close(); // ResultSet, PreparedStatement, Connection ¹ÝÈ¯
+			jdbcUtil.close(); 
 		}
 		
 		return null;
 	}
 
-	@Override
-	public List<ClubDTO> getClubByName(String clubName) throws ExistingClubException, SQLException { // ¸ðÀÓ ÀÌ¸§À¸·Î ¸ðÀÓ °Ë»ö
+	public List<ClubDTO> getClubByName(String clubName) throws ExistingClubException, SQLException {
 		// TODO Auto-generated method stub
 		String searchQuery = query + ", COUNT(MEMBERSHIP.CLUBID) AS COUNTMEMBER " + 
 				"FROM CLUB LEFT OUTER JOIN MEMBERSHIP ON CLUB.CLUBID = MEMBERSHIP.CLUBID " + 
 				"WHERE CLUBNAME = ? " +
 				"GROUP BY CLUB.CLUBID, CLUB.SIGNUP, CLUB.OPENCYCLE, CLUB.CLUBINTRO, CLUB.CLUBNAME, CLUB.CLUBMASTER ";
 		
-		Object[] param = new Object[] {clubName}; // ¸ðÀÓ ÀÌ¸§À¸·Î °Ë»ö ÈÄ Á¤·Ä Á¶°Ç ¼³Á¤
+		Object[] param = new Object[] {clubName};
 		jdbcUtil.setSqlAndParameters(searchQuery, param);
 		
 		try {
-			ResultSet rs = jdbcUtil.executeQuery(); // query¹® ½ÇÇà
+			ResultSet rs = jdbcUtil.executeQuery();
 			List<ClubDTO> list = new ArrayList<ClubDTO>();
 			
 			while (rs.next()) {
-				ClubDTO dto = new ClubDTO(); // ClubDTO °´Ã¼ »ý¼º ÈÄ °Ë»ö °á°ú ÀúÀå
+				ClubDTO dto = new ClubDTO(); 
 				dto.setClubId(rs.getInt("CLUBID"));
 				dto.setSignUp(rs.getString("SIGNUP"));
 				dto.setOpenCycle(rs.getString("OPENCYCLE"));
@@ -116,21 +109,19 @@ public class ClubDAOImpl implements ClubDAO {
 				dto.setClubName(rs.getString("CLUBNAME"));
 				dto.setClubMaster(rs.getString("CLUBMASTER"));
 				
-				list.add(dto); // ¸®½ºÆ®¿¡ DTO °´Ã¼ ÀúÀå
+				list.add(dto); 
 			}
-			return list; // ¸ðÀÓ Á¤º¸¸¦ ÀúÀåÇÑ DTO °´Ã¼µéÀÇ ¸®½ºÆ® ¹ÝÈ¯
+			return list; 
 		} catch(Exception ex) {
 			ex.printStackTrace();
 		} finally {
-			jdbcUtil.close(); // ResultSet, PreparedStatement, Connection ¹ÝÈ¯
+			jdbcUtil.close();
 		}
 		
 		return null;
 	}
 
-
-	@Override
-	public List<ClubDTO> getSortedClub(String sortWith) { // ¸ðÀÓ Á¤·Ä
+	public List<ClubDTO> getSortedClub(String sortWith) { // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		// TODO Auto-generated method stub
 		if (sortWith.equals("clubName")) {
 			String sortQuery = query + ", COUNT(MEMBERSHIP.CLUBID) AS COUNTMEMBER " + 
@@ -140,7 +131,7 @@ public class ClubDAOImpl implements ClubDAO {
 			
 			jdbcUtil.setSqlAndParameters(sortQuery, null);
 		}
-		else if (sortWith.equals("countMember")) { // È¸¿ø ¼ø
+		else if (sortWith.equals("countMember")) { // È¸ï¿½ï¿½ ï¿½ï¿½
 			String sortQuery = query + ", COUNT(MEMBERSHIP.CLUBID) AS COUNTMEMBER " + 
 					"FROM CLUB LEFT OUTER JOIN MEMBERSHIP ON CLUB.CLUBID = MEMBERSHIP.CLUBID " + 
 					"GROUP BY CLUB.CLUBID, CLUB.SIGNUP, CLUB.OPENCYCLE, CLUB.CLUBINTRO, CLUB.CLUBNAME, CLUB.CLUBMASTER " + 
@@ -148,7 +139,7 @@ public class ClubDAOImpl implements ClubDAO {
 			
 			jdbcUtil.setSqlAndParameters(sortQuery, null);
 		}
-		else if (sortWith.equals("freeSignUp")) { // ÀÚÀ¯ °¡ÀÔ
+		else if (sortWith.equals("freeSignUp")) { // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			String sortQuery = query + ", COUNT(MEMBERSHIP.CLUBID) AS COUNTMEMBER " + 
 					"FROM CLUB LEFT OUTER JOIN MEMBERSHIP ON CLUB.CLUBID = MEMBERSHIP.CLUBID " + 
 					"WHERE CLUB.SIGNUP = 1 " +
@@ -158,11 +149,11 @@ public class ClubDAOImpl implements ClubDAO {
 		}
 		
 		try {
-			ResultSet rs = jdbcUtil.executeQuery(); // query¹® ½ÇÇà
-			List<ClubDTO> list = new ArrayList<ClubDTO>(); // DTO °´Ã¼ ´ã±â À§ÇÑ ¸®½ºÆ® »ý¼º
+			ResultSet rs = jdbcUtil.executeQuery(); // queryï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			List<ClubDTO> list = new ArrayList<ClubDTO>(); // DTO ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 			
 			while (rs.next()) {
-				ClubDTO dto = new ClubDTO(); // ClubDTO °´Ã¼ »ý¼º ÈÄ °Ë»ö °á°ú ÀúÀå
+				ClubDTO dto = new ClubDTO(); // ClubDTO ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ë»ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				dto.setClubId(rs.getInt("CLUBID"));
 				dto.setSignUp(rs.getString("SIGNUP"));
 				dto.setOpenCycle(rs.getString("OPENCYCLE"));
@@ -171,13 +162,13 @@ public class ClubDAOImpl implements ClubDAO {
 				dto.setClubMaster(rs.getString("CLUBMASTER"));
 				dto.setCountClub(rs.getInt("COUNTMEMBER"));
 					
-				list.add(dto); // ¸®½ºÆ®¿¡ DTO °´Ã¼ ÀúÀå
+				list.add(dto); // ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ DTO ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
 			}
-			return list; // ¸ðÀÓ Á¤º¸¸¦ ÀúÀåÇÑ DTO °´Ã¼µéÀÇ ¸®½ºÆ® ¹ÝÈ¯
+			return list; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ DTO ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½È¯
 		} catch(Exception ex) {
 			ex.printStackTrace();
 		} finally {
-			jdbcUtil.close(); // ResultSet, PreparedStatement, Connection ¹ÝÈ¯
+			jdbcUtil.close(); // ResultSet, PreparedStatement, Connection ï¿½ï¿½È¯
 		}
 		
 		return null;
@@ -190,7 +181,7 @@ public class ClubDAOImpl implements ClubDAO {
 		jdbcUtil.setSqlAndParameters(sql, param);
 		
 		try {
-			ResultSet rs = jdbcUtil.executeQuery();		// query ½ÇÇà
+			ResultSet rs = jdbcUtil.executeQuery();		// query ï¿½ï¿½ï¿½ï¿½
 			if (rs.next()) {
 				int count = rs.getInt(1);
 				return (count == 0 ? false : true);
@@ -198,13 +189,12 @@ public class ClubDAOImpl implements ClubDAO {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
-			jdbcUtil.close();		// resource ¹ÝÈ¯
+			jdbcUtil.close();		// resource ï¿½ï¿½È¯
 		}
 		return false;
 	}
 	
-	@Override
-	public int insertClub(ClubDTO club) throws SQLException { // ¸ðÀÓ Ãß°¡ (°³¼³)
+	public int insertClub(ClubDTO club) throws SQLException { // ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ (ï¿½ï¿½ï¿½ï¿½)
 		// TODO Auto-generated method stub
 		String insertQuery = "INSERT INTO "
 				+ "CLUB (CLUBID, SIGNUP, OPENCYCLE, CLUBINTRO, CLUBNAME, CLUBMASTER) "
@@ -216,20 +206,19 @@ public class ClubDAOImpl implements ClubDAO {
 		jdbcUtil.setSqlAndParameters(insertQuery, param);
 		
 		try {				
-			int result = jdbcUtil.executeUpdate();	// insert ¹® ½ÇÇà
+			int result = jdbcUtil.executeUpdate();	// insert ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			return result;
 		} catch (Exception ex) {
 			jdbcUtil.rollback();
 			ex.printStackTrace();
 		} finally {		
 			jdbcUtil.commit();
-			jdbcUtil.close();	// resource ¹ÝÈ¯
+			jdbcUtil.close();	// resource ï¿½ï¿½È¯
 		}	
 		return 0;
 	}
 
-	@Override
-	public int deleteClub(int clubId) { // ¸ðÀÓ »èÁ¦
+	public int deleteClub(int clubId) { // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		// TODO Auto-generated method stub
 		String deleteQuery = "DELETE FROM CLUB WHERE CLUBID = ?";
 		

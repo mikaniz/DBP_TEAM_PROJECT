@@ -4,93 +4,85 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import persistence.dao.ClubScheduleDAO;
 import persistence.util.JDBCUtil;
 import service.dto.ClubScheduleDTO;
 
-public class ClubScheduleDAOImpl implements ClubScheduleDAO {
-	private JDBCUtil jdbcUtil = null;	// JDBCUtil °´Ã¼ ÀÌ¿ë
+public class ClubScheduleDAO {
+	private JDBCUtil jdbcUtil = null;	
 	
-	// ¸ðÀÓ ½ºÄÉÁÙ ±âº» Á¤º¸¸¦ Æ÷ÇÔÇÏ´Â SELCT¹®
 	private static String query = "SELECT CLUBSCHEDULE.SCHEDULEID AS SCHEDULEID, " +
 				"CLUBSCHEDULE.CLUBID AS CLUBID, " +
 				"CLUBSCHEDULE.CONTACTADDRESS AS CONTACTADDRESS, " + 
 				"CLUBSCHEDULE.NOTICE AS NOTICE, " + 
 				"CLUBSCHEDULE.CREATIONDATE AS CREATIONDATE";
 	
-	// »ý¼ºÀÚ
-	public ClubScheduleDAOImpl() {
-		jdbcUtil = new JDBCUtil(); // ClubScheduleDAOImpl °´Ã¼ »ý¼º ½Ã JDBC °´Ã¼ »ý¼º
+	public ClubScheduleDAO() {
+		jdbcUtil = new JDBCUtil(); 
 	}
 
-	@Override
 	public List<ClubScheduleDTO> getClubScheduleList() {
 		// TODO Auto-generated method stub
 		String allQuery = query + "FROM CLUBSCHEDULE ORDER BY CLUBID";
 		
-		// JDBCUtil¿¡ query ¼³Á¤
 		jdbcUtil.setSqlAndParameters(allQuery, null);
 		try {
-			ResultSet rs = jdbcUtil.executeQuery(); // query¹® ½ÇÇà
-			List<ClubScheduleDTO> list = new ArrayList<ClubScheduleDTO>(); // DTO °´Ã¼ ´ã±â À§ÇÑ ¸®½ºÆ® »ý¼º
+			ResultSet rs = jdbcUtil.executeQuery(); 
+			List<ClubScheduleDTO> list = new ArrayList<ClubScheduleDTO>(); 
 			
 			while (rs.next()) {
-				ClubScheduleDTO dto = new ClubScheduleDTO(); // ClubDTO °´Ã¼ »ý¼º ÈÄ °Ë»ö °á°ú ÀúÀå
+				ClubScheduleDTO dto = new ClubScheduleDTO(); 
 				dto.setClubId(rs.getInt("CLUBID"));
 				dto.setScheduleId(rs.getInt("SCHEDULEID"));
 				dto.setContactAddress(rs.getString("CONTACTADDRESS"));
 				dto.setNotice(rs.getString("NOTICE"));
 				dto.setCreationDate(rs.getString("CREATIONDATE"));
 				
-				list.add(dto); // ¸®½ºÆ®¿¡ DTO °´Ã¼ ÀúÀå
+				list.add(dto); 
 			}
-			return list; // ¸ðÀÓ Á¤º¸¸¦ ÀúÀåÇÑ DTO °´Ã¼µéÀÇ ¸®½ºÆ® ¹ÝÈ¯
+			return list; 
 		} catch(Exception ex) {
 			ex.printStackTrace();
 		} finally {
-			jdbcUtil.close(); // ResultSet, PreparedStatement, Connection ¹ÝÈ¯
+			jdbcUtil.close(); 
 		}
 		
 		return null;
 	}
 
-	@Override
 	public ClubScheduleDTO getClubScheduleById(int clubScheduleId, int clubId) {
 		// TODO Auto-generated method stub
 		String searchQuery = query + "FROM CLUBSCHEDULE WHERE CLUBSCHEDULEID = ? AND CLUBID = ?";
 		
-		Object[] param = new Object[] {clubScheduleId, clubId};		// ¸ðÀÓÀ» Ã£±â À§ÇÑ Á¶°ÇÀ¸·Î id ¼³Á¤
+		Object[] param = new Object[] {clubScheduleId, clubId};		
 		jdbcUtil.setSqlAndParameters(searchQuery, param);
 		
 		try {
-			ResultSet rs = jdbcUtil.executeQuery(); // query¹® ½ÇÇà
+			ResultSet rs = jdbcUtil.executeQuery(); 
 			ClubScheduleDTO schedule = null;
 			
 			if (rs.next()) {
-				schedule = new ClubScheduleDTO(); // clubDTO °´Ã¼¸¦ »ý¼ºÇÏ¿© ¸ðÀÓ Á¤º¸ ÀúÀå
+				schedule = new ClubScheduleDTO(); // clubDTO ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				schedule.setClubId(rs.getInt("CLUBID"));
 				schedule.setScheduleId(rs.getInt("SCHEDULEID"));
 				schedule.setContactAddress(rs.getString("CONTACTADDRESS"));
 				schedule.setNotice(rs.getString("NOTICE"));
 				schedule.setCreationDate(rs.getString("CREATIONDATE"));
 			}
-			return schedule; // ¸ðÀÓ Á¤º¸¸¦ ´ã°í ÀÖ´Â ClubDTO °´Ã¼ ¹ÝÈ¯
+			return schedule; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ClubDTO ï¿½ï¿½Ã¼ ï¿½ï¿½È¯
 		} catch(Exception ex) {
 			ex.printStackTrace();
 		} finally {
-			jdbcUtil.close(); // ResultSet, PreparedStatement, Connection ¹ÝÈ¯
+			jdbcUtil.close(); // ResultSet, PreparedStatement, Connection ï¿½ï¿½È¯
 		}
 		
 		return null;
 	}
 
-	@Override
 	public int insertClubSchedule(ClubScheduleDTO clubSchedule) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	@Override
 	public int deleteClubSchedule(int clubId, int clubScheduleId) {
 		// TODO Auto-generated method stub
 		return 0;
