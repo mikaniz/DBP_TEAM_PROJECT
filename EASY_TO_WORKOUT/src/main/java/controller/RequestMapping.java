@@ -42,6 +42,8 @@ public class RequestMapping {
     	mappings.put("/diary/update", new UpdateDiaryController());
     	mappings.put("/diary/write", new ForwardController("/diary/diary_writeForm.jsp"));
     	mappings.put("/diary/create", new WriteDiaryController());
+    	mappings.put("/diary/all/find", new FindAllDiaryController());
+    	mappings.put("/diary/my/find", new FindMyDiaryController());
     	
     	// 모임 관리
     	mappings.put("/club/open/form", new ForwardController("/club/club_openForm.jsp"));

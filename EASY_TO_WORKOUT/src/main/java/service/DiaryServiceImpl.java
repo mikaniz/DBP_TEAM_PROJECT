@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 import persistence.dao.impl.DiaryDAOImpl;
 import service.dto.DiaryDTO;
+import service.exception.DiaryNotFoundException;
 
 public class DiaryServiceImpl {
 
@@ -42,6 +43,32 @@ public class DiaryServiceImpl {
 	
 	public List<DiaryDTO> getSortedMyDiary(String id, String sortType) throws SQLException {
 		return diaryDAO.getSortedMyDiary(id, sortType);
+	}
+	
+	public List<DiaryDTO> getMyDiaryByTitle(String id, String title) throws DiaryNotFoundException, SQLException {
+		if (title.equals("")) {
+			throw new DiaryNotFoundException("제목을 다시 입력하세요.");
+		} else if (!existingMyDiary(id, title)) {
+			throw new DiaryNotFoundException("해당 다이어리가 존재하지 않습니다.");
+		}
+		return diaryDAO.getMyDiaryByTitle(id, title);
+	}
+	
+	public List<DiaryDTO> getAllDiaryByTitle(String title) throws DiaryNotFoundException, SQLException {
+		if (title.equals("")) {
+			throw new DiaryNotFoundException("제목을 다시 입력하세요.");
+		} else if (!existingAllDiary(title)) {
+			throw new DiaryNotFoundException("해당 다이어리가 존재하지 않습니다.");
+		}
+		return diaryDAO.getAllDiaryByTitle(title);
+	}
+	
+	public boolean existingMyDiary(String id, String title) throws SQLException {
+		return diaryDAO.existingMyDiary(id, title);
+	}
+
+	public boolean existingAllDiary(String title) throws SQLException {
+		return diaryDAO.existingAllDiary(title);
 	}
 	
 }
