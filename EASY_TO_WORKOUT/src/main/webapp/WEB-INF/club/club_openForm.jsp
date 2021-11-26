@@ -204,7 +204,7 @@ function clubCreate() {
 						</tr>
 					</table>
 					<div style="text-align: center; margin-left: 130px;">
-						<input id="clubAccpetButton" type="button" value="모임 승인 요청"
+						<input id="clubAccpetButton" type="button" value="모임 개설"
 							onclick="clubCreate()"> 
 						<input id="backButton" type="button" value="돌아가기" 
 							onclick="location.href='<c:url value='/club/list' />'">
