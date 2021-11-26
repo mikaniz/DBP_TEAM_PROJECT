@@ -117,6 +117,7 @@ th, td {
 function search() {
 	searchForm.submit();
 }
+
 </script>
 </head>
 
@@ -208,17 +209,22 @@ function search() {
 								</select>
 							</form></td>
 						</tr>
-						<c:forEach var="club" items="${clubList}">
+						<c:forEach var="club" items="${clubList}">							
 							<tr id="listTr">
 								<td>${club.clubName}</td>
 								<td>${club.clubMaster}</td>
 								<td>${club.countClub}</td>
 								<td>
-									<input id="etcButton" type='BUTTON' value="더보기">
+									<a href="<c:url value='/club/detail'>
+											<c:param name='clubId' value='${club.clubId}'/>
+										</c:url>">
+										<input id="etcButton" type="button" value="더보기">
+									</a>
 								</td>
-							</tr>
+							</tr>							
 						</c:forEach>
 					</table>
+					
 				</div>
 			</div>
 		</div>

@@ -1,9 +1,10 @@
 <%@page contentType="text/html; charset=utf-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>ETW club_detials</title>
+<title>ETW club_details</title>
 <style>
 .menu {
 	height: 50px;
@@ -93,10 +94,24 @@
 	background-color: #90ABDA;
 }
 
+#createButton {
+	width: 400px; 
+	height: 50px;	
+	background-color: #90ABDA;
+}
+
 th, td {
 	text-align: center;
 }
 </style>
+
+<script>
+function askDelete() {
+	if (window.confirm('모임을 삭제하시겠습니까?')) {
+		deleteForm.submit();
+	}
+}
+</script>
 </head>
 
 <body>
@@ -105,7 +120,6 @@ th, td {
 		<a href="<c:url value='/main' />"><img src="<c:url value='/images/logo.PNG' />"
 			width=500px height=130px /></a>
 	</div>
-	<!-- 돌아가기 버튼 -->
 
 	<hr>
 	<!-- 메뉴바 -->
@@ -124,8 +138,7 @@ th, td {
 	<hr>
 	<div class="container">
 		<!-- 회원정보 틀 -->
-		<div
-			style="width: 400px; height: 600px; border: 1px solid; float: left; margin-right: 10px;">
+		<div style="width: 400px; height: 600px; border: 1px solid; float: left; margin-right: 10px;">
 			<div style="height: 530px;">
 				<h3 style="margin: 20px;">회원정보</h3>
 				<table id="memberDataTable">
@@ -150,6 +163,19 @@ th, td {
 					</ul>
 				</article>
 			</div>
+			<c:if test="${isMaster eq '1'}">
+				<div style="height: 50px;">
+					<form name="createForm"  method="GET" action="<c:url value='/club/schedule/create' />">
+						<input type="hidden" name="clubId" value="${club.clubId}">
+						<input id="createButton" type="button" value="스케줄 등록" onclick="form.submit()">
+					</form>
+				</div>
+			</c:if>
+			<c:if test="${isMaster eq '0'}">
+				<div style="height: 50px;">
+					<input id="createButton" type="button" value="모임 가입" onclick="joinClub()">
+				</div>
+			</c:if>
 		</div>
 
 		<div style="float: right">
@@ -161,7 +187,7 @@ th, td {
 					<tr id="clubTableTr">
 						<td style="width: 130px;">모임 이름 :</td>
 						<td style="text-align:left;">
-							<p>모임 이름 출력
+							<p>${club.clubName}
 						</td>
 						<td >
 						<input id="scheduleDetailButton" type="button" value="일정 보기"
@@ -171,13 +197,21 @@ th, td {
 					<tr id="clubTableTr">
 						<td style="width: 130px;">모임 유형 :</td>
 						<td colspan=2 style="text-align:left;">
-							<p>정기적 or 일시적
+							<p>
+							<c:choose>
+								<c:when test="${club.openCycle eq '0'}">정기적</c:when>
+								<c:otherwise>일시적</c:otherwise>
+							</c:choose>
 						</td>
 					</tr>
 					<tr id="clubTableTr">
 						<td style="width: 130px;">초대 유형 :</td>
 						<td colspan=2 style="text-align:left;">
-							<p>초대 or 자유
+							<p>
+							<c:choose>
+								<c:when test="${club.signUp eq '0'}">초대 가입</c:when>
+								<c:otherwise>자유 가입</c:otherwise>
+							</c:choose>
 						</td>
 					</tr>
 					<tr id="clubTableTr">
@@ -185,13 +219,20 @@ th, td {
 						<td colspan=2 style="text-align:left;">
 							<textarea rows=13 cols=60
 								style="resize: none; font-size: 14px;" readonly="readonly" disabled>
-								개설자 소개 및 모임 진행 방법, 공지사항, 규칙 등
+								${club.clubIntro}
 							</textarea></td>
 					</tr>
 				</table>
 				<div style="text-align: center;">
-					<input id="backButton" type="button" value="돌아가기"
-						onclick="location.href='<c:url value='/club/list' />'">
+					<form name="deleteForm"  method="GET" action="<c:url value='/club/detail' />">
+						<c:if test="${isMaster eq '1'}">							
+								<input type="hidden" name="thisIsForDel" value="thisIsForDel">
+								<input type="hidden" name="clubId" value="${club.clubId}">
+								<input id="backButton" type="button" value="모임 삭제" onclick="askDelete()">							
+						</c:if>
+						<input id="backButton" type="button" value="돌아가기"
+							onclick="location.href='<c:url value='/club/list' />'">
+					</form>
 				</div>
 			</div>
 		</div>
