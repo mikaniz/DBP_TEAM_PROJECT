@@ -84,12 +84,12 @@ public class RoutineDAO {
 		return null;
 	}
 
-	public List<Routine> getRoutineListByPersonal() {
+	public List<Routine> getRoutineListByPersonal(String memberId) {
 		String searchQuery = query + 
 		        "FROM ROUTINE " +
-		        "WHERE RTYPE = '1' ";
+		        "WHERE ROUTINECREATER = ? ";
 		   	 
-		jdbcUtil.setSqlAndParameters(searchQuery, null);			// JDBCUtil 에 query 문 설정
+		jdbcUtil.setSqlAndParameters(searchQuery, new Object[] {memberId});			// JDBCUtil 에 query 문 설정
 
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();		// query 문 실행

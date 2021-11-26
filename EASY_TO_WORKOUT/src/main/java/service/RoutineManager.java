@@ -35,8 +35,8 @@ public class RoutineManager {
 		return dao.getRoutineListByPublic();
 	}
 	
-	public List<Routine> ListingRoutinesByPersonal() throws SQLException {
-		return dao.getRoutineListByPersonal();
+	public List<Routine> ListingRoutinesByPersonal(String id) throws SQLException {
+		return dao.getRoutineListByPersonal(id);
 	}
 	
 	public List<Routine> getRoutineByName(String rName) throws ExistingRoutineException, SQLException {
