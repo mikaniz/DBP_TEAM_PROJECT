@@ -5,6 +5,7 @@ import java.util.List;
 import java.sql.ResultSet;
 
 import service.dto.Routine;
+import service.dto.Exercise;
 import persistence.util.JDBCUtil;
 
 public class RoutineDAO {
@@ -268,4 +269,36 @@ public class RoutineDAO {
 		}
 		return false;
 	}
+	
+	public List<Exercise> getExercises(int routineId) {
+		String searchQuery = "SELECT EXERCISE.EXERCISEID AS EXERCISE_ID, " +
+		         "EXERCISE.NAME AS EXERCISE_NAME, " +
+		         "EXERCISE.PART AS EXERCISE_PART, " +
+		         "EXERCISE.METHOD AS EXERCISE_METHOD " + 
+		        "FROM EXERCISE LEFT OUTER JOIN CHOICE ON EXERCISE.EXERCISEID = CHOICE.EXERCISEID " +
+		        "WHERE CHOICE.ROUTINEID = ? " +
+		        "ORDER BY CHOICE.SEQUENCE ASC ";
+		   	 
+		jdbcUtil.setSqlAndParameters(searchQuery, new Object[] {routineId});			// JDBCUtil 에 query 문 설정
+
+		try {
+			ResultSet rs = jdbcUtil.executeQuery();		// query 문 실행
+			List<Exercise> list = new ArrayList<Exercise>();	// ExerciseDTO 객체들을 담기위한 list 객체
+			
+			while (rs.next()) {						// 하나의 ExerciseDTO 객체 생성 후 정보 설정
+				Exercise dto = new Exercise();
+				dto.setExerciseId(rs.getInt("EXERCISE_ID"));
+				dto.setName(rs.getString("EXERCISE_NAME"));
+				dto.setPart(rs.getString("EXERCISE_PART"));
+				dto.setMethod(rs.getString("EXERCISE_METHOD"));
+				list.add(dto);	// list 객체에 정보를 설정한 ExerciseDTO 객체 저장
+			}
+			return list;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			jdbcUtil.close();		// ResultSet, PreparedStatement, Connection 반환
+		}
+		return null;
+	} 
 }

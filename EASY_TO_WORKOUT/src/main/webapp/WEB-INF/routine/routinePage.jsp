@@ -165,7 +165,7 @@ function search() {
 			</div>
 			<div style="height: 50px;">
 				<!-- 루틴 등록 버튼 -->
-				<input id="createButton" type="button" value="루틴 등록" onclick="location.href='<c:url value='/routine/create/form' />'">
+				<input id="createButton" type="button" value="루틴 등록" onclick="location.href='<c:url value='/exercise/list' />'">
 			</div>
 		</div>
 
@@ -176,7 +176,7 @@ function search() {
 					<input type="text" name="searchRoutine" placeholder="
 						<c:choose>
 							<c:when test="${findRoutineFailed}">${exception.getMessage()}</c:when>
-							<c:otherwise>루틴을 입력하세요</c:otherwise>
+							<c:otherwise>루틴명을 입력하세요</c:otherwise>
 						</c:choose>
 					" style="width: 580px; height: 42px;"> 
 	    			<input id="searchButton" type="button"
@@ -203,12 +203,20 @@ function search() {
 							</form></td>
 						</tr>
 						<c:forEach var="routine" items="${routineList}">
+							<form id="routineDetail" method="POST" action="<c:url value='/routine/detail' />">
+								<input type ="hidden" name="routineId" value="${routine.routineId}">
+							</form>
 							<tr id="listTr">
 								<td>${routine.rName}</td>
 								<td>${routine.routineCreater}</td>
 								<td>${routine.part}</td>
-								<td><input id="etcButton" type='BUTTON' value="더보기" onclick="location.href='<c:url value='/routine/detail' />'"></td>
-							</tr>
+								<td>
+									<a href="<c:url value='/routine/detail'>
+											<c:param name='routineId' value='${routine.routineId}'/>
+										</c:url>">
+										<input id="etcButton" type="button" value="더보기">
+									</a>
+								</td>
 						</c:forEach>
 					</table>
 				</div>
