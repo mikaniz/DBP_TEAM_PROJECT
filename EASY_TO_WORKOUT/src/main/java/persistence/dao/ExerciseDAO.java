@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.sql.*;
 
-import service.dto.*;
+import service.dto.Exercise;
 import persistence.util.JDBCUtil;
 
 public class ExerciseDAO {
@@ -44,13 +44,64 @@ public class ExerciseDAO {
 		}		
 		return null;
 	}
+	
+	public List<Exercise> getExerciseByName(String name) { // 루틴 이름으로 모임 검색
+		// TODO Auto-generated method stub
+		String searchQuery = query +
+				"FROM EXERCISE " +
+		        "WHERE NAME = ? ";
+		
+		Object[] param = new Object[] {name}; // 루틴 이름으로 검색 후 정렬 조건 설정
+		jdbcUtil.setSqlAndParameters(searchQuery, param);
+		
+		try {
+			ResultSet rs = jdbcUtil.executeQuery(); // query문 실행
+			List<Exercise> list = new ArrayList<Exercise>();
+			
+			while (rs.next()) {
+				Exercise dto = new Exercise();		// 하나의 ExerciseDTO 객체 생성 후 정보 설정
+				dto.setExerciseId(rs.getInt("EXERCISE_ID"));
+				dto.setName(rs.getString("EXERCISE_NAME"));
+				dto.setPart(rs.getString("EXERCISE_PART"));
+				dto.setMethod(rs.getString("EXERCISE_METHOD"));
+				
+				list.add(dto); // 리스트에 DTO 객체 저장
+			}
+			return list; // 루틴 정보를 저장한 DTO 객체들의 리스트 반환
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			jdbcUtil.close(); // ResultSet, PreparedStatement, Connection 반환
+		}
+		
+		return null;
+	}
+	
+	public boolean existingExercise(String name) {
+		String sql = "SELECT count(*) FROM EXERCISE WHERE NAME = ?";   
+		
+		jdbcUtil.setSqlAndParameters(sql, new Object[] {name});	// JDBCUtil에 query문과 매개 변수 설정
 
-	public Exercise getExerciseByName(String name) {
+		try {
+			ResultSet rs = jdbcUtil.executeQuery();		// query 실행
+			if (rs.next()) {
+				int count = rs.getInt(1);
+				return (count == 1 ? true : false);
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			jdbcUtil.close();		// resource 반환
+		}
+		return false;
+	}
+
+	public Exercise getExerciseById(int exerciseId) {
 		String searchQuery = query +
 		        "FROM EXERCISE " +
-		        "WHERE EXERCISE.NAME = ? ";
+		        "WHERE EXERCISEID = ? ";
 		   	 
-		Object[] param = new Object[] { name };
+		Object[] param = new Object[] { exerciseId };
 		
 		jdbcUtil.setSqlAndParameters(searchQuery, param);
 
