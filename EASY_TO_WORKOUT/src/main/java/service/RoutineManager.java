@@ -6,6 +6,7 @@ import java.util.List;
 import persistence.DAOFactory;
 import persistence.dao.RoutineDAO;
 import service.dto.Routine;
+import service.dto.Exercise;
 
 public class RoutineManager {
 
@@ -34,8 +35,8 @@ public class RoutineManager {
 		return dao.getRoutineListByPublic();
 	}
 	
-	public List<Routine> ListingRoutinesByPersonal() throws SQLException {
-		return dao.getRoutineListByPersonal();
+	public List<Routine> ListingRoutinesByPersonal(String id) throws SQLException {
+		return dao.getRoutineListByPersonal(id);
 	}
 	
 	public List<Routine> getRoutineByName(String rName) throws ExistingRoutineException, SQLException {
@@ -74,5 +75,9 @@ public class RoutineManager {
 	
 	public Routine getRoutine(int routineId) throws SQLException, ExistingRoutineException {
 		return dao.getRoutineById(routineId);
+	}
+	
+	public List<Exercise> getExercises(int routineId) throws SQLException {
+		return dao.getExercises(routineId);
 	}
 }
