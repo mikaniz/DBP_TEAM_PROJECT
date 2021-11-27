@@ -28,10 +28,10 @@ public class DAOFactory {
 		return new MemberDAO();
 	}
 	
-//	public MembershipDAO getMembershipDAO() {
-//		return new MembershipDAOImpl();
-//	}
-//	
+	public MembershipDAO getMembershipDAO() {
+		return new MembershipDAO();
+	}
+	
 	public RoutineDAO getRoutineDAO() {
 		return new RoutineDAO();
 	}
