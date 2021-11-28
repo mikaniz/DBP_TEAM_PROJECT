@@ -139,7 +139,7 @@ public class DiaryDAO {
 		return null;
 	}
 
-	public Diary getDiaryById(String id) {
+	public Diary getDiaryById(int id) {
 		String searchQuery = "SELECT * FROM diary WHERE diaryId=?";
 		Object[] param = new Object[] {id};
 		jdbcUtil.setSqlAndParameters(searchQuery, param);
@@ -279,12 +279,10 @@ public class DiaryDAO {
 	public int updateDiary(Diary diary) {
 		int result = 0;
 		String updateQuery = "UPDATE diary "
-				+ "SET title=?, diaryDate=?, workTime=?, contents=?, private=?, author=? "
+				+ "SET title=?, workTime=?, contents=?, private=? "
 				+ "WHERE diaryId=?";
-		Object[] param = new Object[] {diary.getTitle(), diary.getDate(), 
-						diary.getWorkTime(), diary.getContents(), 
-						diary.getIsPrivate(), diary.getAuthor(), 
-						diary.getDiaryId()};
+		Object[] param = new Object[] {diary.getTitle(), diary.getWorkTime(),
+						diary.getContents(), diary.getIsPrivate(), diary.getDiaryId()};
 		jdbcUtil.setSqlAndParameters(updateQuery, param);
 		try {
 			result = jdbcUtil.executeUpdate();
@@ -298,7 +296,7 @@ public class DiaryDAO {
 		return result;
 	}
 
-	public int deleteDiary(String id) {
+	public int deleteDiary(int id) {
 		int result = 0;
 		String deleteQuery = "DELETE FROM diary WHERE diaryId=?";
 		Object[] param = new Object[] {id};

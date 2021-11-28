@@ -1,4 +1,5 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html; charset=utf-8" %>
 <!DOCTYPE html>
 <html>
@@ -61,13 +62,13 @@
 	table-layout: fixed;
 }
 
-#diaryInput {
+#diaryDetail {
 	width: 700px;
 	height: 600px;
 	border: 1px solid;
 }
 
-#diaryTable {
+#dairyTable {
 	border-collapse: collapse;
 	width: 700px;
 	height: 450px;
@@ -80,7 +81,15 @@
 	table-layout: fixed;
 }
 
-#diaryWriteButton {
+#diaryUpdateButton {
+	width: 150px;
+	height: 45px;
+	text-align: center;
+	margin: 10px;
+	background-color: #90ABDA;
+}
+
+#diaryDeleteButton {
 	width: 150px;
 	height: 45px;
 	text-align: center;
@@ -100,28 +109,6 @@ th, td {
 	text-align: center;
 }
 </style>
-
-<script>
-function diaryWriteBtn_click() {
-	if (writeForm.diaryTitle.value == "") {
-		alert("제목을 입력하세요.");
-		writeForm.diaryTitle.focus();
-		return false;
-	}
-	if (writeForm.workTime.value == "") {
-		alert("운동시간을 입력하세요.");
-		writeForm.workTime.focus();
-		return false;
-	}
-	if (writeForm.diaryContents.value == "") {
-		alert("내용을 입력하세요.");
-		writeForm.diaryContents.focus();
-		return false;
-	}
-	writeForm.submit();
-}
-</script>
-
 </head>
 
 <body>
@@ -176,41 +163,71 @@ function diaryWriteBtn_click() {
 		</div>
 
 		<div style="float: right">
-			<!-- 다이어리 작성 부분  -->
-			<div id="diaryInput">
-				<h3 style="margin: 20px;">다이어리 작성</h3>
+			<!-- 다이어리 상세 정보  -->
+			<div id="diaryDetail">
+				<h3 style="margin: 20px;">다이어리 상세 정보</h3>
 				<hr>
-				<form name="writeForm" method="POST" action="<c:url value='/diary/create' />">
-				<table id="diaryTable">
-					<tr id="diaryTableTr">
-						<td style="width: 130px;">제목 :</td>
-						<td><input type="text" name="diaryTitle"
-							style="width: 500px; height: 20px; font-size: 15px;"></td>
+				<table id="dairyTable">
+					<tr id="dairyTableTr">
+						<td style="width: 130px; font-size: 15px;">제목 :</td>
+						<td style="text-align:left; font-size: 13px;">
+							<p>${diary.title}
+						</td>
 					</tr>
-					<tr id="diaryTableTr">
-						<td style="width: 130px;">공개 여부 :</td>
-						<td>
-							<input type="checkbox" name="isPrivate" />비공개
+					<tr id="dairyTableTr">
+						<td style="width: 130px; font-size: 15px;">작성자 :</td>
+						<td style="text-align:left; font-size: 13px;">
+							<p>${diary.author}
+						</td>
+					</tr>
+					<tr id="dairyTableTr">
+						<td style="width: 130px; font-size: 15px;">날짜 :</td>
+						<td style="text-align:left; font-size: 13px;">
+							<p><fmt:formatDate value="${diary.date}" pattern="yyyy-MM-dd" />
+						</td>
+					</tr>
+					<tr id="dairyTableTr">
+						<td style="width: 130px; font-size: 15px;">운동 시간 :</td>
+						<td style="text-align:left; font-size: 13px;">
+							<p>${diary.workTime} 시간
+						</td>
+					</tr>
+				 	<tr id="diaryTableTr">
+						<td style="width: 130px; font-size: 15px;">공개 여부 :</td>
+						<td style="text-align: left; font-size: 13px;">
+							<c:choose>
+								<c:when test="${diary.isPrivate eq 1}"><p>비공개</c:when>
+								<c:otherwise><p>공개</c:otherwise>
+							</c:choose>
 						</td>
 					</tr>
 					<tr id="diaryTableTr">
-						<td style="width: 130px;">운동 시간 :</td>
-						<td>
-							<input type="number" name="workTime" min="1" max="24" />시간
+						<td style="width: 130px; font-size: 15px;">내용 :</td>
+						<td colspan=2 style="text-align:left;">
+							<textarea rows=13 cols=60
+								style="resize: none; font-size; 14px;" readonly="readonly" disabled>
+								${diary.contents}
+							</textarea> 
 						</td>
-					</tr>
-					<tr id="diaryTableTr">
-						<td style="width: 130px;">내용 :</td>
-						<td><textarea name="diaryContents" rows=15 cols=60 style="resize: none;"></textarea></td>
 					</tr>
 				</table>
-				<div style="text-align: center; margin-left: 130px;">
-					<input id="diaryWriteButton" type="button" value="다이어리 작성"
-						onclick="diaryWriteBtn_click()"> 
-					<input id="backButton" type="button" value="돌아가기" 
-						onclick="history.back()">
+				<div style="text-align: center; margin-left: 70px;">
+					<form>
+						<c:if test="${isAuthor}">
+							<a href="<c:url value='/diary/update'>
+								<c:param name='diaryId' value='${diary.diaryId}' /></c:url>">
+									<input id="diaryUpdateButton" type="button" value="다이어리 수정">
+							</a>
+							<a href="<c:url value='/diary/detail'>
+								<c:param name='diaryId' value='${diary.diaryId}' />
+								<c:param name='thisIsForDel' value='thisIsForDel' /></c:url>">
+									<input id="diaryDeleteButton" type="button" value="다이어리 삭제">
+							</a>
+						</c:if>
+						<input id="backButton" type="button" value="돌아가기" 
+							onclick="history.back()">
+					</form>
 				</div>
-				</form>
 			</div>
 		</div>
 	</div>

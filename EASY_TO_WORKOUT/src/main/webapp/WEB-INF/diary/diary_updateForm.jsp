@@ -80,7 +80,7 @@
 	table-layout: fixed;
 }
 
-#diaryWriteButton {
+#diaryUpdateButton {
 	width: 150px;
 	height: 45px;
 	text-align: center;
@@ -102,23 +102,23 @@ th, td {
 </style>
 
 <script>
-function diaryWriteBtn_click() {
-	if (writeForm.diaryTitle.value == "") {
+function diaryUpdateBtn_click() {
+	if (updateForm.diaryTitle.value == "") {
 		alert("제목을 입력하세요.");
-		writeForm.diaryTitle.focus();
+		updateForm.diaryTitle.focus();
 		return false;
 	}
-	if (writeForm.workTime.value == "") {
+	if (updateForm.workTime.value == "") {
 		alert("운동시간을 입력하세요.");
-		writeForm.workTime.focus();
+		updateForm.workTime.focus();
 		return false;
 	}
-	if (writeForm.diaryContents.value == "") {
+	if (updateForm.diaryContents.value == "") {
 		alert("내용을 입력하세요.");
-		writeForm.diaryContents.focus();
+		updateForm.diaryContents.focus();
 		return false;
 	}
-	writeForm.submit();
+	updateForm.submit();
 }
 </script>
 
@@ -178,35 +178,40 @@ function diaryWriteBtn_click() {
 		<div style="float: right">
 			<!-- 다이어리 작성 부분  -->
 			<div id="diaryInput">
-				<h3 style="margin: 20px;">다이어리 작성</h3>
+				<h3 style="margin: 20px;">다이어리 수정</h3>
 				<hr>
-				<form name="writeForm" method="POST" action="<c:url value='/diary/create' />">
+				<form name="updateForm" method="POST" action="<c:url value='/diary/update' />">
+				<input type="hidden" name="diaryId" value="${diary.diaryId}">
 				<table id="diaryTable">
 					<tr id="diaryTableTr">
 						<td style="width: 130px;">제목 :</td>
-						<td><input type="text" name="diaryTitle"
+						<td><input type="text" name="diaryTitle" value="${diary.title}"
 							style="width: 500px; height: 20px; font-size: 15px;"></td>
 					</tr>
 					<tr id="diaryTableTr">
 						<td style="width: 130px;">공개 여부 :</td>
 						<td>
-							<input type="checkbox" name="isPrivate" />비공개
+							<input type="checkbox" name="isPrivate" 
+								<c:if test="${diary.isPrivate eq 1}">checked</c:if>
+							/>비공개
 						</td>
 					</tr>
 					<tr id="diaryTableTr">
 						<td style="width: 130px;">운동 시간 :</td>
 						<td>
-							<input type="number" name="workTime" min="1" max="24" />시간
+							<input type="number" name="workTime" value="${diary.workTime}"
+								min="1" max="24" />시간
 						</td>
 					</tr>
 					<tr id="diaryTableTr">
 						<td style="width: 130px;">내용 :</td>
-						<td><textarea name="diaryContents" rows=15 cols=60 style="resize: none;"></textarea></td>
+						<td><textarea name="diaryContents" rows=15 cols=60 style="resize: none;">
+							${diary.contents}</textarea></td>
 					</tr>
 				</table>
 				<div style="text-align: center; margin-left: 130px;">
-					<input id="diaryWriteButton" type="button" value="다이어리 작성"
-						onclick="diaryWriteBtn_click()"> 
+					<input id="diaryUpdateButton" type="button" value="다이어리 수정"
+						onclick="diaryUpdateBtn_click()"> 
 					<input id="backButton" type="button" value="돌아가기" 
 						onclick="history.back()">
 				</div>

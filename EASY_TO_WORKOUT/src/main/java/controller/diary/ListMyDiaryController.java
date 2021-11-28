@@ -21,7 +21,7 @@ public class ListMyDiaryController implements Controller {
 		DiaryManager manager = DiaryManager.getInstance();
 		
 		if (request.getMethod().equals("GET")) {
-			List<Diary> diaryList = manager.findMyDiaryList(id);
+			List<Diary> diaryList = manager.getSortedMyDiary(id, "date");
 			request.setAttribute("diaryList", diaryList);
 			return "/diary/myDiaryPage.jsp";
 		}
