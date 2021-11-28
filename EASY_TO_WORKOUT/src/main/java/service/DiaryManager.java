@@ -30,6 +30,24 @@ public class DiaryManager {
 		return diaryDAO.insertDiary(diary);
 	}
 	
+	public int update(Diary diary) throws SQLException {
+		return diaryDAO.updateDiary(diary);
+	}
+	
+	public int delete(int id) throws SQLException {
+		return diaryDAO.deleteDiary(id);
+	}
+	
+	public Diary getDiaryById(int id)
+			throws SQLException, DiaryNotFoundException {
+		Diary diary = diaryDAO.getDiaryById(id);
+		
+		if (diary == null) {
+			throw new DiaryNotFoundException(id + "는 존재하지 않는 아이디입니다.");
+		}
+		return diary;
+	}
+	
 	public List<Diary> findMyDiaryList(String id) throws SQLException {
 		return diaryDAO.getMyDiaryList(id);
 	}

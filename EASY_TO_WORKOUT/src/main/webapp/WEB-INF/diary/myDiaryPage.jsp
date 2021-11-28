@@ -205,7 +205,11 @@ function search() {
 								<td>${diary.workTime}</td>
 								<td>${diary.author}</td>
 								<td>
-									<input id="etcButton" type="button" value="더보기">
+									<a href="<c:url value='/diary/detail'>
+												<c:param name='diaryId' value='${diary.diaryId}' />
+											</c:url>">
+										<input id="etcButton" type="button" value="더보기">
+									</a>
 								</td>
 						</c:forEach>
 					</table>
