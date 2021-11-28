@@ -111,6 +111,18 @@ function askDelete() {
 		deleteForm.submit();
 	}
 }
+
+function joinClub() {
+	if (window.confirm('모임에 가입하시겠습니까?')) {
+		joinForm.submit();
+	}
+}
+
+function askOut() {
+	if (window.confirm('모임을 탈퇴하시겠습니까?')) {
+		deleteForm.submit();
+	}
+}
 </script>
 </head>
 
@@ -172,16 +184,27 @@ function askDelete() {
 				</div>
 			</c:if>
 			<c:if test="${isMaster eq '0'}">
-				<div style="height: 50px;">
-					<input id="createButton" type="button" value="모임 가입" onclick="joinClub()">
-				</div>
+				<c:if test="${club.signUp eq '1'}">
+					<c:if test="${isInClub eq '0' }">
+						<div style="height: 50px;">
+							<form name="joinForm"  method="GET" action="<c:url value='/club/join' />">
+								<input type="hidden" name="clubId" value="${club.clubId}">
+								<input type="hidden" name="thisIsForJoin" value="thisIsForJoin">
+								<input id="createButton" type="button" value="모임 가입" onclick="joinClub()">
+							</form>
+						</div>
+					</c:if>
+				</c:if>
 			</c:if>
+			<c:if test="${successJoin eq 'successJoin'}"><script>alert('가입이 완료되었습니다.')</script></c:if>
 		</div>
 
 		<div style="float: right">
 			<!-- 모임 상세 정보 출력 부분  -->
 			<div id="clubInfoOutput">
-				<h3 style="margin: 20px;">모임 상세 정보</h3>
+				<h3 style="margin: 20px;">
+					모임 상세 정보 &nbsp; &nbsp;
+				</h3>
 				<hr>
 				<table id="clubTable">
 					<tr id="clubTableTr">
@@ -229,6 +252,11 @@ function askDelete() {
 								<input type="hidden" name="thisIsForDel" value="thisIsForDel">
 								<input type="hidden" name="clubId" value="${club.clubId}">
 								<input id="backButton" type="button" value="모임 삭제" onclick="askDelete()">							
+						</c:if>
+						<c:if test="${isInClub eq '1' }">
+							<input type="hidden" name="thisIsForOut" value="thisIsForOut">
+							<input type="hidden" name="clubId" value="${club.clubId}">
+							<input id="backButton" type="button" value="모임 탈퇴" onclick="askOut()">	
 						</c:if>
 						<input id="backButton" type="button" value="돌아가기"
 							onclick="location.href='<c:url value='/club/list' />'">
