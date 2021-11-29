@@ -20,6 +20,10 @@ public class OpenClubController implements Controller {
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub		
 		HttpSession session = request.getSession();
+		if (!MemberSessionUtils.hasLogined(session)) {
+			return "redirect:/login";
+		}
+		
 		String id = MemberSessionUtils.getLoginMemberId(session);
 		
 		Club club = new Club();

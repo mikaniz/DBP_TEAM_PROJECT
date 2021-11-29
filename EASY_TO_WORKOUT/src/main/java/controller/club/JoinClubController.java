@@ -24,6 +24,10 @@ public class JoinClubController implements Controller {
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
+		if (!MemberSessionUtils.hasLogined(session)) {
+			return "redirect:/login";
+		}
+
 		String memberId = MemberSessionUtils.getLoginMemberId(session);
 		int clubId = Integer.parseInt(request.getParameter("clubId"));
 		
