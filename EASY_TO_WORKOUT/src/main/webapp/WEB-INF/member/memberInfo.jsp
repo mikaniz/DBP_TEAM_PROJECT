@@ -39,7 +39,7 @@
 			<%-- routinePage, routine_detail 루틴 등록 버튼 --%>
 				<c:when test="${btnType eq 'routineCreate'}">
 					<input id="createButton" type="button" value="루틴 등록" 
-						onclick="location.href='<c:url value='/exercise/list' />'">
+						onclick="location.href='<c:url value='/routine/create' />'">
 				</c:when>
 			<%-- clubPage 모임 개설 버튼 --%>
 				<c:when test="${btnType eq 'clubCreate'}">
