@@ -14,6 +14,12 @@ public class DetailDiaryController implements Controller {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
+		if (!MemberSessionUtils.hasLogined(session)) {
+			return "redirect:/login";
+		}
+		
+		MemberSessionUtils.setLoginUserInfo(session, request);
+		
 		String memberId = MemberSessionUtils.getLoginMemberId(session);
 		
 		DiaryManager manager = DiaryManager.getInstance();

@@ -1,6 +1,10 @@
 package controller.member;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import service.MemberManager;
+import service.dto.Member;
 
 public class MemberSessionUtils {
 
@@ -24,6 +28,16 @@ public class MemberSessionUtils {
             return false;
         }
         return loginMember.equals(id);
+    }
+    
+    public static void setLoginUserInfo(HttpSession session, HttpServletRequest request) {
+    	MemberManager manager = MemberManager.getInstance();
+    	try {
+    		Member loginMember = manager.findMember(getLoginMemberId(session));
+    		request.setAttribute("loginMember", loginMember);
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	}
     }
 	
 }
