@@ -27,6 +27,9 @@ public class FindRoutineController implements Controller{
 			return "/routine/routinePage.jsp";
 		}
 		catch(ExistingRoutineException e) {
+			List<Routine> routineList = manager.ListingRoutines();
+			request.setAttribute("routineList", routineList);
+			
 			request.setAttribute("findRoutineFailed", true);
 			request.setAttribute("exception", e);
 			
