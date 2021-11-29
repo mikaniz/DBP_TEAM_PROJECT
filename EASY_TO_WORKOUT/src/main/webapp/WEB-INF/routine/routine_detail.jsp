@@ -80,7 +80,7 @@
 	table-layout: fixed;
 }
 
-#routineUpdateButton, #backButton {
+#routineUpdateButton, #routineDeleteButton, #backButton {
 	width: 150px;
 	height: 45px;
 	text-align: center;
@@ -99,6 +99,11 @@ th, td {
 	
 }
 </style>
+<script>
+function askDelete() {
+	window.confirm('루틴을 삭제하시겠습니까?');
+}
+</script>
 </head>
 
 <body>
@@ -225,10 +230,21 @@ th, td {
 					</tr>
 				</table>
 				<div style="text-align: center;">
-					<input id="routineUpdateButton" type="button" value="루틴 수정"
-						onclick=""> 
-					<input id="backButton" type="button" value="돌아가기" 
-						onclick="location.href='<c:url value='/routine/list' />'">
+					<form>
+						<c:if test="${isCreater}">
+							<a href="<c:url value='/routine/update'>
+								<c:param name='routineId' value='${routine.routineId}' /></c:url>">
+									<input id="routineUpdateButton" type="button" value="루틴 수정">
+							</a>
+							<a href="<c:url value='/routine/detail'>
+								<c:param name='routineId' value='${routine.routineId}' />
+								<c:param name='thisIsForDel' value='thisIsForDel' /></c:url>">
+									<input id="routineDeleteButton" type="button" value="루틴 삭제"  onclick="askDelete()">
+							</a>
+						</c:if>
+						<input id="backButton" type="button" value="돌아가기" 
+							onclick="history.back()">
+					</form>
 				</div>
 			</div>
 		</div>

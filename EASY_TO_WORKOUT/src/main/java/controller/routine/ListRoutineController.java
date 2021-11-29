@@ -15,7 +15,7 @@ public class ListRoutineController implements Controller {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
-		String id = MemberSessionUtils.getLoginMemberId(session);
+		String memberId = MemberSessionUtils.getLoginMemberId(session);
 
 		
 		RoutineManager manager = RoutineManager.getInstance();
@@ -44,7 +44,7 @@ public class ListRoutineController implements Controller {
 		else if (type.equals("3")) {
 			request.setAttribute("checkedThree", true);
 			
-			List<Routine> routineList = manager.ListingRoutinesByPersonal(id);
+			List<Routine> routineList = manager.ListingRoutinesByPersonal(memberId);
 			request.setAttribute("routineList", routineList);
 		}
 		

@@ -203,9 +203,6 @@ function search() {
 							</form></td>
 						</tr>
 						<c:forEach var="routine" items="${routineList}">
-							<form id="routineDetail" method="POST" action="<c:url value='/routine/detail' />">
-								<input type ="hidden" name="routineId" value="${routine.routineId}">
-							</form>
 							<tr id="listTr">
 								<td>${routine.rName}</td>
 								<td>${routine.routineCreater}</td>
