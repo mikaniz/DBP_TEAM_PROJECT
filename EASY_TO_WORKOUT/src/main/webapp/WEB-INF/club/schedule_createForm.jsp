@@ -159,7 +159,8 @@ function chooseRoutine(targetUri) {
 					<c:if test="${openClubFailed}"><font color="red">${exception.getMessage()}</font></c:if>
 				</h3>
 				<hr>
-				<form name="scheduleForm" method="GET" action="<c:url value='/club/schedule/create' />">
+				<form name="scheduleForm" method="POST" action="<c:url value='/club/schedule/create' />">
+					<input type="hidden" name="clubId" value="${clubId}">
 					<table id="clubTable">
 						<tr id="clubTableTr">
 							<td style="width: 130px;">스케줄 날짜 :</td>
@@ -183,14 +184,16 @@ function chooseRoutine(targetUri) {
 										document.location.href='<c:url value='/club/schedule/usage' />';
 									</script>
 								</c:if>
-								<input id="backButton" type="button" value="선택하기" 
+								<input type="button" value="선택하기" 
 									onclick="chooseRoutine('<c:url value='/club/schedule/usage' />')">
 							</td>
 						</tr>
 						<tr id="clubTableTr">
 							<td style="width: 130px;">선택 루틴 목록 : </td>
 							<td>
-								<textarea name="checkedRoutine" rows=4 cols=60 style="overflow: scroll; resize: none;"  readonly="readonly" disabled></textarea>
+								<textarea name="checkedRoutine" rows=4 cols=60 style="overflow: scroll; resize: none;"  readonly="readonly" disabled>
+									<c:forEach var="routine" items="${routineList}">${routine.rName} (${routine.part})<%= "\n" %></c:forEach>
+								</textarea>
 							</td>
 						</tr>
 						<tr id="clubTableTr">

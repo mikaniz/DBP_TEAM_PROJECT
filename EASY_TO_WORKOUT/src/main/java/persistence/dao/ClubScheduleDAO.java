@@ -1,6 +1,9 @@
 package persistence.dao;
 
 import java.sql.ResultSet;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,25 +83,32 @@ public class ClubScheduleDAO {
 
 	public int insertClubSchedule(ClubSchedule clubSchedule) {
 		// TODO Auto-generated method stub
-//		String insertQuery = "INSERT INTO "
-//				+ "CLUBSCHEDULE (scheduleId, clubId, contactAddress, notice, creationDate) "
-//				+ "VALUES (ClubIdSeq.nextval, ?, ?, ?, ?)";
-//		
-//		Object[] param = new Object[] {
-//				clubSchedule.getClubId(), clubSchedule.getContactAddress(), 
-//				clubSchedule.getNotice(), clubSchedule.getCreationDate()};
-//		jdbcUtil.setSqlAndParameters(insertQuery, param);
-//		
-//		try {				
-//			int result = jdbcUtil.executeUpdate();	
-//			return result;
-//		} catch (Exception ex) {
-//			jdbcUtil.rollback();
-//			ex.printStackTrace();
-//		} finally {		
-//			jdbcUtil.commit();
-//			jdbcUtil.close();	
-//		}	
+		String insertQuery = "INSERT INTO "
+				+ "CLUBSCHEDULE (scheduleId, clubId, contactAddress, notice, creationDate) "
+				+ "VALUES (ScheduleIdSeq.nextval, ?, ?, ?, ?)";
+		
+		// 포맷터
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+		// 문자열 -> Date
+		LocalDateTime date = LocalDateTime.parse(clubSchedule.getCreationDate(), formatter);
+		// Date->Timestamp
+		Timestamp creationDate = Timestamp.valueOf(date);
+		
+		Object[] param = new Object[] {
+				clubSchedule.getClubId(), clubSchedule.getContactAddress(), 
+				clubSchedule.getNotice(), creationDate};
+		jdbcUtil.setSqlAndParameters(insertQuery, param);
+		
+		try {				
+			int result = jdbcUtil.executeUpdate();	
+			return result;
+		} catch (Exception ex) {
+			jdbcUtil.rollback();
+			ex.printStackTrace();
+		} finally {		
+			jdbcUtil.commit();
+			jdbcUtil.close();	
+		}	
 		return 0;
 	}
 

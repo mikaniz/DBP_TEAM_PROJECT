@@ -30,6 +30,7 @@ public class FindRoutineController implements Controller{
 		String routinePart = request.getParameter("searchRoutine");
 		
 		if (request.getParameter("thisIsForUsage") != null) {
+			request.setAttribute("clubId", request.getParameter("clubId"));
 			request.setAttribute("creationDate", request.getParameter("creationDate"));
 			request.setAttribute("contactAddress", request.getParameter("contactAddress"));
 			request.setAttribute("notice", request.getParameter("notice"));

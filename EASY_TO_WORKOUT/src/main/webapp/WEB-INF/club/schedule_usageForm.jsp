@@ -152,6 +152,7 @@ function chooseUsage() {
 			<div id="search" style="width: 700px; height: 50px;">
 				<form name="searchForm" method="POST" action="<c:url value='/routine/find' />">
 					<input type="hidden" name="thisIsForUsage" value="thisIsForUsage">
+					<input type="hidden" name="clubId" value="${clubId}">
 					<input type="hidden" name="creationDate" value="${creationDate}">
 					<input type="hidden" name="contactAddress" value="${contactAddress}">
 					<input type="hidden" name="notice" value="${notice}">
@@ -169,6 +170,7 @@ function chooseUsage() {
 			<div id="list">
 				<form name="openForm" method="POST" action="<c:url value='/club/schedule/create' />">
 						<input type="hidden" name="thisIsForUsage" value="thisIsForUsage">
+						<input type="hidden" name="clubId" value="${clubId}">
 						<input type="hidden" name="creationDate" value="${creationDate}">
 						<input type="hidden" name="contactAddress" value="${contactAddress}">
 						<input type="hidden" name="notice" value="${notice}">

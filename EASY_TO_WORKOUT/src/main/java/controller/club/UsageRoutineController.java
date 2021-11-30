@@ -28,7 +28,8 @@ public class UsageRoutineController implements Controller {
 		MemberSessionUtils.setLoginUserInfo(session, request);
 		
 		// 작성 값 유지 위해
-		log.debug("usage checked routine : {}, {}, {}", request.getParameter("notice"), request.getParameter("creationDate"), request.getParameter("contactAddress"));
+		log.debug("usage checked routine : {}", request.getParameter("clubId"));
+		request.setAttribute("clubId", request.getParameter("clubId"));
 		request.setAttribute("creationDate", request.getParameter("creationDate"));
 		request.setAttribute("contactAddress", request.getParameter("contactAddress"));
 		request.setAttribute("notice", request.getParameter("notice"));
