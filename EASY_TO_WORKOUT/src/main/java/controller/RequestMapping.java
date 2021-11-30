@@ -17,13 +17,9 @@ public class RequestMapping {
 
     public void initMapping() {
     
-    	mappings.put("/main", new ForwardController("/mainPage.jsp"));
-    	mappings.put("/club", new ForwardController("/club/clubPage.jsp"));
-    	mappings.put("/routine", new ForwardController("/routine/routinePage.jsp"));
-    	mappings.put("/diary/all", new ForwardController("/diary/allDiaryPage.jsp"));
-    	mappings.put("/diary/my", new ForwardController("/diary/myDiaryPage.jsp"));
     	mappings.put("/login", new ForwardController("/member/memberLogin.jsp"));
     	
+    	mappings.put("/main", new MainController());
     	
     	mappings.put("/", new ForwardController("index.jsp"));
     	mappings.put("/member/login", new LoginController()); 
