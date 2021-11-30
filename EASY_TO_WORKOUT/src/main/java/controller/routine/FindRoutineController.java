@@ -10,7 +10,7 @@ import controller.Controller;
 import controller.member.MemberSessionUtils;
 import service.RoutineManager;
 import service.dto.Routine;
-import service.exception.ExistingRoutineException;
+import service.exception.ExistingPartException;
 
 
 public class FindRoutineController implements Controller{
@@ -28,15 +28,15 @@ public class FindRoutineController implements Controller{
 		
 		RoutineManager manager = RoutineManager.getInstance();
 		
-		String routineName = request.getParameter("searchRoutine");
+		String routinePart = request.getParameter("searchRoutine");
 		
 		try {
-			List<Routine> routineList = manager.getRoutineByName(routineName);
+			List<Routine> routineList = manager.getRoutineByPart(routinePart);
 			request.setAttribute("routineList", routineList);
 			
 			return "/routine/routinePage.jsp";
 		}
-		catch(ExistingRoutineException e) {
+		catch(ExistingPartException e) {
 			List<Routine> routineList = manager.ListingRoutines();
 			request.setAttribute("routineList", routineList);
 			

@@ -39,19 +39,23 @@ public class RoutineManager {
 		return dao.getRoutineListByPersonal(id);
 	}
 	
-	public List<Routine> getRoutineByName(String rName) throws ExistingRoutineException, SQLException {
+	public List<Routine> getRoutineByPart(String part) throws ExistingPartException, SQLException {
 		// TODO Auto-generated method stub
-		if (rName.equals("")) {
-			throw new ExistingRoutineException("루틴명을 다시 입력하세요.");
+		if (part.equals("")) {
+			throw new ExistingPartException("운동부위를 다시 입력하세요.");
 		}
-		else if (!existingRoutine(rName)) {
-			throw new ExistingRoutineException("해당 루틴이 존재하지 않습니다.");
+		else if (!existingPart(part)) {
+			throw new ExistingPartException("해당 운동부위가 존재하지 않습니다.");
 		}
-		return dao.getRoutineByName(rName);
+		return dao.getRoutineByPart(part);
 	}
 	
 	public boolean existingRoutine(String rName) throws SQLException {
 		return dao.existingRoutine(rName);
+	}
+	
+	public boolean existingPart(String part) throws SQLException {
+		return dao.existingPart(part);
 	}
 	
 	public int insertRoutine(Routine routine) throws SQLException, ExistingRoutineException {
@@ -61,10 +65,10 @@ public class RoutineManager {
 		return dao.insertRoutine(routine);
 	}
 	
-	public int updateRoutine(Routine routine) throws SQLException, RoutineNotFoundException, ExistingRoutineException {
+	public int updateRoutine(Routine routine) throws SQLException, ExistingRoutineException {
 		String oldRoutineName = getRoutine(routine.getRoutineId()).getrName();
 		if (routine.getrName().equals(oldRoutineName) == false) {
-			throw new RoutineNotFoundException(routine.getrName() + "는 존재하지 않는 루틴입니다.");
+			throw new ExistingRoutineException(routine.getrName() + "는 존재하지 않는 루틴입니다.");
 		}
 		return dao.updateRoutine(routine);
 	}

@@ -148,7 +148,7 @@ function search() {
 					<input type="text" name="searchRoutine" placeholder="
 						<c:choose>
 							<c:when test="${findRoutineFailed}">${exception.getMessage()}</c:when>
-							<c:otherwise>루틴명을 입력하세요</c:otherwise>
+							<c:otherwise>운동부위를 입력하세요</c:otherwise>
 						</c:choose>
 					" style="width: 580px; height: 42px;"> 
 	    			<input id="searchButton" type="button"
