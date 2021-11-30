@@ -131,32 +131,8 @@ function routineUpdateBtn_click() {
 
 	<hr>
 	<div class="container">
-		<!-- 회원정보 틀 -->
-		<div
-			style="width: 400px; height: 600px; border: 1px solid; float: left; margin-right: 10px;">
-			<h3 style="margin: 20px;">회원정보</h3>
-			<table id="memberDataTable">
-				<tr>
-					<td><img src="<c:url value='/images/somsom.jpg' />" width=150px height=230px />
-					</td>
-					<td>이름 : 김동덕
-						<p /> 등급 : 새싹
-						<p /> <br> <a href='#'>회원정보 수정</a>
-						<p>
-							<a href='#'>로그아웃</a>
-					</td>
-				</tr>
-			</table>
-			<br>
-			<hr>
-			<article>
-				<h4 style="margin: 20px;">내 모임 목록</h4>
-				<ul>
-					<li><a href='#'>투현진</a></li>
-					<li><a href='#'>ETW</a></li>
-				</ul>
-			</article>
-		</div>
+		<!-- 회원정보 -->
+		<jsp:include page="/WEB-INF/member/memberInfo.jsp"/>
 
 		<div style="float: right">
 			<!-- 루틴 업데이트 항목 입력 부분  -->
@@ -181,23 +157,23 @@ function routineUpdateBtn_click() {
 						<td style="width: 130px;">운동 부위 :</td>
 						<td>
 							<input type="checkbox" name="routinePart" 
-								<c:if test="${routine.getPart().contains("상체")}">checked</c:if>
+								<c:if test="${routine.part.contains("상체")}">checked</c:if>
 							value="상체" />상체
 							&nbsp;&nbsp; 
 							<input type="checkbox" name="routinePart" 
-								<c:if test="${routine.getPart().contains("하체")}">checked</c:if>
+								<c:if test="${routine.part.contains("하체")}">checked</c:if>
 							value="하체" />하체
 							&nbsp;&nbsp; 
 							<input type="checkbox" name="routinePart" 
-								<c:if test="${routine.getPart().contains("복부")}">checked</c:if>
+								<c:if test="${routine.part.contains("복부")}">checked</c:if>
 							value="복부" />복부
 							&nbsp;&nbsp; 
 							<input type="checkbox" name="routinePart" 
-								<c:if test="${routine.getPart().contains("어깨")}">checked</c:if>
+								<c:if test="${routine.part.contains("어깨")}">checked</c:if>
 							value="어깨" />어깨
 							&nbsp;&nbsp; 
 							<input type="checkbox" name="routinePart" 
-								<c:if test="${routine.getPart().contains("전신")}">checked</c:if>
+								<c:if test="${routine.part.contains("전신")}">checked</c:if>
 							value="전신" />전신
 						</td>
 					</tr>
@@ -288,9 +264,9 @@ function routineUpdateBtn_click() {
 				</table>
 				<div style="text-align: center; margin-left: 130px;">
 					<input id="routineUpdateButton" type="button" value="루틴 수정"
-						onclick="location.href='<c:url value='/routine/find' />'"> 
+						onclick="routineUpdateBtn_click()"> 
 					<input id="backButton" type="button" value="돌아가기" 
-						onclick="location.href='<c:url value='/routine/list' />'">
+						onclick="history.back()">
 				</div>
 				</form>
 			</div>
