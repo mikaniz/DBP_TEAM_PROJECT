@@ -3,7 +3,7 @@ package service.dto;
 public class Usage {
 
 	private int clubId = 0;
-	private String scheduleId = null;
+	private int scheduleId = 0;
 	private int routineId = 0;
 	
 	public int getClubId() {
@@ -12,10 +12,10 @@ public class Usage {
 	public void setClubId(int clubId) {
 		this.clubId = clubId;
 	}
-	public String getScheduleId() {
+	public int getScheduleId() {
 		return scheduleId;
 	}
-	public void setScheduleId(String scheduleId) {
+	public void setScheduleId(int scheduleId) {
 		this.scheduleId = scheduleId;
 	}
 	public int getRoutineId() {

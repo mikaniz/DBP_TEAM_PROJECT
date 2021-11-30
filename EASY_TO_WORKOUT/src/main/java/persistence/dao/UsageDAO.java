@@ -24,7 +24,7 @@ public class UsageDAO {
 			while (rs.next()) {
 				Usage dto = new Usage();
 				dto.setClubId(rs.getInt("clubId"));
-				dto.setScheduleId(rs.getString("scheduleId"));
+				dto.setScheduleId(rs.getInt("scheduleId"));
 				dto.setRoutineId(rs.getInt("routineId"));
 			}
 			return list;
@@ -46,7 +46,7 @@ public class UsageDAO {
 			
 			while (rs.next()) {
 				usage.setClubId(rs.getInt("clubId"));
-				usage.setScheduleId(rs.getString("scheduleId"));
+				usage.setScheduleId(rs.getInt("scheduleId"));
 				usage.setRoutineId(rs.getInt("routineId"));
 			}
 			return usage;
@@ -68,7 +68,7 @@ public class UsageDAO {
 			if (rs.next()) {
 				dto = new Usage();
 				dto.setClubId(rs.getInt("clubId"));
-				dto.setScheduleId(rs.getString("scheduleId"));
+				dto.setScheduleId(rs.getInt("scheduleId"));
 				dto.setRoutineId(rs.getInt("routineId"));
 			}
 		} catch (Exception e) {

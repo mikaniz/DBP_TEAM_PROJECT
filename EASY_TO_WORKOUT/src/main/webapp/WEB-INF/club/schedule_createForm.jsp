@@ -196,6 +196,9 @@ function chooseRoutine(targetUri) {
 						<tr id="clubTableTr">
 							<td style="width: 130px;">선택 루틴 목록 : </td>
 							<td>
+							<c:forEach var="routine" items="${routineList}">
+								<input type="hidden" name="routineIdList" value="${routine.routineId}">
+							</c:forEach>
 								<textarea name="checkedRoutine" rows=4 cols=60 style="overflow: scroll; resize: none;"  readonly="readonly" disabled><c:forEach var="routine" items="${routineList}">${routine.rName} (${routine.part})<%= "\n" %></c:forEach></textarea>
 							</td>
 						</tr>

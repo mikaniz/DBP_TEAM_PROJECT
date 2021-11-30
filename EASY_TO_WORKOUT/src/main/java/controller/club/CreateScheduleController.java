@@ -71,9 +71,13 @@ public class CreateScheduleController implements Controller {
 		schedule.setContactAddress(request.getParameter("contactAddress"));
 		schedule.setCreationDate(request.getParameter("creationDate")); 
 		schedule.setNotice(request.getParameter("notice"));
-		
+	
 		ClubScheduleManager scheduleManager = ClubScheduleManager.getInstance();
 		scheduleManager.insertClubSchedule(schedule);
+
+// 		Usage insert
+//		String[] routineIdList = request.getParameterValues("routineIdList");
+//		for (String routineId : routineIdList) log.debug("aaaaa : {}", routineId);
 		
 		return "redirect:/club/list";
 	}
