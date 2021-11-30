@@ -113,6 +113,11 @@ function scheduleCreate() {
 		theForm.creationDate.focus();
 		return false;
 	}
+	else if (scheduleForm.checkedRoutine.value.length == 0) {
+		alert("루틴을 선택해주세요.");
+		theForm.creationDate.focus();
+		return false;
+	}
 	scheduleForm.submit();
 }
 
@@ -191,9 +196,7 @@ function chooseRoutine(targetUri) {
 						<tr id="clubTableTr">
 							<td style="width: 130px;">선택 루틴 목록 : </td>
 							<td>
-								<textarea name="checkedRoutine" rows=4 cols=60 style="overflow: scroll; resize: none;"  readonly="readonly" disabled>
-									<c:forEach var="routine" items="${routineList}">${routine.rName} (${routine.part})<%= "\n" %></c:forEach>
-								</textarea>
+								<textarea name="checkedRoutine" rows=4 cols=60 style="overflow: scroll; resize: none;"  readonly="readonly" disabled><c:forEach var="routine" items="${routineList}">${routine.rName} (${routine.part})<%= "\n" %></c:forEach></textarea>
 							</td>
 						</tr>
 						<tr id="clubTableTr">
