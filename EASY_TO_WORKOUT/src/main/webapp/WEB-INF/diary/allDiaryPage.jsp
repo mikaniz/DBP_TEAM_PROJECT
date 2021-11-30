@@ -137,37 +137,8 @@ function search() {
 
 	<hr>
 	<div class="container">
-		<!-- 회원정보 틀 -->
-		<div style="width: 400px; height: 600px; border: 1px solid; float: left; margin-right: 10px;">
-			<div style="height: 530px;">
-				<h3 style="margin: 20px;">회원정보</h3>
-				<table id="memberDataTable">
-					<tr>
-						<td><img src="<c:url value='/images/somsom.jpg' />" width=150px height=230px />
-						</td>
-						<td>이름 : 김동덕
-							<p /> 등급 : 새싹
-							<p /> <br> <a href='#'>회원정보 수정</a>
-							<p>
-								<a href='#'>로그아웃</a>
-						</td>
-					</tr>
-				</table>
-				<br><hr>
-				<article>
-					<h4 style="margin: 20px;">내 모임 목록</h4>
-					<ul>
-						<li><a href='#'>투현진</a></li>
-						<li><a href='#'>ETW</a></li>
-					</ul>
-				</article>
-			</div>
-			<div style="height: 50px;">
-				<!-- 다이어리 작성 버튼 -->
-				<input id="writeButton" type="button" value="다이어리 작성" 
-					onclick="location.href='<c:url value='/diary/write' />'">
-			</div>
-		</div>
+		<!-- 회원정보 -->
+		<jsp:include page="/WEB-INF/member/memberInfo.jsp"/>
 
 		<div style="float: right">
 			<!-- 검색창 -->

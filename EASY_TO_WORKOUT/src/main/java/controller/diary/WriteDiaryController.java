@@ -15,6 +15,13 @@ public class WriteDiaryController implements Controller {
 	
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		HttpSession session = request.getSession();
+		if (!MemberSessionUtils.hasLogined(session)) {
+			return "redirect:/login";
+		}
+		
+		MemberSessionUtils.setLoginUserInfo(session, request);
+		
     	String title = request.getParameter("diaryTitle");
 		int workTime = Integer.parseInt(request.getParameter("workTime"));
 		String contents = request.getParameter("diaryContents");
@@ -32,7 +39,6 @@ public class WriteDiaryController implements Controller {
 		diary.setDate(new Timestamp(System.currentTimeMillis()));
 		
 		try {
-			HttpSession session = request.getSession();
             String author = MemberSessionUtils.getLoginMemberId(session);
             diary.setAuthor(author);
             

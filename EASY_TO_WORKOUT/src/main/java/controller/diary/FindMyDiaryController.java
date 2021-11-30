@@ -17,6 +17,12 @@ public class FindMyDiaryController implements Controller {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
+		if (!MemberSessionUtils.hasLogined(session)) {
+			return "redirect:/login";
+		}
+		
+		MemberSessionUtils.setLoginUserInfo(session, request);
+		
 		String id = MemberSessionUtils.getLoginMemberId(session);
 		
 		DiaryManager manager = DiaryManager.getInstance();
