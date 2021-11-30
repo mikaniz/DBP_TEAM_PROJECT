@@ -21,6 +21,9 @@ public class DetailRoutineController implements Controller {
 			return "redirect:/login";
 		}
 		
+		MemberSessionUtils.setLoginUserInfo(session, request);
+		request.setAttribute("btnType", "routineCreate");
+		
 		String memberId = MemberSessionUtils.getLoginMemberId(session);
 		
 		RoutineManager manager = RoutineManager.getInstance();

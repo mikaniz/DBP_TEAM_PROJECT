@@ -8,7 +8,8 @@
 			<tr>
 				<td><img src="<c:url value='/images/somsom.jpg' />" width=150px height=230px />
 				</td>
-				<td>이름 : ${loginMember.name}
+				<td>아이디 : ${loginMember.id}
+					<p>이름 : ${loginMember.name}
 					<p /> 등급 : <c:choose>
 						<c:when test="${loginMember.grade eq 'green'}">새싹</c:when>
 						<c:otherwise>마스터</c:otherwise>

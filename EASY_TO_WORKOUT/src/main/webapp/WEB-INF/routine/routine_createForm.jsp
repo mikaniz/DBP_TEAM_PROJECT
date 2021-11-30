@@ -113,6 +113,13 @@
 	background-color: #90ABDA;
 }
 
+#exerciseChoiceButton {
+	width: 120px;
+	height: 35px;
+	text-align: center;
+	font-size: 12px;
+}
+
 #searchButton {
 	width: 50px; 
 	height: 27px;
@@ -131,8 +138,25 @@ function routineCreate() {
 		createForm.routineName.focus();
 		return false;
 	}
-	else {
-		alert("루틴이 등록되었습니다.\n 루틴 목록에서 확인이 가능합니다.");
+	if(createForm.routinePart.value == "") {
+		alert("운동 부위를 선택해주세요.");
+		createForm.routinePart.focus();
+		return false;
+	}
+	if(createForm.routineTime.value == "") {
+		alert("소요시간을 입력해주세요.");
+		createForm.routineTime.focus();
+		return false;
+	}
+	if(createForm.routineName.value == "") {
+		alert("루틴명을 입력해주세요.");
+		createForm.routineName.focus();
+		return false;
+	}
+	if(createForm.routineName.value == "") {
+		alert("루틴명을 입력해주세요.");
+		createForm.routineName.focus();
+		return false;
 	}
 	createForm.submit();
 }
@@ -168,51 +192,27 @@ function search() {
 
 	<hr>
 	<div class="container">
-		<!-- 회원정보 틀 -->
-		<div
-			style="width: 400px; height: 600px; border: 1px solid; float: left; margin-right: 10px;">
-			<h3 style="margin: 20px;">회원정보</h3>
-			<table id="memberDataTable">
-				<tr>
-					<td><img src="<c:url value='/images/somsom.jpg' />" width=150px height=230px />
-					</td>
-					<td>이름 : 김동덕
-						<p /> 등급 : 새싹
-						<p /> <br> <a href='#'>회원정보 수정</a>
-						<p>
-							<a href='#'>로그아웃</a>
-					</td>
-				</tr>
-			</table>
-			<br>
-			<hr>
-			<article>
-				<h4 style="margin: 20px;">내 모임 목록</h4>
-				<ul>
-					<li><a href='#'>투현진</a></li>
-					<li><a href='#'>ETW</a></li>
-				</ul>
-			</article>
-		</div>
+		<!-- 회원정보 -->
+		<jsp:include page="/WEB-INF/member/memberInfo.jsp"/>
 
 		<div style="float: right">
 			<!-- 루틴 등록 항목 입력 부분  -->
 			<div id="routineInfoInput">
-				<h3 style="margin: 20px;">루틴 정보 입력</h3>
+				<h3 style="margin: 20px;">
+					루틴 정보 입력&nbsp;&nbsp;
+					<c:if test="${creationFailed}"><font color="red">${exception.getMessage()}</font></c:if>
+				</h3>
 				<hr>
 				<form name="createForm" method="POST" action="<c:url value='/routine/create' />">
 				<table id="routineTable">
 					<tr id="routineTableTr">
 						<td style="width: 130px;">루틴명 :</td>
 						<td><input type="text" name="routineName"
-							<c:if test="${creationFailed}">value="${routine.rName}"</c:if>
 							style="width: 300px; height: 20px; font-size: 15px;"></td>
 					</tr>
 					<tr id="routineTableTr">
 						<td style="width: 130px;">등록자 :</td>
-						<td><input type="text" name="routineCreater"
-							<c:if test="${creationFailed}">value="${routine.routineCreater}"</c:if>
-							style="width: 300px; height: 20px; font-size: 15px;"></td>
+						<td>${member.getId()}</td>
 					</tr>
 					<tr id="routineTableTr">
 						<td style="width: 130px;">운동 부위 :</td>
@@ -259,50 +259,14 @@ function search() {
 					<tr id="routineTableTr">
 						<td style="width: 130px;">운동 선택 :</td>
 						<td>
-							<div style="text-align: center; margin-left: 90px;">
-								<!-- 검색창 -->
-								<div id="search" style="width: 400px; height: 20px;">
-										<input type="text" name="searchExercise" placeholder="
-											<c:choose>
-												<c:when test="${findExerciseFailed}">${exception.getMessage()}</c:when>
-												<c:otherwise>운동명을 입력하세요</c:otherwise>
-											</c:choose>
-										" style="width: 330px; height: 22px;"> 
-										<a href="<c:url value='/exercise/find'>
-												<c:param name='exerciseName' value='${routine.routineId}'/>
-											</c:url>">
-	    									<input id="searchButton" type="button" value="검색">
-										</a>
-								</div>
-								<!-- 전체 운동 목록 -->
-								<div id="list">
-									<div style="width: 380px; height: 20px;">
-										<table id="listTable">
-											<tr id="listItem">
-												<th style="font-size: 13px;">운동명</th>
-												<th style="font-size: 13px;">운동 부위</th>
-											</tr>
-											<c:forEach var="exercise" items="${exerciseList}">
-												<tr id="listTr">
-													<td>${exercise.name}</td>
-													<td>${exercise.part}</td>
-													<td><a href="<c:url value='/exercise/detail'>
-																<c:param name='exerciseId' value='${exercise.exerciseId}'/>
-															</c:url>">
-															<input id="etcButton" type="button" value="더보기">
-														</a>
-													</td>
-												</tr>
-											</c:forEach>
-										</table>
-									</div>
-								</div>
-						</div></td>
+							<input id="exerciseChoiceButton" type="button" value="운동 선택하러 가기"
+									onclick="location.href='<c:url value='/exercise/list' />'"> 
+						</td>
 					</tr>
 				</table>
 				<div style="text-align: center; margin-left: 130px;">
 					<input id="routineCreateButton" type="button" value="루틴 등록"
-						onclick=""> 
+						onclick="routineCreate()"> 
 					<input id="backButton" type="button" value="돌아가기" 
 						onclick="location.href='<c:url value='/routine/list' />'">
 				</div>

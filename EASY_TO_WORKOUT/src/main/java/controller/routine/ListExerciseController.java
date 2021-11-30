@@ -21,6 +21,9 @@ public class ListExerciseController implements Controller {
 			return "redirect:/login";
 		}
 		
+		MemberSessionUtils.setLoginUserInfo(session, request);
+		request.setAttribute("btnType", "routineCreate");
+		
 		ExerciseManager manager = ExerciseManager.getInstance();
 		
 		if (request.getMethod().equals("GET")) {

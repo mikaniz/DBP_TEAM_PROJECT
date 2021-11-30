@@ -19,6 +19,9 @@ public class ChoiceExerciseController implements Controller {
 			return "redirect:/login";
 		}
 		
+		MemberSessionUtils.setLoginUserInfo(session, request);
+		request.setAttribute("btnType", "routineCreate");
+		
 		ExerciseManager manager = ExerciseManager.getInstance();
 		
 		int exerciseId = Integer.parseInt(request.getParameter("exerciseId"));

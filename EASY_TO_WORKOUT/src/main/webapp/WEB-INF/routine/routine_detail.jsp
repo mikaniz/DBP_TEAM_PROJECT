@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>ETW routine_detials</title>
+<title>ETW routine_details</title>
 <style>
 .menu {
 	height: 50px;
@@ -70,12 +70,12 @@
 #routineTable {
 	border-collapse: collapse;
 	width: 700px;
-	height: 350px;
+	height: 200px;
 	float: center;
 }
 
 #routineTableTr {
-	height: 30px;
+	height: 20px;
 	width: 700px;
 	table-layout: fixed;
 }
@@ -130,36 +130,8 @@ function askDelete() {
 
 	<hr>
 	<div class="container">
-		<!-- 회원정보 틀 -->
-		<div style="width: 400px; height: 600px; border: 1px solid; float: left; margin-right: 10px;">
-			<div style="height: 530px;">
-				<h3 style="margin: 20px;">회원정보</h3>
-				<table id="memberDataTable">
-					<tr>
-						<td><img src="<c:url value='/images/somsom.jpg' />" width=150px height=230px />
-						</td>
-						<td>이름 : 김동덕
-							<p /> 등급 : 새싹
-							<p /> <br> <a href='#'>회원정보 수정</a>
-							<p>
-								<a href='#'>로그아웃</a>
-						</td>
-					</tr>
-				</table>
-				<br><hr>
-				<article>
-					<h4 style="margin: 20px;">내 모임 목록</h4>
-					<ul>
-						<li><a href='#'>투현진</a></li>
-						<li><a href='#'>ETW</a></li>
-					</ul>
-				</article>
-			</div>
-			<div style="height: 50px;">
-				<!-- 루틴 등록 버튼 -->
-				<input id="createButton" type="button" value="루틴 등록" onclick="location.href='<c:url value='/exercise/list' />'">
-			</div>
-		</div>
+		<!-- 회원정보 -->
+		<jsp:include page="/WEB-INF/member/memberInfo.jsp"/>
 
 		<div style="float: right">
 			<!-- 루틴 상세 정보 출력 부분  -->
@@ -168,38 +140,38 @@ function askDelete() {
 				<hr>
 				<table id="routineTable">
 					<tr id="routineTableTr">
-						<td style="width: 130px; font-size: 15px;">루틴명 :</td>
-						<td style="text-align:left; font-size: 13px;">
+						<td style="width: 130px; font-size: 14px;">루틴명 :</td>
+						<td style="text-align:left; font-size: 12px;">
 							<p>${routine.rName}
 						</td>
 					</tr>
 					<tr id="routineTableTr">
-						<td style="width: 130px; font-size: 15px;">등록자 :</td>
-						<td style="text-align:left; font-size: 13px;">
+						<td style="width: 130px; font-size: 14px;">등록자 :</td>
+						<td style="text-align:left; font-size: 12px;">
 							<p>${routine.routineCreater}
 						</td>
 					</tr>
 					<tr id="routineTableTr">
-						<td style="width: 130px; font-size: 15px;">운동 부위 :</td>
-						<td style="text-align:left; font-size: 13px;">
+						<td style="width: 130px; font-size: 14px;">운동 부위 :</td>
+						<td style="text-align:left; font-size: 12px;">
 							<p>${routine.part}
 						</td>
 					</tr>
 					<tr id="routineTableTr">
-						<td style="width: 130px; font-size: 15px;">소요시간 :</td>
-						<td style="text-align:left; font-size: 13px;">
+						<td style="width: 130px; font-size: 14px;">소요시간 :</td>
+						<td style="text-align:left; font-size: 12px;">
 							<p>${routine.rTime}분
 						</td>
 					</tr>
 					<tr id="routineTableTr">
-						<td style="width: 130px; font-size: 15px;">운동 강도 :</td>
-						<td style="text-align:left; font-size: 13px;">
+						<td style="width: 130px; font-size: 14px;">운동 강도 :</td>
+						<td style="text-align:left; font-size: 12px;">
 							<p>${routine.difficulty} (1~5)
 						</td>
 					</tr>
 					<tr id="routineTableTr">
-						<td style="width: 130px; font-size: 15px;">루틴 유형 :</td>
-						<td style="text-align:left; font-size: 13px;">
+						<td style="width: 130px; font-size: 14px;">루틴 유형 :</td>
+						<td style="text-align:left; font-size: 12px;">
 							<p><c:choose>
 									<c:when test="${routine.rType == 0}">전체</c:when>
 									<c:otherwise>개인</c:otherwise>
@@ -207,8 +179,8 @@ function askDelete() {
 						</td>
 					</tr>
 					<tr id="routineTableTr">
-						<td style="width: 130px; font-size: 15px;">선택된 운동:</td>
-						<td style="text-align:left; font-size: 13px;">
+						<td style="width: 130px; font-size: 14px;">선택된 운동:</td>
+						<td style="text-align:left; font-size: 12px;">
 							<p><c:forEach var="exercise" items="${exerciseList}">
 									<c:choose>
 										<c:when test="${exercise == exerciseList[0]}">${exercise.name}</c:when>
@@ -218,17 +190,17 @@ function askDelete() {
 						</td>
 					</tr>
 					<tr id="routineTableTr">
-						<td style="width: 130px; font-size: 15px;">운동 방법 :</td>
-						<td style="text-align:left; font-size: 13px;">
-							<textarea rows=8
-							 cols=60
-								style="overflow: scroll;resize: none; font-size: 13px;" readonly="readonly" disabled>
+						<td style="width: 130px; font-size: 14px;">운동 방법 :</td>
+						<td style="text-align:left; font-size: 12px;">
+							<textarea rows=8 cols=70
+								style="overflow: scroll;resize: none; font-size: 12px;" readonly="readonly" disabled>
 								<c:forEach var="exercise" items="${exerciseList}">
 									${exercise.name} : ${exercise.method}
 								</c:forEach>
 							</textarea></td>
 					</tr>
 				</table>
+				<p>
 				<div style="text-align: center;">
 					<form>
 						<c:if test="${isCreater}">
