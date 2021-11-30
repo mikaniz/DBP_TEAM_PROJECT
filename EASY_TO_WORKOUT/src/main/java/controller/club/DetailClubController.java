@@ -24,6 +24,9 @@ public class DetailClubController implements Controller {
 			return "redirect:/login";
 		}
 		
+		MemberSessionUtils.setLoginUserInfo(session, request);
+		request.setAttribute("btnType", "scheduleCreate");
+		
 		String memberId = MemberSessionUtils.getLoginMemberId(session);
 		
 		ClubManager clubManager = ClubManager.getInstance();

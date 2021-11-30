@@ -61,30 +61,30 @@
 	table-layout: fixed;
 }
 
-#clubInfoInput {
+#list {
 	width: 700px;
 	height: 540px;
 	border: 1px solid;
-	overflow: auto;
+	margin-top: 10px;
+	overflow: scroll;
+	position: relative;
 }
 
-#clubTable {
+
+#listTable {
 	border-collapse: collapse;
 	width: 700px;
-	height: 360px;
-	float: center;
 	table-layout: fixed;
-}
-
-#clubTableTr {
-	height: 20px;
-	width: 700px;
 }
 
 #listItem {
 	border-bottom: 1px solid;
-	height: 40px;
+	height: 50px;
+}
+
+#listTr {
 	width: 700px;
+	height: 40px;
 	table-layout: fixed;
 }
 
@@ -100,19 +100,23 @@
 	background-color: #90ABDA;
 }
 
+#searchButton {
+	width: 100px; 
+	height: 47px;
+	background-color: #90ABDA;
+}
+
 th, td {
 	text-align: center;
 }
 </style>
 <script>
+function search() {
+	searchForm.submit();
+}
+
 function chooseUsage() {
-	if(openForm.checkRoutine.value == "") {
-		alert("루틴을 선택해주세요.");
-		theForm.checkRoutine.focus();
-		return false;
-	}
 	openForm.submit();
-	
 }
 </script>
 
@@ -141,72 +145,68 @@ function chooseUsage() {
 
 	<hr>
 	<div class="container">
-		<!-- 회원정보 틀 -->
-		<div style="width: 400px; height: 600px; border: 1px solid; float: left; margin-right: 10px;">
-			<div style="height: 530px;">
-				<h3 style="margin: 20px;">회원정보</h3>
-				<table id="memberDataTable">
-					<tr>
-						<td><img src="<c:url value='/images/somsom.jpg' />" width=150px height=230px />
-						</td>
-						<td>이름 : 김동덕
-							<p /> 등급 : 새싹
-							<p /> <br> <a href='#'>회원정보 수정</a>
-							<p>
-								<a href='#'>로그아웃</a>
-						</td>
-					</tr>
-				</table>
-				<br><hr>
-				<article>
-					<h4 style="margin: 20px;">내 모임 목록</h4>
-					<ul>
-						<li><a href='#'>투현진</a></li>
-						<li><a href='#'>ETW</a></li>
-					</ul>
-				</article>
+		<!-- 회원정보 -->
+		<jsp:include page="/WEB-INF/member/memberInfo.jsp"/>
+		<div style="float: right">
+			<!-- 검색창 -->
+			<div id="search" style="width: 700px; height: 50px;">
+				<form name="searchForm" method="POST" action="<c:url value='/routine/find' />">
+					<input type="hidden" name="thisIsForUsage" value="thisIsForUsage">
+					<input type="hidden" name="creationDate" value="${creationDate}">
+					<input type="hidden" name="contactAddress" value="${contactAddress}">
+					<input type="hidden" name="notice" value="${notice}">
+					<input type="text" name="searchRoutine" placeholder="
+						<c:choose>
+							<c:when test="${findRoutineFailed}">${exception.getMessage()}</c:when>
+							<c:otherwise>루틴명을 입력하세요</c:otherwise>
+						</c:choose>
+					" style="width: 580px; height: 42px;"> 
+	    			<input id="searchButton" type="button"
+						value="검색" onclick="search()">
+				</form>
+			</div>
+			<!-- 전체 루틴 목록 -->
+			<div id="list">
+				<form name="openForm" method="POST" action="<c:url value='/club/schedule/create' />">
+						<input type="hidden" name="thisIsForUsage" value="thisIsForUsage">
+						<input type="hidden" name="creationDate" value="${creationDate}">
+						<input type="hidden" name="contactAddress" value="${contactAddress}">
+						<input type="hidden" name="notice" value="${notice}">
+						<table id="listTable">
+							<tr id="listItem">
+								<td></td>
+								<th>루틴명 </th>
+								<th>등록자</th>
+								<th>운동부위</th>
+								<td></td>
+							</tr>
+							<c:forEach var="routine" items="${routineList}">						
+								<tr id="listTr">
+									<td><input type="checkbox" name="checkRoutineId" value="${routine.routineId}"></td>
+									<td>${routine.rName}</td>
+									<td>${routine.routineCreater}</td>
+									<td>${routine.part}</td>
+									<td>
+										<a href="<c:url value='/routine/detail'>
+												<c:param name='routineId' value='${routine.routineId}'/>
+												<c:param name='thisIsForUsage' value='thisIsForUsage' />
+											</c:url>">
+											<input id="etcButton" type="button" value="더보기">
+										</a>
+									</td>
+								</tr>
+							</c:forEach>
+						</table>					
+					
+					<div style="text-align: center; margin-left: 170px; position: absolute; bottom:0;">
+						<input id="chooseButton" type="button" value="루틴 선택 완료"
+									onclick="chooseUsage()"> 
+						<input id="chooseButton" type="button" value="돌아가기" 
+									onclick="location.href='<c:url value='/club/schedule/create' />'">
+					</div>
+				</form>
 			</div>
 		</div>
-
-		<div style="float: right">
-			<!-- 모임 개설 항목 입력 부분  -->
-			<form name="openForm" method="POST" action="<c:url value='/club/schedule/create' />">
-				<div id="clubInfoInput">
-					<input type="hidden" name="thisIsForUsage" value="thisIsForUsage">
-					<table id="clubTable">
-						<tr id="listItem">
-							<td></td>
-							<th>루틴명</th>
-							<th>등록자</th>
-							<th>운동부위</th>
-							<td></td>
-						</tr>
-						<c:forEach var="routine" items="${routineList}">						
-							<tr id="clubTableTr">
-								<td><input type="checkbox" name="checkRoutine" value="${routine.routineId}"></td>
-								<td>${routine.rName}</td>
-								<td>${routine.routineCreater}</td>
-								<td>${routine.part}</td>
-								<td>
-									<a href="<c:url value='/routine/detail'>
-											<c:param name='routineId' value='${routine.routineId}'/>
-										</c:url>">
-										<input id="etcButton" type="button" value="더보기">
-									</a>
-								</td>
-							</tr>
-						</c:forEach>
-					</table>					
-				</div>
-				<div style="text-align: center; margin-left: 30px;">
-					<input id="chooseButton" type="button" value="루틴 선택 완료"
-								onclick="chooseUsage()"> 
-					<input id="chooseButton" type="button" value="돌아가기" 
-								onclick="history.back()">
-				</div>
-			</form>
-		</div>
-		
 	</div>
 </body>
 </html>

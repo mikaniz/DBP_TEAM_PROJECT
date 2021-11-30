@@ -80,6 +80,25 @@ public class ClubScheduleDAO {
 
 	public int insertClubSchedule(ClubSchedule clubSchedule) {
 		// TODO Auto-generated method stub
+//		String insertQuery = "INSERT INTO "
+//				+ "CLUBSCHEDULE (scheduleId, clubId, contactAddress, notice, creationDate) "
+//				+ "VALUES (ClubIdSeq.nextval, ?, ?, ?, ?)";
+//		
+//		Object[] param = new Object[] {
+//				clubSchedule.getClubId(), clubSchedule.getContactAddress(), 
+//				clubSchedule.getNotice(), clubSchedule.getCreationDate()};
+//		jdbcUtil.setSqlAndParameters(insertQuery, param);
+//		
+//		try {				
+//			int result = jdbcUtil.executeUpdate();	
+//			return result;
+//		} catch (Exception ex) {
+//			jdbcUtil.rollback();
+//			ex.printStackTrace();
+//		} finally {		
+//			jdbcUtil.commit();
+//			jdbcUtil.close();	
+//		}	
 		return 0;
 	}
 

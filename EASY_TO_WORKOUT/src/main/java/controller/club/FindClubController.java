@@ -22,6 +22,8 @@ public class FindClubController implements Controller {
 			return "redirect:/login";
 		}
 		
+		MemberSessionUtils.setLoginUserInfo(session, request);
+		
 		ClubManager manager = ClubManager.getInstance();
 		
 		String clubName = request.getParameter("searchClub");
