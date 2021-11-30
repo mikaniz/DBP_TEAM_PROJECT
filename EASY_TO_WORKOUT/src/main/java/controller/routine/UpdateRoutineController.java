@@ -18,6 +18,9 @@ public class UpdateRoutineController implements Controller {
 			return "redirect:/login";
 		}
 		
+		MemberSessionUtils.setLoginUserInfo(session, request);
+		request.setAttribute("btnType", "routineCreate");
+		
 		RoutineManager manager = RoutineManager.getInstance();
 		
 		if (request.getMethod().equals("GET")) {

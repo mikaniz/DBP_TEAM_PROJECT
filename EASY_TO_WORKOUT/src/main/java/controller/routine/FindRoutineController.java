@@ -23,6 +23,9 @@ public class FindRoutineController implements Controller{
 			return "redirect:/login";
 		}
 		
+		MemberSessionUtils.setLoginUserInfo(session, request);
+		request.setAttribute("btnType", "routineCreate");
+		
 		RoutineManager manager = RoutineManager.getInstance();
 		
 		String routineName = request.getParameter("searchRoutine");

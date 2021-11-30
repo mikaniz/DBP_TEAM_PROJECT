@@ -20,6 +20,8 @@ public class CreateRoutineController implements Controller {
 			return "redirect:/login";
 		}
 		
+		MemberSessionUtils.setLoginUserInfo(session, request);
+		
 		if (request.getMethod().equals("GET")) {
 			String memberId = MemberSessionUtils.getLoginMemberId(session);
 			
