@@ -15,6 +15,10 @@ public class ListRoutineController implements Controller {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
+		if (!MemberSessionUtils.hasLogined(session)) {
+			return "redirect:/login";
+		}
+		
 		String memberId = MemberSessionUtils.getLoginMemberId(session);
 
 		

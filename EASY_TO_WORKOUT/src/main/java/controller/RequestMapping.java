@@ -60,7 +60,8 @@ public class RequestMapping {
     	
     	mappings.put("/routine/list", new ListRoutineController());
     	mappings.put("/routine/detail", new DetailRoutineController());
-    	mappings.put("/routine/create/form", new ForwardController("/routine/routine_createForm.jsp"));
+//    	mappings.put("/routine/create/form", new ForwardController("/routine/routine_createForm.jsp"));
+//    	mappings.put("/routine/create", new CreateRoutineController());
     	mappings.put("/routine/create", new CreateRoutineController());
 //    	mappings.put("/routine/update/form", new ForwardController("/routine/routine_updateForm.jsp"));
 //    	mappings.put("/routine/update", new UpdateRoutineController());
@@ -72,6 +73,7 @@ public class RequestMapping {
     	mappings.put("/exercise/detail", new DetailExerciseController());
     	mappings.put("/exercise/find", new FindExerciseController());
     	mappings.put("/exercise/choice", new ChoiceExerciseController());
+    	mappings.put("/exercise/choice/form", new ForwardController("/routine/exercise_choiceForm.jsp"));
     	
         logger.info("Initialized Request Mapping!");
     }
