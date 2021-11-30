@@ -115,13 +115,13 @@ public class RoutineDAO {
 		return null;
 	}
 	
-	public List<Routine> getRoutineByName(String rName) { // 루틴 이름으로 모임 검색
+	public List<Routine> getRoutineByPart(String part) { // 루틴 이름으로 모임 검색
 		// TODO Auto-generated method stub
 		String searchQuery = query +
 				"FROM ROUTINE " +
-		        "WHERE RNAME = ? ";
+		        "WHERE PART LIKE ? ";
 		
-		Object[] param = new Object[] {rName}; // 루틴 이름으로 검색 후 정렬 조건 설정
+		Object[] param = new Object[] {"%" + part + "%"}; // 루틴 이름으로 검색 후 정렬 조건 설정
 		jdbcUtil.setSqlAndParameters(searchQuery, param);
 		
 		try {
@@ -266,6 +266,25 @@ public class RoutineDAO {
 			ex.printStackTrace();
 		} finally {
 			jdbcUtil.close();		// resource 반환
+		}
+		return false;
+	}
+	
+	public boolean existingPart(String part) {
+		if (part.equals("상체")) {
+			return true;
+		}
+		if (part.equals("하체")) {
+			return true;
+		}
+		if (part.equals("복부")) {
+			return true;
+		}
+		if (part.equals("어깨")) {
+			return true;
+		}
+		if (part.equals("전신")) {
+			return true;
 		}
 		return false;
 	}
