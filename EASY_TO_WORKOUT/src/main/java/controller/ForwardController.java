@@ -2,6 +2,9 @@ package controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import controller.member.MemberSessionUtils;
 
 public class ForwardController implements Controller {
     private String forwardUrl;
@@ -15,6 +18,13 @@ public class ForwardController implements Controller {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+		HttpSession session = req.getSession();
+		if (!MemberSessionUtils.hasLogined(session)) {
+			return "redirect:/login";
+		}
+		
+		MemberSessionUtils.setLoginUserInfo(session, req);
+    	
         return forwardUrl;
     }
 }
