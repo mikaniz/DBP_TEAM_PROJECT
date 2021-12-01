@@ -24,11 +24,24 @@ public class FindRoutineController implements Controller{
 		}
 		
 		MemberSessionUtils.setLoginUserInfo(session, request);
-		request.setAttribute("btnType", "routineCreate");
 		
 		RoutineManager manager = RoutineManager.getInstance();
 		
 		String routinePart = request.getParameter("searchRoutine");
+		
+		if (request.getParameter("thisIsForUsage") != null) {
+			request.setAttribute("clubId", request.getParameter("clubId"));
+			request.setAttribute("creationDate", request.getParameter("creationDate"));
+			request.setAttribute("contactAddress", request.getParameter("contactAddress"));
+			request.setAttribute("notice", request.getParameter("notice"));
+			
+			List<Routine> routineList = manager.getRoutineByPart(routinePart);
+			request.setAttribute("routineList", routineList);
+			
+			return "/club/schedule_usageForm.jsp";
+		}
+		
+		request.setAttribute("btnType", "routineCreate");
 		
 		try {
 			List<Routine> routineList = manager.getRoutineByPart(routinePart);

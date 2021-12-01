@@ -26,6 +26,9 @@ public class ListClubController implements Controller {
 			return "redirect:/login";
 		}
 		
+		MemberSessionUtils.setLoginUserInfo(session, request);
+		request.setAttribute("btnType", "clubCreate");
+		
 		ClubManager manager = ClubManager.getInstance();
 		
 		if (request.getMethod().equals("GET")) {

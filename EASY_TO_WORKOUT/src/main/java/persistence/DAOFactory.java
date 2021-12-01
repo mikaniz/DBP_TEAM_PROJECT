@@ -35,8 +35,8 @@ public class DAOFactory {
 	public RoutineDAO getRoutineDAO() {
 		return new RoutineDAO();
 	}
-//	
-//	public UsageDAO getUsageDAO() {
-//		return new UsageDAOImpl();
-//	}
+	
+	public UsageDAO getUsageDAO() {
+		return new UsageDAO();
+	}
 }

@@ -24,6 +24,7 @@ public class OpenClubController implements Controller {
 			return "redirect:/login";
 		}
 		
+		MemberSessionUtils.setLoginUserInfo(session, request);
 		String id = MemberSessionUtils.getLoginMemberId(session);
 		
 		Club club = new Club();

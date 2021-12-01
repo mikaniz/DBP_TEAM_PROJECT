@@ -65,6 +65,11 @@ public class RoutineManager {
 		return dao.insertRoutine(routine);
 	}
 	
+	public Routine getRoutineById(String routineId) {
+		return dao.getRoutineById(routineId);
+	}
+	
+	
 	public int updateRoutine(Routine routine) throws SQLException, ExistingRoutineException {
 		String oldRoutineName = getRoutine(routine.getRoutineId()).getrName();
 		if (routine.getrName().equals(oldRoutineName) == false) {

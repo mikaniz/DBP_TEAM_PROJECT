@@ -204,6 +204,7 @@ function askDelete() {
 				<div style="text-align: center;">
 					<form>
 						<c:if test="${isCreater}">
+							<c:if test="${thisIsForUsage eq null}">
 							<a href="<c:url value='/routine/update'>
 								<c:param name='routineId' value='${routine.routineId}' /></c:url>">
 									<input id="routineUpdateButton" type="button" value="루틴 수정">
@@ -213,6 +214,7 @@ function askDelete() {
 								<c:param name='thisIsForDel' value='thisIsForDel' /></c:url>">
 									<input id="routineDeleteButton" type="button" value="루틴 삭제"  onclick="askDelete()">
 							</a>
+							</c:if>
 						</c:if>
 						<input id="backButton" type="button" value="돌아가기" 
 							onclick="history.back()">

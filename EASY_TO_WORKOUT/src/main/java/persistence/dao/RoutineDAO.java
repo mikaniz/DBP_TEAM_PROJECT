@@ -115,6 +115,36 @@ public class RoutineDAO {
 		return null;
 	}
 	
+	public Routine getRoutineById(String routineId) {
+		String searchQuery = query + 
+		        "FROM ROUTINE " +
+		        "WHERE ROUTINEID = ? ";
+		   	 
+		jdbcUtil.setSqlAndParameters(searchQuery, new Object[] {routineId});			// JDBCUtil 에 query 문 설정
+
+		try {
+			ResultSet rs = jdbcUtil.executeQuery();		// query 문 실행
+			Routine routine = null;
+			
+			while (rs.next()) {
+				routine = new Routine();
+				routine.setRoutineId(rs.getInt("ROUTINE_ID"));
+				routine.setrName(rs.getString("ROUTINE_NAME"));
+				routine.setrTime(rs.getInt("ROUTINE_TIME"));
+				routine.setDifficulty(rs.getInt("ROUTINE_DIFFICULTY"));
+				routine.setrType(rs.getString("ROUTINE_TYPE"));
+				routine.setPart(rs.getString("ROUTINE_PART"));
+				routine.setRoutineCreater(rs.getString("ROUTINE_CREATER"));
+			}
+			return routine;				
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			jdbcUtil.close();	
+		}
+		return null;
+	}
+	
 	public List<Routine> getRoutineByPart(String part) { // 루틴 이름으로 모임 검색
 		// TODO Auto-generated method stub
 		String searchQuery = query +

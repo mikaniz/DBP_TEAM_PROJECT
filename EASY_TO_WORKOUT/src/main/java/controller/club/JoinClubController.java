@@ -27,6 +27,8 @@ public class JoinClubController implements Controller {
 		if (!MemberSessionUtils.hasLogined(session)) {
 			return "redirect:/login";
 		}
+		
+		MemberSessionUtils.setLoginUserInfo(session, request);
 
 		String memberId = MemberSessionUtils.getLoginMemberId(session);
 		int clubId = Integer.parseInt(request.getParameter("clubId"));

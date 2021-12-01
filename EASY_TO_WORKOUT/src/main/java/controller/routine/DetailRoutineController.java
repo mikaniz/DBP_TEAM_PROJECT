@@ -36,6 +36,10 @@ public class DetailRoutineController implements Controller {
 			return "redirect:/routine/list";
 		}
 		
+		if (request.getParameter("thisIsForUsage") != null) {
+			request.setAttribute("thisIsForUsage", "thisIsForUsage");
+		}
+		
 		Routine routine = manager.getRoutine(routineId);
 		request.setAttribute("routine", routine);
 		
