@@ -18,7 +18,12 @@ public class ForwardController implements Controller {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-		HttpSession session = req.getSession();
+		if (forwardUrl.equals("/member/memberLogin.jsp")
+				|| forwardUrl.equals("/member/member_joinForm.jsp")) {
+			return forwardUrl;
+		}
+    	
+    	HttpSession session = req.getSession();
 		if (!MemberSessionUtils.hasLogined(session)) {
 			return "redirect:/login";
 		}

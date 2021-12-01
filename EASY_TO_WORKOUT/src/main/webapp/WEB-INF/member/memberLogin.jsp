@@ -37,7 +37,9 @@ function login() {
 	</div>
 	<div style="text-align: center">
 		<input type="button" onclick="login()" value="로그인" style="width: 190px; height: 50px; margin: 10px">
-		<input type="button" onclick="" value="회원 가입" style="width: 190px; height: 50px; margin: 10px">
+		<a href="<c:url value='/member/join/form' />">
+			<input type="button" value="회원 가입" style="width: 190px; height: 50px; margin: 10px">
+		</a>
 	</div>
 	<div style="text-align: center">
 		<c:if test="${loginFailed}">

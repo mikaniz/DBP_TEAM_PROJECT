@@ -1,10 +1,17 @@
 package controller.member;
 
+import java.util.List;
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import service.MemberManager;
 import service.dto.Member;
+import service.ClubManager;
+import service.dto.Club;
+import service.MembershipManager;
+import service.dto.Membership;
 
 public class MemberSessionUtils {
 
@@ -31,10 +38,24 @@ public class MemberSessionUtils {
     }
     
     public static void setLoginUserInfo(HttpSession session, HttpServletRequest request) {
-    	MemberManager manager = MemberManager.getInstance();
+    	MemberManager memberManager = MemberManager.getInstance();
+    	MembershipManager membershipManager = MembershipManager.getInstance();
+    	ClubManager clubManager = ClubManager.getInstance();
+    	
     	try {
-    		Member loginMember = manager.findMember(getLoginMemberId(session));
+    		Member loginMember = memberManager.findMember(getLoginMemberId(session));
     		request.setAttribute("loginMember", loginMember);
+    		
+    		List<Membership> membershipList = membershipManager.getClubListByMemberId(loginMember.getId());
+    		if (membershipList != null) {
+    			List<Club> clubList = new ArrayList<Club>();
+    			for (Membership membership : membershipList) {
+    				Club club = clubManager.getClubById(membership.getClubId());
+    				clubList.add(club);
+    			}
+    			request.setAttribute("clubList", clubList);
+    		}
+    		
     	} catch (Exception e) {
     		e.printStackTrace();
     	}
