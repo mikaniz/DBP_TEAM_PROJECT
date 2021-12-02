@@ -161,7 +161,7 @@ function diaryWriteBtn_click() {
 					<tr id="diaryTableTr">
 						<td style="width: 130px;">제목 :</td>
 						<td><input type="text" name="diaryTitle"
-							style="width: 500px; height: 20px; font-size: 15px;"></td>
+							style="width: 450px; height: 20px; font-size: 15px;"></td>
 					</tr>
 					<tr id="diaryTableTr">
 						<td style="width: 130px;">공개 여부 :</td>
@@ -177,7 +177,7 @@ function diaryWriteBtn_click() {
 					</tr>
 					<tr id="diaryTableTr">
 						<td style="width: 130px;">내용 :</td>
-						<td><textarea name="diaryContents" rows=15 cols=60 style="resize: none;"></textarea></td>
+						<td><textarea name="diaryContents" rows=15 cols=45 style="width: 450px; resize: none;"></textarea></td>
 					</tr>
 				</table>
 				<div style="text-align: center; margin-left: 130px;">
