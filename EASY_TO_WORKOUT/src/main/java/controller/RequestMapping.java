@@ -37,30 +37,27 @@ public class RequestMapping {
     	mappings.put("/diary/create", new WriteDiaryController());
     	mappings.put("/diary/all/find", new FindAllDiaryController());
     	mappings.put("/diary/my/find", new FindMyDiaryController());
-    	
+  
     	
     	mappings.put("/club/open/form", new ForwardController("/club/club_openForm.jsp"));
     	mappings.put("/club/open", new OpenClubController());
     	mappings.put("/club/list", new ListClubController());
     	mappings.put("/club/detail", new DetailClubController());
-    	mappings.put("/club/schedule/create/form", new ForwardController("/club/schedule_createForm.jsp"));
-    	mappings.put("/club/schedule/create", new CreateScheduleController());
-    	mappings.put("/club/schedule/view", new ViewScheduleController());
-    	mappings.put("/club/schedule/usage", new UsageRoutineController());
     	mappings.put("/club/join", new JoinClubController());
     	mappings.put("/club/find", new FindClubController());
+    	mappings.put("/club/schedule/create/form", new ForwardController("/club/schedule_createForm.jsp"));
+    	mappings.put("/club/schedule/create", new CreateScheduleController());
+    	mappings.put("/club/schedule/list", new ListScheduleController());
+    	mappings.put("/club/schedule/view", new ViewScheduleController());
+    	mappings.put("/club/schedule/usage", new UsageRoutineController());
     	
     	
     	mappings.put("/routine/list", new ListRoutineController());
     	mappings.put("/routine/detail", new DetailRoutineController());
-//    	mappings.put("/routine/create/form", new ForwardController("/routine/routine_createForm.jsp"));
-//    	mappings.put("/routine/create", new CreateRoutineController());
     	mappings.put("/routine/create", new CreateRoutineController());
-//    	mappings.put("/routine/update/form", new ForwardController("/routine/routine_updateForm.jsp"));
-//    	mappings.put("/routine/update", new UpdateRoutineController());
     	mappings.put("/routine/update", new UpdateRoutineController());
     	mappings.put("/routine/find", new FindRoutineController());
-        
+    	
     	
     	mappings.put("/exercise/list", new ListExerciseController());
     	mappings.put("/exercise/detail", new DetailExerciseController());
