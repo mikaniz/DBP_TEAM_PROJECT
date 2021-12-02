@@ -109,6 +109,13 @@ th, td {
 	text-align: center;
 }
 </style>
+<script>
+function diaryDeleteButton_click() {
+	if (window.confirm("다이어리를 삭제하시겠습니까?")) {
+		deleteForm.submit();
+	}
+}
+</script>
 </head>
 
 <body>
@@ -188,17 +195,16 @@ th, td {
 					</tr>
 				</table>
 				<div style="text-align: center; margin-left: 70px;">
-					<form>
+					<form name="deleteForm" method="POST" action="<c:url value='/diary/detail' />">
 						<c:if test="${isAuthor}">
 							<a href="<c:url value='/diary/update'>
 								<c:param name='diaryId' value='${diary.diaryId}' /></c:url>">
 									<input id="diaryUpdateButton" type="button" value="다이어리 수정">
 							</a>
-							<a href="<c:url value='/diary/detail'>
-								<c:param name='diaryId' value='${diary.diaryId}' />
-								<c:param name='thisIsForDel' value='thisIsForDel' /></c:url>">
-									<input id="diaryDeleteButton" type="button" value="다이어리 삭제">
-							</a>
+							<input type="hidden" name="diaryId" value="${diary.diaryId}">
+							<input type="hidden" name="thisIsForDel" value="thisIsForDel" />
+							<input id="diaryDeleteButton" type="button" value="다이어리 삭제"
+								onclick="diaryDeleteButton_click()">
 						</c:if>
 						<input id="backButton" type="button" value="돌아가기" 
 							onclick="history.back()">
