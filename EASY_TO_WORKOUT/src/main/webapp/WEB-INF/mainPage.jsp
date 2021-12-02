@@ -65,9 +65,12 @@
 	height: 250px;
 }
 
-#clubDate {
+#clubCaption {
+	height: 40px;
 	border-bottom: 1px solid;
-	height: 50px;
+}
+#clubDate {
+	height: 35px;	
 }
 
 #memberDataTable {
@@ -82,6 +85,10 @@
 	width: 400px;
 	height: 100px;
 	table-layout: fixed;
+}
+
+#etcButton {
+	background-color: #90ABDA;
 }
 
 th, td {
@@ -154,35 +161,33 @@ th, td {
 				style="width: 700px; height: 340px; border: 1px solid; margin-top: 10px;">
 				<p>
 				<table id="clubTable">
-					<caption>모임 일정</caption>
-					<tr id="clubDate">
-						<th>09</th>
-						<th>10</th>
-						<th>11</th>
-						<th>12</th>
-						<th>13</th>
-						<th>14</th>
-						<th>15</th>
+					<tr id="clubCaption">
+						<th>모임 이름</th>
+						<th>날짜</th>
+						<th colspan="2">접속 주소</th>
+						<th></th>
 					</tr>
-					<tr id="clubScedule">
-						<td>
-							<p style="font-style: italic;">PM 06:00</p>
-							<p style="color: #006CD4;">ETW
-						</td>
-						<td></td>
-						<td>
-							<p style="font-style: italic;">AM 10:00</p>
-							<p style="color: #7F00D4;">투현진
-						</td>
-						<td></td>
-						<td></td>
-						<td>
-							<p style="font-style: italic;">AM 10:00</p>
-							<p style="color: #7F00D4;">투현진
-							<p style="font-style: italic;">PM 08:00</p>
-							<p style="color: #006CD4;">ETW
-						</td>
-					</tr>
+					<c:forEach var="i" begin="0" end="7">
+						<c:if test="${clubList[i].clubName ne null }">
+							<tr id="clubDate">
+								<td>${clubList[i].clubName}</td>
+								<td>${scheduleList[i].creationDate}</td>
+								<td colspan="2">${scheduleList[i].contactAddress}</td>
+								<td>
+									<a href="<c:url value='/club/schedule/view'>
+											<c:param name='clubId' value='${scheduleList[i].clubId}'/>
+											<c:param name='scheduleId' value='${scheduleList[i].scheduleId}'/>
+											<c:param name='clubName' value='${clubList[i].clubName}' />
+										</c:url>">
+										<input id="etcButton" type="button" value="더보기">
+									</a>
+								</td>
+							</tr>
+						</c:if>
+						<c:if test="${clubList[i].clubName eq null }">
+							<tr></tr>
+						</c:if>
+					</c:forEach>
 				</table>
 			</div>
 		</div>
