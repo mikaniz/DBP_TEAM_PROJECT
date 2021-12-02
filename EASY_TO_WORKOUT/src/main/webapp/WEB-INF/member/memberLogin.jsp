@@ -5,6 +5,14 @@
 <head>
 <meta charset="EUC-KR">
 <title>ETW MemberLoginPage</title>
+<style>
+#btn {
+	background-color: #90ABDA;
+	width: 190px; 
+	height: 50px; 
+	margin: 10px;
+}
+</style>
 <script>
 function login() {
 	if (form.loginId.value == "") {
@@ -36,9 +44,9 @@ function login() {
 		<input type="password" name="loginPw" placeholder="비밀번호" style="width: 400px; height: 50px; margin: 10px">
 	</div>
 	<div style="text-align: center">
-		<input type="button" onclick="login()" value="로그인" style="width: 190px; height: 50px; margin: 10px">
+		<input id="btn" type="button" onclick="login()" value="로그인">
 		<a href="<c:url value='/member/join/form' />">
-			<input type="button" value="회원 가입" style="width: 190px; height: 50px; margin: 10px">
+			<input id="btn" type="button" value="회원 가입">
 		</a>
 	</div>
 	<div style="text-align: center">

@@ -5,6 +5,14 @@
 <head>
 <meta charset="EUC-KR">
 <title>ETW MemberJoinPage</title>
+<style>
+#btn {
+	background-color: #90ABDA;
+	width: 190px; 
+	height: 50px; 
+	margin: 10px;
+}
+</style>
 <script>
 function join() {
 	if (form.id.value == "") {
@@ -63,7 +71,7 @@ function join() {
 <form name="form" method="POST" action="<c:url value='/member/join' />">
 	<!-- 운동하기 편하군&로고 -->
 	<div style="text-align: center; margin: 20px 0 20px 0">
-		<a href=""><img src="<c:url value='/images/logo.PNG' />"
+		<a href="<c:url value='/login' />"><img src="<c:url value='/images/logo.PNG' />"
 			width=500px height=130px /></a>
 	</div>
 	<!-- 회원 정보 입력 -->
@@ -84,7 +92,7 @@ function join() {
 		<input type="text" name="email" placeholder="이메일" style="width: 450px; height: 30px; margin: 10px">
 	</div>
 	<div style="text-align: center">
-		<input type="button" onclick="join()" value="회원 가입" style="width: 190px; height: 50px; margin: 10px">
+		<input id="btn" type="button" onclick="join()" value="회원 가입">
 	</div>
 	<!-- 예외 메시지 출력 -->
 	<div style="text-align: center">
