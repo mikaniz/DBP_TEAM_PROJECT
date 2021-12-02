@@ -53,7 +53,7 @@ public class MemberSessionUtils {
     				Club club = clubManager.getClubById(membership.getClubId());
     				clubList.add(club);
     			}
-    			request.setAttribute("clubList", clubList);
+    			request.setAttribute("myClubList", clubList);
     		}
     		
     	} catch (Exception e) {

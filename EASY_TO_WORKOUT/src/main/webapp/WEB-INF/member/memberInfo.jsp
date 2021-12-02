@@ -26,7 +26,7 @@
 		<article>
 			<h4 style="margin: 20px;">내 모임 목록</h4>
 			<ul>
-				<c:forEach var="club" items="${clubList}">
+				<c:forEach var="club" items="${myClubList}">
 					<li><a href="<c:url value='/club/detail'>
 									<c:param name='clubId' value='${club.clubId}' />
 								</c:url>">${club.clubName}</a></li>
