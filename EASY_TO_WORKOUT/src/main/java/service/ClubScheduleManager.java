@@ -30,4 +30,8 @@ public class ClubScheduleManager {
 		return scheduleDao.insertClubSchedule(clubSchedule);
 	}
 	
+	public int getCurrentScheduleId(ClubSchedule clubSchedule) {
+		return scheduleDao.getCurrentScheduleId(clubSchedule);
+	}
+	
 }
