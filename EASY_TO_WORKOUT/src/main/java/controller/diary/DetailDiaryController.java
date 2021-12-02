@@ -29,7 +29,7 @@ public class DetailDiaryController implements Controller {
 		if (request.getParameter("thisIsForDel") != null) {
 			manager.delete(diaryId);
 			
-			return "redirect:/diary/all/list";
+			return "redirect:/diary/my/list";
 		}
 
 		Diary diary = manager.getDiaryById(diaryId);
