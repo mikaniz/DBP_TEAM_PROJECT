@@ -58,25 +58,32 @@ public class UsageDAO {
 		return null;
 	}
 
-	public Usage getUsageByClubIdAndScheduleId(int clubId, String scheduleId) {
+	public List<Usage> getUsageByClubIdAndScheduleId(int clubId, int scheduleId) {
 		String searchQuery = "SELECT * FROM usage WHERE clubId=? and scheduleId=?";
+		
 		Object[] param = new Object[] {clubId, scheduleId};
 		jdbcUtil.setSqlAndParameters(searchQuery, param);
+		
 		Usage dto = null;
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();
-			if (rs.next()) {
+			List<Usage> list = new ArrayList<Usage>();
+			
+			while (rs.next()) {
 				dto = new Usage();
 				dto.setClubId(rs.getInt("clubId"));
 				dto.setScheduleId(rs.getInt("scheduleId"));
 				dto.setRoutineId(rs.getInt("routineId"));
+				
+				list.add(dto);
 			}
+			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			jdbcUtil.close();
 		}
-		return dto;
+		return null;
 	}
 
 	public int insertUsage(Usage usage) {
