@@ -18,12 +18,12 @@ public class ClubScheduleManager {
 	
 	public static ClubScheduleManager getInstance() {return scheduleManager;}
 	
-	public List<ClubSchedule> getClubScheduleList() {
-		return scheduleDao.getClubScheduleList();
+	public List<ClubSchedule> getClubScheduleListById(int clubId) {
+		return scheduleDao.getClubScheduleListById(clubId);
 	}
 
-	public ClubSchedule getClubScheduleById(int clubScheduleId, int clubId) {
-		return scheduleDao.getClubScheduleById(clubScheduleId, clubId);
+	public ClubSchedule getClubScheduleById(int scheduleId, int clubId) {
+		return scheduleDao.getClubScheduleById(scheduleId, clubId);
 	}
 	
 	public int insertClubSchedule(ClubSchedule clubSchedule) {

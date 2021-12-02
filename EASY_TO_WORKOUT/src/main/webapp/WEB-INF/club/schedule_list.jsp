@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@page contentType="text/html; charset=utf-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,6 +40,7 @@
 	text-align: center;
 }
 
+
 .subMenu li {
 	float: none;
 	display: none;
@@ -53,6 +54,7 @@
 	display: flex;
 	justify-content: center;
 }
+
 
 #memberDataTable {
 	border-collapse: collapse;
@@ -70,10 +72,10 @@
 
 #list {
 	width: 700px;
-	height: 540px;
+	height: 600px;
 	border: 1px solid;
-	margin-top: 10px;
 	overflow: scroll;
+	position: relative;
 }
 
 #listTable {
@@ -131,6 +133,10 @@
 	table-layout: fixed;
 }
 
+#etcButton {
+	background-color: #90ABDA;
+}
+
 #backButton {
 	width: 150px;
 	height: 45px;
@@ -146,85 +152,61 @@ th, td {
 </head>
 
 <body>
-	<!-- ¿îµ¿ÇÏ±â ÆíÇÏ±º&·Î°í -->
+	<!-- ìš´ë™í•˜ê¸° í¸í•˜êµ°&ë¡œê³  -->
 	<div style="text-align: center">
-		<a href="../mainPage.jsp"><img src="../images/logo.PNG"
+		<a href="<c:url value='/main' />"><img src="<c:url value='/images/logo.PNG' />"
 			width=500px height=130px /></a>
 	</div>
 
 	<hr>
-	<!-- ¸Ş´º¹Ù -->
+	<!-- ë©”ë‰´ë°” -->
 	<nav class="menu">
 		<ul class="mainMenu">
-			<li><a href='../club/clubPage.jsp'>¸ğÀÓ</a></li>
-			<li><a href='../routine/routinePage.jsp'>·çÆ¾</a></li>
-			<li><a href='#'>´ÙÀÌ¾î¸®</a>
+			<li><a href='<c:url value='/club/list' />'>ëª¨ì„</a></li>
+			<li><a href='<c:url value='/routine/list' />'>ë£¨í‹´</a></li>
+			<li><a href='#'>ë‹¤ì´ì–´ë¦¬</a>
 				<ul class="subMenu">
-					<li><a href='#'>MY ´ÙÀÌ¾î¸®</a></li>
-					<li><a href='#'>ÀüÃ¼ ´ÙÀÌ¾î¸®</a></li>
+					<li><a href='<c:url value='/diary/my/list' />'>MY ë‹¤ì´ì–´ë¦¬</a></li>
+					<li><a href='<c:url value='/diary/all/list' />'>ì „ì²´ ë‹¤ì´ì–´ë¦¬</a></li>
 				</ul></li>
 		</ul>
 	</nav>
 
 	<hr>
 	<div class="container">
-		<!-- È¸¿øÁ¤º¸ -->
+		<!-- íšŒì›ì •ë³´ -->
 		<jsp:include page="/WEB-INF/member/memberInfo.jsp"/>
 		
 		<div style="float: right">
-			<!-- ¸ğÀÓ ½ºÄÉÁÙ Á¤º¸ Ãâ·Â ºÎºĞ  -->
-			<div id="scheduleInfo">
-				<h3 style="margin: 20px;">¸ğÀÓ ÀÏÁ¤</h3>
-				<hr>
-				<table id="scheduleTable">
-					<tr id="scheduleTableTr">
-						<td style="width: 130px;">¸ğÀÓ ÀÏ½Ã :</td>
-						<td style="text-align:left;">
-							<p>³¯Â¥ Ãâ·Â
-						</td>
+			<!-- ì „ì²´ ìŠ¤ì¼€ì¤„ ëª©ë¡ -->
+			<div id="list">
+				<table id="listTable">
+					<tr id="listItem">
+						<th>ë‚ ì§œ</th>
+						<th colspan="2">ì ‘ì† ì£¼ì†Œ</th>
+						<td></td>
 					</tr>
-					<tr id="scheduleTableTr">
-						<td style="width: 130px;">¿¬¶ô¸Á :</td>
-						<td style="text-align:left;">
-							<p>»ç¿ë ¿¬¶ô¸Á Ãâ·Â
-						</td>
-					</tr>
-					<tr id="scheduleTableTr">
-						<td style="width: 130px;">°øÁö»çÇ× :</td>
-						<td style="text-align:left;">
-							<textarea rows=10 cols=60
-								style="resize: none; font-size: 14px;" readonly="readonly" disabled>
-								ÁÖÀÇ»çÇ×, ÁøÇà ¹æ¹ı µî °øÁö»çÇ× Ãâ·Â
-							</textarea></td>
-					</tr>
-					<tr id="scheduleTableTr">
-						<td style="width: 130px;">ÁøÇàÇÒ ·çÆ¾ :</td>
-						<td style="text-align:left;">
-							<div id="scheduleRoutine">
-								<table id="scheduleRoutineTable">
-									<tr id="scheduleRoutineTr">
-										<td>·çÆ¾¸í1</td>
-										<td>¿îµ¿ºÎÀ§1</td>
-										<td><input type='BUTTON' value="´õº¸±â" onclick=""></td>
-									</tr>
-									<tr id="scheduleRoutineTr">
-										<td>·çÆ¾¸í2</td>
-										<td>¿îµ¿ºÎÀ§2</td>
-										<td><input type='BUTTON' value="´õº¸±â" onclick=""></td>
-									</tr>
-									<tr id="scheduleRoutineTr">
-										<td>·çÆ¾¸í3</td>
-										<td>¿îµ¿ºÎÀ§3</td>
-										<td><input type='BUTTON' value="´õº¸±â" onclick=""></td>
-									</tr>
-								</table>
-							</div>
-						</td>
-					</tr>
+					<c:forEach var="schedule" items="${scheduleList}">							
+						<tr id="listTr">
+							<td>${schedule.creationDate}</td>
+							<td colspan="2">${schedule.contactAddress}</td>
+							<td>
+								<a href="<c:url value='/club/schedule/view'>
+										<c:param name='clubId' value='${schedule.clubId}'/>
+										<c:param name='scheduleId' value='${schedule.scheduleId}'/>
+									</c:url>">
+									<input id="etcButton" type="button" value="ë”ë³´ê¸°">
+								</a>
+							</td>
+						</tr>							
+					</c:forEach>
 				</table>
-				<div style="text-align: center;">
-					<input id="backButton" type="button" value="µ¹¾Æ°¡±â"
-						onclick="location.href='./club_details.jsp'">
+				<div style="text-align: center; margin-left: 250px; position: absolute; bottom:0;">
+					<a href="<c:url value='/club/detail'>
+							<c:param name='clubId' value='${clubId}'/>
+						</c:url>">
+						<input id="backButton" type="button" value="ëŒì•„ê°€ê¸°">
+					</a>
 				</div>
 			</div>
 		</div>
