@@ -176,7 +176,7 @@ function diaryUpdateBtn_click() {
 						<td style="width: 130px;">운동 시간 :</td>
 						<td>
 							<input type="number" name="workTime" value="${diary.workTime}"
-								min="1" max="24" />시간
+								min="1" max="999" /> 분
 						</td>
 					</tr>
 					<tr id="diaryTableTr">

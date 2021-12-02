@@ -172,7 +172,7 @@ function diaryDeleteButton_click() {
 					<tr id="dairyTableTr">
 						<td style="width: 130px; font-size: 15px;">운동 시간 :</td>
 						<td style="text-align:left; font-size: 13px;">
-							<p>${diary.workTime} 시간
+							<p>${diary.workTime} 분
 						</td>
 					</tr>
 				 	<tr id="diaryTableTr">
