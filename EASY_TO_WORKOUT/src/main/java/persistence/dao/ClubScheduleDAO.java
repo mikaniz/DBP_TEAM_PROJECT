@@ -112,8 +112,35 @@ public class ClubScheduleDAO {
 		return 0;
 	}
 
-	public int deleteClubSchedule(int clubId, int clubScheduleId) {
-		// TODO Auto-generated method stub
+	public int getCurrentScheduleId(ClubSchedule schedule) {
+		String findQuery = "SELECT scheduleId FROM clubschedule "
+				+ "WHERE clubId=? and contactAddress=? and notice=? and creationDate=? ";
+		
+		// 포맷터
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+		// 문자열 -> Date
+		LocalDateTime date = LocalDateTime.parse(schedule.getCreationDate(), formatter);
+		// Date->Timestamp
+		Timestamp creationDate = Timestamp.valueOf(date);
+		
+		Object[] param = new Object[] {
+				schedule.getClubId(), schedule.getContactAddress(), schedule.getNotice(), creationDate};
+		jdbcUtil.setSqlAndParameters(findQuery, param);
+		
+		try {
+			ResultSet rs = jdbcUtil.executeQuery();
+			int result = 0;
+			
+			if (rs.next()) {
+				result = rs.getInt("scheduleId");
+			}
+			return result;
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			jdbcUtil.close(); 
+		}
+		
 		return 0;
 	}
 

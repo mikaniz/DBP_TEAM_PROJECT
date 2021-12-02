@@ -14,8 +14,10 @@ import controller.Controller;
 import controller.member.MemberSessionUtils;
 import service.ClubScheduleManager;
 import service.RoutineManager;
+import service.UsageManager;
 import service.dto.ClubSchedule;
 import service.dto.Routine;
+import service.dto.Usage;
 
 public class CreateScheduleController implements Controller {
 	private static final Logger log = LoggerFactory.getLogger(CreateScheduleController.class);
@@ -62,22 +64,34 @@ public class CreateScheduleController implements Controller {
 			return "/club/schedule_createForm.jsp";
 		}
 		
-		// schedule_createForm.jsp -> CreateScheduleController (스케줄 등록 완료)
-		ClubSchedule schedule = new ClubSchedule();
+/* schedule_createForm.jsp -> CreateScheduleController (스케줄 등록 완료)	*/
+//		schedule insert		
 		int clubId = Integer.parseInt(request.getParameter("clubId"));
-		log.debug("Create schedule : {}", request.getParameter("creationDate"));
+		String contactAddress = request.getParameter("contactAddress");
+		String creationDate = request.getParameter("creationDate");
+		String notice = request.getParameter("notice");
 		
-		schedule.setClubId(clubId);	//log.debug("Create schedule : {}", clubId);
-		schedule.setContactAddress(request.getParameter("contactAddress"));
-		schedule.setCreationDate(request.getParameter("creationDate")); 
-		schedule.setNotice(request.getParameter("notice"));
+		ClubSchedule schedule = new ClubSchedule();
+		schedule.setClubId(clubId);		schedule.setContactAddress(contactAddress);
+		schedule.setCreationDate(creationDate); 	schedule.setNotice(notice);
 	
 		ClubScheduleManager scheduleManager = ClubScheduleManager.getInstance();
 		scheduleManager.insertClubSchedule(schedule);
 
 // 		Usage insert
-//		String[] routineIdList = request.getParameterValues("routineIdList");
-//		for (String routineId : routineIdList) log.debug("aaaaa : {}", routineId);
+		UsageManager usageManager = UsageManager.getInstance();
+		Usage usage = null;
+		
+		int scheduleId = scheduleManager.getCurrentScheduleId(schedule);
+		String[] routineIdList = request.getParameterValues("routineIdList");
+		for (String routineId : routineIdList) {
+			usage = new Usage();
+			usage.setClubId(clubId);	
+			usage.setRoutineId(Integer.parseInt(routineId));
+			usage.setScheduleId(scheduleId);
+
+			usageManager.insertUsage(usage);
+		}
 		
 		return "redirect:/club/list";
 	}
