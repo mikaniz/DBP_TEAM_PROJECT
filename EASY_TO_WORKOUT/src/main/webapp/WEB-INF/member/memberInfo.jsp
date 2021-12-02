@@ -23,6 +23,18 @@
 			</tr>
 		</table>
 		<br><hr>
+		<c:if test="${isMaster}">
+			<article>
+				<h4 style="margin: 20px;">개설 모임 목록</h4>
+				<ul>
+					<c:forEach var="club" items="${masterClubList}">
+						<li><a href="<c:url value='/club/detail'>
+										<c:param name='clubId' value='${club.clubId}' />
+									</c:url>">${club.clubName}</a></li>
+					</c:forEach>
+				</ul>
+			</article>
+		</c:if>
 		<article>
 			<h4 style="margin: 20px;">내 모임 목록</h4>
 			<ul>

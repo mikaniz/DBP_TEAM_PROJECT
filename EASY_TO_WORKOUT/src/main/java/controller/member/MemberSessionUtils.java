@@ -46,14 +46,25 @@ public class MemberSessionUtils {
     		Member loginMember = memberManager.findMember(getLoginMemberId(session));
     		request.setAttribute("loginMember", loginMember);
     		
+    		if (loginMember.getGrade().equals("master")) {
+    			request.setAttribute("isMaster", true);
+    		}
+    		
     		List<Membership> membershipList = membershipManager.getClubListByMemberId(loginMember.getId());
     		if (membershipList != null) {
-    			List<Club> clubList = new ArrayList<Club>();
+    			List<Club> myClubList = new ArrayList<Club>();
+    			List<Club> masterClubList = new ArrayList<Club>();
     			for (Membership membership : membershipList) {
     				Club club = clubManager.getClubById(membership.getClubId());
-    				clubList.add(club);
+    				if (club.getClubMaster().equals(loginMember.getId())) {
+    					masterClubList.add(club);
+    				}
+    				else {
+						myClubList.add(club);
+    				}
     			}
-    			request.setAttribute("myClubList", clubList);
+    			request.setAttribute("myClubList", myClubList);
+    			request.setAttribute("masterClubList", masterClubList);
     		}
     		
     	} catch (Exception e) {
