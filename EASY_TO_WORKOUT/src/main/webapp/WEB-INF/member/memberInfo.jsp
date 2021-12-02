@@ -15,7 +15,7 @@
 						<c:otherwise>마스터</c:otherwise>
 					</c:choose>
 					<p /> <br> <a href="<c:url value='/member/update'>
-									<c:param name='member' value='${loginMember}' />
+									<c:param name='memberId' value='${loginMember.id}' />
 								</c:url>">회원정보 수정</a>
 					<p>
 						<a href="<c:url value='/member/logout' />">로그아웃</a>
