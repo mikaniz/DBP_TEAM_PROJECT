@@ -14,9 +14,7 @@
 						<c:when test="${loginMember.grade eq 'green'}">새싹</c:when>
 						<c:otherwise>마스터</c:otherwise>
 					</c:choose>
-					<p /> <br> <a href="<c:url value='/member/update'>
-									<c:param name='memberId' value='${loginMember.id}' />
-								</c:url>">회원정보 수정</a>
+					<p /> <br> <a href="<c:url value='/member/update' />">회원정보 수정</a>
 					<p>
 						<a href="<c:url value='/member/logout' />">로그아웃</a>
 				</td>
