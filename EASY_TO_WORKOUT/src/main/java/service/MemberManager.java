@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 import persistence.dao.MemberDAO;
 import service.dto.Member;
+import service.exception.ExistingMemberException;
 import service.exception.MemberNotFoundException;
 import service.exception.PasswordMismatchException;
 
@@ -22,6 +23,21 @@ public class MemberManager {
 	
 	public static MemberManager getInstance() {
 		return memberService;
+	}
+	
+	public int create(Member member) throws SQLException, ExistingMemberException {
+		if (memberDAO.existingMember(member.getId())) {
+			throw new ExistingMemberException(member.getId() + "는 존재하는 아이디입니다.");
+		}
+		return memberDAO.insertMember(member);
+	}
+	
+	public int update(Member member, Member update, String pw) 
+			throws SQLException, PasswordMismatchException {
+		if (!member.matchPassword(pw)) {
+			throw new PasswordMismatchException("비밀번호가 일치하지 않습니다.");
+		}
+		return memberDAO.updateMember(update);
 	}
 	
 	public Member findMember(String id)

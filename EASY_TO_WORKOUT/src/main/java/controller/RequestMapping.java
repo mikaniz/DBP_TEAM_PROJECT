@@ -23,18 +23,15 @@ public class RequestMapping {
     	
     	mappings.put("/", new ForwardController("index.jsp"));
     	mappings.put("/member/login", new LoginController()); 
+    	mappings.put("/member/logout", new LogoutController());
     	mappings.put("/member/join/form", new ForwardController("/member/member_joinForm.jsp"));
     	mappings.put("/member/join", new JoinController());
-//    	mappings.put("/member/update/form", new ForwardController("/member/member_updateForm.jsp"));
-//    	mappings.put("/member/update", new ForwardController("/mainPage.jsp"));
     	mappings.put("/member/update", new UpdateMemberController());
     	
     	
     	mappings.put("/diary/all/list", new ListAllDiaryController());
     	mappings.put("/diary/my/list", new ListMyDiaryController());
     	mappings.put("/diary/detail", new DetailDiaryController());
-//    	mappings.put("/diary/update/form", new ForwardController("/diary/update_form.jsp"));
-//    	mappings.put("/diary/update", new UpdateDiaryController());
     	mappings.put("/diary/update", new UpdateDiaryController());
     	mappings.put("/diary/write", new ForwardController("/diary/diary_writeForm.jsp"));
     	mappings.put("/diary/create", new WriteDiaryController());
@@ -74,7 +71,7 @@ public class RequestMapping {
         logger.info("Initialized Request Mapping!");
     }
 
-    public Controller findController(String uri) {	
+    public Controller findController(String uri) {
         return mappings.get(uri);
     }
 }
