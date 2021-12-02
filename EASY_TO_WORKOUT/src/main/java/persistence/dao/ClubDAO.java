@@ -194,6 +194,33 @@ public class ClubDAO  {
 		return false;
 	}
 	
+	public int getCurrentClubId(Club club) {
+		String findQuery = "SELECT clubId FROM club "
+				+ "WHERE SIGNUP=? and OPENCYCLE=? and CLUBINTRO=? and CLUBNAME=? and CLUBMASTER=?";
+		
+		Object[] param = new Object[] {
+				club.getSignUp(), club.getOpenCycle(), club.getClubIntro(), 
+				club.getClubName(), club.getClubMaster()
+		};
+		jdbcUtil.setSqlAndParameters(findQuery, param);
+		
+		try {
+			ResultSet rs = jdbcUtil.executeQuery();
+			int result = 0;
+			
+			if (rs.next()) {
+				result = rs.getInt("clubId");
+			}
+			return result;
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			jdbcUtil.close(); 
+		}
+		
+		return 0;
+	}
+	
 	public int insertClub(Club club) throws SQLException { 
 		// TODO Auto-generated method stub
 		String insertQuery = "INSERT INTO "
