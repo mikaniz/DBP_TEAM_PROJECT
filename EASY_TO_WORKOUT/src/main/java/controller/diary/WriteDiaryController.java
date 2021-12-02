@@ -45,7 +45,7 @@ public class WriteDiaryController implements Controller {
 			DiaryManager manager = DiaryManager.getInstance();
 			manager.create(diary);
             
-            return "redirect:/diary/all/list";			
+            return "redirect:/diary/my/list";			
 		} catch (Exception e) {
             return "redirect:/diary/write";
 		}

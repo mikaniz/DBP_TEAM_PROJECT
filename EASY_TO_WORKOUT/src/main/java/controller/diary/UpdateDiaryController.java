@@ -45,7 +45,7 @@ public class UpdateDiaryController implements Controller {
 		
 		manager.update(updateDiary);
 		
-		return "redirect:/diary/all/list";
+		return "redirect:/diary/my/list";
 	}
 
 }

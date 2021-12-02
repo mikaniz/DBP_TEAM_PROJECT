@@ -162,7 +162,7 @@ function diaryUpdateBtn_click() {
 					<tr id="diaryTableTr">
 						<td style="width: 130px;">제목 :</td>
 						<td><input type="text" name="diaryTitle" value="${diary.title}"
-							style="width: 500px; height: 20px; font-size: 15px;"></td>
+							style="width: 450px; height: 20px; font-size: 15px;"></td>
 					</tr>
 					<tr id="diaryTableTr">
 						<td style="width: 130px;">공개 여부 :</td>
@@ -176,12 +176,12 @@ function diaryUpdateBtn_click() {
 						<td style="width: 130px;">운동 시간 :</td>
 						<td>
 							<input type="number" name="workTime" value="${diary.workTime}"
-								min="1" max="24" />시간
+								min="1" max="999" /> 분
 						</td>
 					</tr>
 					<tr id="diaryTableTr">
 						<td style="width: 130px;">내용 :</td>
-						<td><textarea name="diaryContents" rows=15 cols=60 style="resize: none;">
+						<td><textarea name="diaryContents" rows=15 cols=45 style="width: 450px; resize: none;">
 							${diary.contents}</textarea></td>
 					</tr>
 				</table>
