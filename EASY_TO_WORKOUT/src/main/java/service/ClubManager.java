@@ -53,6 +53,10 @@ public class ClubManager {
 		return clubDao.existingClub(clubName);
 	}
 	
+	public int getCurrentClubId(Club club) {
+		return clubDao.getCurrentClubId(club);
+	}
+	
 	public int insertClub(String masterId, Club club) throws CannotOpenClubException, SQLException {				// ClubDAO를 통해 모임 정보 추가
 		// TODO Auto-generated method stub
 		
