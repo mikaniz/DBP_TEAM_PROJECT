@@ -33,6 +33,7 @@ public class ViewScheduleController implements Controller {
 		
 		ClubScheduleManager scheduleManager = ClubScheduleManager.getInstance();
 		ClubSchedule schedule = scheduleManager.getClubScheduleById(scheduleId, clubId);
+		request.setAttribute("clubName", request.getParameter("clubName"));
 		request.setAttribute("clubId", String.valueOf(schedule.getClubId()));
 		request.setAttribute("creationDate", schedule.getCreationDate());
 		request.setAttribute("contactAddress", schedule.getContactAddress());

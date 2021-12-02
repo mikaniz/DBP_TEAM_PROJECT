@@ -182,6 +182,12 @@ th, td {
 				<hr>
 				<table id="scheduleTable">
 					<tr id="scheduleTableTr">
+						<td style="width: 130px;">모임 이름 :</td>
+						<td style="text-align:left;">
+							<p>${clubName}
+						</td>
+					</tr>
+					<tr id="scheduleTableTr">
 						<td style="width: 130px;">모임 일시 :</td>
 						<td style="text-align:left;">
 							<p>${creationDate}
@@ -196,7 +202,7 @@ th, td {
 					<tr id="scheduleTableTr">
 						<td style="width: 130px;">공지사항 :</td>
 						<td style="text-align:left;">
-							<textarea rows=10 cols=60
+							<textarea rows=7 cols=60
 								style="resize: none; font-size: 14px;" readonly="readonly" disabled>
 								${notice}
 							</textarea></td>
@@ -211,11 +217,12 @@ th, td {
 											<td>${routine.rName}</td>
 											<td>${routine.part}</td>
 											<td>
-											<a href="<c:url value='/routine/detail'>
-														<c:param name='routineId' value='${routine.routineId}'/>
-													</c:url>">
-													<input id="etcButton" type="button" value="더보기">
-											</a>
+												<a href="<c:url value='/routine/detail'>
+															<c:param name='routineId' value='${routine.routineId}'/>
+															<c:param name='thisIsForUsage' value='thisIsForUsage' />
+														</c:url>">
+														<input id="button" type="button" value="더보기">
+												</a>
 											</td>
 										</tr>
 									</c:forEach>
@@ -227,6 +234,7 @@ th, td {
 				<div style="text-align: center;">
 					<a href="<c:url value='/club/schedule/list'>
 								<c:param name='clubId' value='${clubId}'/>
+								<c:param name='clubName' value='${clubName}' />
 							</c:url>">
 							<input id="backButton" type="button" value="돌아가기">
 					</a>

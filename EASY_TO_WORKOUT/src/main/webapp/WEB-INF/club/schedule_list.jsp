@@ -182,16 +182,19 @@ th, td {
 			<div id="list">
 				<table id="listTable">
 					<tr id="listItem">
+						<th>모임 이름</th>
 						<th>날짜</th>
 						<th colspan="2">접속 주소</th>
 						<td></td>
 					</tr>
 					<c:forEach var="schedule" items="${scheduleList}">							
 						<tr id="listTr">
+							<td>${clubName}</td>
 							<td>${schedule.creationDate}</td>
 							<td colspan="2">${schedule.contactAddress}</td>
 							<td>
 								<a href="<c:url value='/club/schedule/view'>
+										<c:param name='clubName' value='${clubName}' />
 										<c:param name='clubId' value='${schedule.clubId}'/>
 										<c:param name='scheduleId' value='${schedule.scheduleId}'/>
 									</c:url>">

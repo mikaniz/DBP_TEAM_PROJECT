@@ -26,6 +26,10 @@ public class ClubScheduleManager {
 		return scheduleDao.getClubScheduleById(scheduleId, clubId);
 	}
 	
+	public List<ClubSchedule> getScheduleByMemberId(String memberId) {
+		return scheduleDao.getScheduleByMemberId(memberId);
+	}
+	
 	public int insertClubSchedule(ClubSchedule clubSchedule) {
 		return scheduleDao.insertClubSchedule(clubSchedule);
 	}

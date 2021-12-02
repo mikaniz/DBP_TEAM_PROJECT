@@ -88,6 +88,45 @@ public class ClubScheduleDAO {
 		return null;
 	}
 
+	public List<ClubSchedule> getScheduleByMemberId(String memberId) {
+		String findQuery = "SELECT DISTINCT clubSchedule.clubId AS clubId, clubSchedule.scheduleid AS scheduleId, "
+								+ "clubschedule.creationDate AS creationDate, clubSchedule.contactAddress AS contactAddress "
+						+ "FROM membership JOIN clubschedule ON membership.clubId = clubSchedule.clubId "
+								+ "JOIN club ON membership.clubId = club.clubId "
+						+ "WHERE  membership.memberid=? "
+								+ "AND TO_CHAR(clubschedule.creationDate, 'YY/MM/DD HH:mm') > TO_CHAR(SYSDATE, 'YY/MM/DD HH:mm') "
+						+ "ORDER BY clubschedule.creationDate";
+		
+		Object[] param = new Object[] {memberId};		
+		jdbcUtil.setSqlAndParameters(findQuery, param);
+		
+		try {
+			ResultSet rs = jdbcUtil.executeQuery(); 
+			List<ClubSchedule> list = new ArrayList<ClubSchedule>(); 
+			
+			while (rs.next()) {
+				ClubSchedule schedule = new ClubSchedule(); 
+				schedule.setClubId(rs.getInt("clubId"));
+				schedule.setScheduleId(rs.getInt("scheduleId"));
+				
+				java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+				String creationDate = sdf.format(rs.getTimestamp("creationDate"));
+				schedule.setCreationDate(creationDate);
+				
+				schedule.setContactAddress(rs.getString("contactAddress"));
+				
+				list.add(schedule); 
+			}
+			return list; 
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			jdbcUtil.close(); 
+		}
+		
+		return null;
+	}
+	
 	public int insertClubSchedule(ClubSchedule clubSchedule) {
 		// TODO Auto-generated method stub
 		String insertQuery = "INSERT INTO "

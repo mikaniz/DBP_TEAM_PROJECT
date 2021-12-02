@@ -28,6 +28,8 @@ public class ListScheduleController implements Controller  {
 		List<ClubSchedule> scheduleList = scheduleManager.getClubScheduleListById(clubId);
 		request.setAttribute("scheduleList", scheduleList);
 		request.setAttribute("clubId", clubId);
+		request.setAttribute("clubName", request.getParameter("clubName"));
+		
 		
 		return "/club/schedule_list.jsp";
 	}

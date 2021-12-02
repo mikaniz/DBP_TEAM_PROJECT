@@ -167,8 +167,9 @@ function askOut() {
 						</td>
 						<td >
 						<a href="<c:url value='/club/schedule/list'>
-											<c:param name='clubId' value='${club.clubId}'/>
-										</c:url>">
+										<c:param name='clubId' value='${club.clubId}'/>
+										<c:param name='clubName' value='${club.clubName}' />
+									</c:url>">
 								<input id="scheduleDetailButton" type="button" value="일정 보기">
 						</a>
 					</td>
