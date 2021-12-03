@@ -26,6 +26,10 @@ public class UsageManager {
 		return usageDao.getUsageListByClubId(clubId);
 	}
 	
+	public List<Usage> getUsageByClubIdAndScheduleId(int clubId, int scheduleId) {
+		return usageDao.getUsageByClubIdAndScheduleId(clubId, scheduleId);
+	}
+	
 	public int insertUsage(Usage usage) {
 		return usageDao.insertUsage(usage);
 	}

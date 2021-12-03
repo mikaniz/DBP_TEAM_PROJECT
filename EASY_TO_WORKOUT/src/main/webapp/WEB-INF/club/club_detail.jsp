@@ -166,8 +166,12 @@ function askOut() {
 							<p>${club.clubName}
 						</td>
 						<td >
-						<input id="scheduleDetailButton" type="button" value="일정 보기"
-							onclick="">
+						<a href="<c:url value='/club/schedule/list'>
+										<c:param name='clubId' value='${club.clubId}'/>
+										<c:param name='clubName' value='${club.clubName}' />
+									</c:url>">
+								<input id="scheduleDetailButton" type="button" value="일정 보기">
+						</a>
 					</td>
 					</tr>
 					<tr id="clubTableTr">
@@ -207,9 +211,11 @@ function askOut() {
 								<input id="backButton" type="button" value="모임 삭제" onclick="askDelete()">							
 						</c:if>
 						<c:if test="${isInClub eq '1' }">
-							<input type="hidden" name="thisIsForOut" value="thisIsForOut">
-							<input type="hidden" name="clubId" value="${club.clubId}">
-							<input id="backButton" type="button" value="모임 탈퇴" onclick="askOut()">	
+							<c:if test="${isMaster eq '0'}">	
+								<input type="hidden" name="thisIsForOut" value="thisIsForOut">
+								<input type="hidden" name="clubId" value="${club.clubId}">
+								<input id="backButton" type="button" value="모임 탈퇴" onclick="askOut()">
+							</c:if>	
 						</c:if>
 						<input id="backButton" type="button" value="돌아가기"
 							onclick="location.href='<c:url value='/club/list' />'">

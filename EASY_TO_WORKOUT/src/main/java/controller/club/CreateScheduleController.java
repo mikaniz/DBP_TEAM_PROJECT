@@ -32,7 +32,8 @@ public class CreateScheduleController implements Controller {
 		
 		MemberSessionUtils.setLoginUserInfo(session, request);
 		
-		if (request.getMethod().equals("GET")) {	// club_detail.jsp -> CreateScheduleController -> schedule_createForm.jsp
+		/*	club_detail.jsp -> CreateScheduleController -> schedule_createForm.jsp	*/
+		if (request.getMethod().equals("GET")) {	
 			String clubId = request.getParameter("clubId");
 			request.setAttribute("clubId", clubId);
 			log.debug("Create schedule : {}", clubId);
@@ -40,7 +41,8 @@ public class CreateScheduleController implements Controller {
 			return "/club/schedule_createForm.jsp";
 		}
 		
-		if (request.getParameter("thisIsForUsage") != null) {	// schedule_usageForm.jsp -> CreateScheduleController
+		/* schedule_usageForm.jsp -> CreateScheduleController	*/
+		if (request.getParameter("thisIsForUsage") != null) {	
 			if (request.getParameter("checkRoutineId") == null)	// 루틴이 선택되지 않았다면
 				request.setAttribute("routineNotSelected", "routineNotSelected");
 			else {
@@ -64,7 +66,7 @@ public class CreateScheduleController implements Controller {
 			return "/club/schedule_createForm.jsp";
 		}
 		
-/* schedule_createForm.jsp -> CreateScheduleController (스케줄 등록 완료)	*/
+		/* schedule_createForm.jsp -> CreateScheduleController (스케줄 등록 완료)	*/
 //		schedule insert		
 		int clubId = Integer.parseInt(request.getParameter("clubId"));
 		String contactAddress = request.getParameter("contactAddress");
