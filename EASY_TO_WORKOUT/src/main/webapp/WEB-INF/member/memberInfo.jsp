@@ -14,15 +14,25 @@
 						<c:when test="${loginMember.grade eq 'green'}">새싹</c:when>
 						<c:otherwise>마스터</c:otherwise>
 					</c:choose>
-					<p /> <br> <a href="<c:url value='/member/update'>
-									<c:param name='member' value='${loginMember}' />
-								</c:url>">회원정보 수정</a>
+					<p /> <br> <a href="<c:url value='/member/update' />">회원정보 수정</a>
 					<p>
 						<a href="<c:url value='/member/logout' />">로그아웃</a>
 				</td>
 			</tr>
 		</table>
 		<br><hr>
+		<c:if test="${isMaster}">
+			<article>
+				<h4 style="margin: 20px;">개설 모임 목록</h4>
+				<ul>
+					<c:forEach var="club" items="${masterClubList}">
+						<li><a href="<c:url value='/club/detail'>
+										<c:param name='clubId' value='${club.clubId}' />
+									</c:url>">${club.clubName}</a></li>
+					</c:forEach>
+				</ul>
+			</article>
+		</c:if>
 		<article>
 			<h4 style="margin: 20px;">내 모임 목록</h4>
 			<ul>

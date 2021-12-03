@@ -31,17 +31,21 @@ public class DetailDiaryController implements Controller {
 			
 			return "redirect:/diary/my/list";
 		}
-
-		Diary diary = manager.getDiaryById(diaryId);
 		
-		request.setAttribute("diary", diary);
-		if (memberId.equals(diary.getAuthor())) {
-			request.setAttribute("isAuthor", true);
-		} else {
-			request.setAttribute("isAuthor", false);
+		try {
+			Diary diary = manager.getDiaryById(diaryId);
+			
+			request.setAttribute("diary", diary);
+			if (memberId.equals(diary.getAuthor())) {
+				request.setAttribute("isAuthor", true);
+			} else {
+				request.setAttribute("isAuthor", false);
+			}
+			
+			return "/diary/diary_detail.jsp";
+		} catch (Exception e) {
+			return "redirect:/diary/all/list";
 		}
-		
-		return "/diary/diary_detail.jsp";
 	}
 
 }

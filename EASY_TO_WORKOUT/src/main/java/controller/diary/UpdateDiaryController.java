@@ -22,30 +22,34 @@ public class UpdateDiaryController implements Controller {
 		
 		DiaryManager manager = DiaryManager.getInstance();
 		
-		if (request.getMethod().equals("GET")) {
-			int diaryId = Integer.parseInt(request.getParameter("diaryId"));
-			Diary diary = manager.getDiaryById(diaryId);
+		try {
+			if (request.getMethod().equals("GET")) {
+				int diaryId = Integer.parseInt(request.getParameter("diaryId"));
+				Diary diary = manager.getDiaryById(diaryId);
+				
+				request.setAttribute("diary", diary);
+				
+				return "/diary/diary_updateForm.jsp";
+			}
 			
-			request.setAttribute("diary", diary);
+			Diary updateDiary = new Diary();
+			updateDiary.setDiaryId(Integer.parseInt(request.getParameter("diaryId")));
+			updateDiary.setTitle(request.getParameter("diaryTitle"));
+			updateDiary.setWorkTime(Integer.parseInt(request.getParameter("workTime")));
+			updateDiary.setContents(request.getParameter("diaryContents"));
+			if (request.getParameter("isPrivate") == null) {
+				updateDiary.setIsPrivate(0);
+			}
+			else {
+				updateDiary.setIsPrivate(1);
+			}
 			
-			return "/diary/diary_updateForm.jsp";
+			manager.update(updateDiary);
+			
+			return "redirect:/diary/my/list";
+		} catch (Exception e) {
+			return "redirect:/diary/all/list";
 		}
-		
-		Diary updateDiary = new Diary();
-		updateDiary.setDiaryId(Integer.parseInt(request.getParameter("diaryId")));
-		updateDiary.setTitle(request.getParameter("diaryTitle"));
-		updateDiary.setWorkTime(Integer.parseInt(request.getParameter("workTime")));
-		updateDiary.setContents(request.getParameter("diaryContents"));
-		if (request.getParameter("isPrivate") == null) {
-			updateDiary.setIsPrivate(0);
-		}
-		else {
-			updateDiary.setIsPrivate(1);
-		}
-		
-		manager.update(updateDiary);
-		
-		return "redirect:/diary/my/list";
 	}
 
 }
