@@ -3,6 +3,8 @@ package controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.text.SimpleDateFormat;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -12,6 +14,8 @@ import service.ClubManager;
 import service.ClubScheduleManager;
 import service.dto.Club;
 import service.dto.ClubSchedule;
+import service.DiaryManager;
+import service.dto.Diary;
 
 public class MainController implements Controller {
 	@Override
@@ -37,6 +41,26 @@ public class MainController implements Controller {
 			clubList.add(club);
 		}
 		request.setAttribute("clubList", clubList);
+		
+		DiaryManager diaryManager = DiaryManager.getInstance();
+		List<Diary> diaryList = diaryManager.getSortedMyDiary(memberId, "date");
+		List<List<Object>> recordList = new ArrayList<List<Object>>();
+		
+		if (diaryList != null) {
+			int count = 0;
+			SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+			for (Diary diary : diaryList) {
+				List<Object> record = new ArrayList<Object>();
+				record.add(format.format(diary.getDate()));
+				record.add(diary.getWorkTime());
+				recordList.add(record);
+				if (++count >= 7) {
+					break;
+				}
+			}
+			request.setAttribute("recordList", recordList);
+		}
+		
 		
 		return "/mainPage.jsp";
 	}

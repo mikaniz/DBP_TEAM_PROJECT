@@ -95,7 +95,7 @@ th, td {
 	text-align: center;
 }
 </style>
-<!-- 운동 기록 예시 정보 -->
+<!-- 운동 기록 정보 -->
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">
 	google.load('visualization', '1.0', {
@@ -107,11 +107,18 @@ th, td {
 		var data = new google.visualization.DataTable();
 		data.addColumn('string', '날짜 ');
 		data.addColumn('number', ' 운동 시간 ');
-		data.addRows([ [ '2020.03.02', 51 ], [ '2020.03.03', 0 ],
-				[ '2020.03.04', 140 ], [ '2020.03.05', 110 ],
-				[ '2020.03.06', 0 ], [ '2020.03.07', 15 ],
-				[ '2020.03.08', 45 ], [ '2020.03.09', 123 ], ]);
-
+		
+		var records = [];
+		for (var index in ${recordList}) {
+			records[index] = [
+				Math.floor(${recordList}[index][0] / 10000).toString() + "년\n"
+				+ Math.floor(${recordList}[index][0] % 10000 / 100).toString() + "월 "
+				+ (${recordList}[index][0] % 100).toString() + "일",
+				${recordList}[index][1]
+			];
+		}
+		data.addRows(records);
+		
 		var opt = {
 			'title' : '운동 기록 ',
 			'width' : 700,
@@ -119,7 +126,7 @@ th, td {
 		};
 
 		var chart = new google.visualization.BarChart(document
-				.getElementById('record_ex'));
+				.getElementById('record'));
 		chart.draw(data, opt);
 	}
 </script>
@@ -153,10 +160,11 @@ th, td {
 		<jsp:include page="/WEB-INF/member/memberInfo.jsp"/>
 
 		<div style="float: right">
-			<!-- 운동 기록 예시 그래프 -->
-			<div id="record_ex"
+			<!-- 운동 기록 그래프 -->
+			<c:set var="recordList" value="${recordList}" />
+			<div id="record"
 				style="width: 700px; height: 250px; border: 1px solid;"></div>
-			<!-- 모임 일정 예시 -->
+			<!-- 모임 일정 -->
 			<div
 				style="width: 700px; height: 340px; border: 1px solid; margin-top: 10px;">
 				<p>
