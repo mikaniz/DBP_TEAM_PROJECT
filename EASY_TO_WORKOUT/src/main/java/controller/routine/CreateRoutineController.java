@@ -6,8 +6,10 @@ import javax.servlet.http.HttpSession;
 
 import controller.member.MemberSessionUtils;
 import controller.Controller;
+import service.dto.Choice;
 import service.dto.Member;
 import service.dto.Routine;
+import service.ChoiceManager;
 import service.MemberManager;
 import service.RoutineManager;
 
@@ -22,27 +24,104 @@ public class CreateRoutineController implements Controller {
 		
 		MemberSessionUtils.setLoginUserInfo(session, request);
 		
+		String memberId = MemberSessionUtils.getLoginMemberId(session);
+		
+		MemberManager memberManager = MemberManager.getInstance();
+		Member member = memberManager.findMember(memberId);
+		request.setAttribute("member", member);
+		
 		if (request.getMethod().equals("GET")) {
-			String memberId = MemberSessionUtils.getLoginMemberId(session);
-			
-			MemberManager memberManager = MemberManager.getInstance();
-			Member member = memberManager.findMember(memberId);
-			request.setAttribute("member", member);
-			
 			return "/routine/routine_createForm.jsp";
 		}
 		
 		Routine routine = new Routine();
 		routine.setrName(request.getParameter("routineName"));
-		routine.setRoutineCreater(request.getParameter("routineCreater"));
-		routine.setPart(request.getParameter("routinePart"));
+		routine.setRoutineCreater(member.getId());
+	
+		String[] parts = request.getParameterValues("routinePart");
+		String part = "";
+		int num = 0;
+	
+		for (int i = 0; i < parts.length; i++) {
+			if (parts[i].equals("상체")) {
+				if (num == 0) {
+					part += "상체 ";
+				}
+				else {
+					part += ", 상체 ";
+				}
+				num += 1;
+			}
+			else if (parts[i].equals("하체")) {
+				if (num == 0) {
+					part += "하체 ";
+				}
+				else {
+					part += ", 하체 ";
+				}
+				num += 1;
+			}
+			else if (parts[i].equals("복부")) {
+				if (num == 0) {
+					part += "복부 ";
+				}
+				else {
+					part += ", 복부 ";
+				}
+				num += 1;
+			}
+			else if (parts[i].equals("어깨")) {
+				if (num == 0) {
+					part += "어깨 ";
+				}
+				else {
+					part += ", 어깨 ";
+				}
+				num += 1;
+			}
+			else {
+				if (num == 0) {
+					part += "전신 ";
+				}
+				else {
+					part += ", 전신 ";
+				}
+				num += 1;
+			}
+		}
+		routine.setPart(part);
+	
 		routine.setrTime(Integer.parseInt(request.getParameter("routineTime"))); 
 		routine.setDifficulty(Integer.parseInt(request.getParameter("routineLevel"))); 
 		routine.setrType(request.getParameter("routineType"));
 		
 		try {
-			RoutineManager manager = RoutineManager.getInstance();
-			manager.insertRoutine(routine);
+			RoutineManager routineManager = RoutineManager.getInstance();
+			routineManager.insertRoutine(routine);
+			
+			Routine findRoutine = routineManager.getRoutineByName(request.getParameter("routineName"));
+			
+			String[] exerciseIdList = request.getParameterValues("exerciseIdList");
+			
+			String[] sequenceList = request.getParameterValues("sequenceList");
+			int sequenceLength = sequenceList.length;
+			
+			String[] repetitionList = request.getParameterValues("repetitionList");
+			
+			ChoiceManager choiceManager = ChoiceManager.getInstance();
+			
+			for (int i = 0; i < sequenceLength; i++)  {
+				Choice choice = new Choice();
+				choice.setRoutineId(findRoutine.getRoutineId());
+				choice.setExerciseId(Integer.parseInt(exerciseIdList[i]));
+				
+				if (sequenceList[i] != null ) 
+					choice.setSequence(Integer.parseInt(sequenceList[i]));
+				if (repetitionList[i] != null) {
+					choice.setRepetition(Integer.parseInt(repetitionList[i]));
+					choiceManager.insertChoice(choice);
+				}
+			}
 			
 			return "redirect:/routine/list";
 		}catch (Exception e) {
