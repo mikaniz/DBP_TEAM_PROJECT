@@ -10,7 +10,9 @@ import controller.member.MemberSessionUtils;
 import service.dto.Exercise;
 import service.ExerciseManager;
 import service.dto.Member;
+import service.dto.Routine;
 import service.MemberManager;
+import service.RoutineManager;
 
 public class ListExerciseController implements Controller {
 
@@ -26,38 +28,30 @@ public class ListExerciseController implements Controller {
 		
 		ExerciseManager manager = ExerciseManager.getInstance();
 		
-		if (request.getMethod().equals("GET")) {
-			String memberId = MemberSessionUtils.getLoginMemberId(session);
-			
-			MemberManager memberManager = MemberManager.getInstance();
-			Member member = memberManager.findMember(memberId);
-			request.setAttribute("member", member);
-			
-			List<Exercise> exerciseList = manager.ListingExercises();
-			request.setAttribute("exerciseList", exerciseList);
-			
-			return "/routine/exercise_choiceForm.jsp";
-		}
 		
-		String type = request.getParameter("sortExercise");
+		String memberId = MemberSessionUtils.getLoginMemberId(session);
+			
+		MemberManager memberManager = MemberManager.getInstance();
+		Member member = memberManager.findMember(memberId);
+		request.setAttribute("member", member);
+			
+		List<Exercise> exerciseList = manager.ListingExercises();
+		request.setAttribute("exerciseList", exerciseList);
 		
-		if (type.equals("1")) {
-			request.setAttribute("checkedOne", true);
-			
-			List<Exercise> exerciseList = manager.ListingExercises();
-			request.setAttribute("exerciseList", exerciseList);
+		request.setAttribute("routineName", request.getParameter("routineName"));
+		request.setAttribute("routinePart", request.getParameterValues("routinePart"));
+		request.setAttribute("routineTime", request.getParameter("routineTime"));
+		request.setAttribute("routineLevel", request.getParameter("routineLevel"));
+		request.setAttribute("routineType", request.getParameter("routineType"));
+		
+		if (request.getParameter("thisIsForChoice") != null) {
+			request.setAttribute("thisIsForChoice", "thisIsForChoice");
 		}
-		else if (type.equals("2")) {
-			request.setAttribute("checkedTwo", true);
-			
-			List<Exercise> exerciseList = manager.ListingExercises();
-			request.setAttribute("exerciseList", exerciseList);
-		}
-		else if (type.equals("3")) {
-			request.setAttribute("checkedThree", true);
-			
-			List<Exercise> exerciseList = manager.ListingExercises();
-			request.setAttribute("exerciseList", exerciseList);
+		else {
+			RoutineManager routineManager = RoutineManager.getInstance();
+			int routineId = Integer.parseInt(request.getParameter("routineId"));
+			Routine routine = routineManager.getRoutineById(routineId);
+			request.setAttribute("routine", routine);
 		}
 		
 		return "/routine/exercise_choiceForm.jsp";

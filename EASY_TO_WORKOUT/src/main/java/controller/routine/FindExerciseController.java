@@ -27,19 +27,22 @@ public class FindExerciseController implements Controller{
 		
 		ExerciseManager manager = ExerciseManager.getInstance();
 		
-		String exerciseName = request.getParameter("exerciseName");
+		String exerciseName = request.getParameter("searchExercise");
 		
 		try {
 			List<Exercise> exerciseList = manager.getExerciseByName(exerciseName);
 			request.setAttribute("exerciseList", exerciseList);
 			
-			return "/routine/routine_createForm.jsp";
+			return "/routine/exercise_choiceForm.jsp";
 		}
 		catch(ExistingExerciseException e) {
+			List<Exercise> exerciseList = manager.ListingExercises();
+			request.setAttribute("exerciseList", exerciseList);
+			
 			request.setAttribute("findExerciseFailed", true);
 			request.setAttribute("exception", e);
 			
-			return "/routine/routine_createForm.jsp";
+			return "/routine/exercise_choiceForm.jsp";
 		}
 	
 	}
