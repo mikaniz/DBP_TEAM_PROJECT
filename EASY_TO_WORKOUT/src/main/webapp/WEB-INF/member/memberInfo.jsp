@@ -92,7 +92,9 @@
 					<input type="button" value="일정 등록" onclick=""
 						style="width: 400px; height: 50px;">
 				</c:when>
-				<c:otherwise></c:otherwise>
+				<c:otherwise>
+					<input type="button" style="width: 400px; height: 50px; background-color: #90ABDA;">
+				</c:otherwise>
 		</c:choose>
 	</div>
 </div>
