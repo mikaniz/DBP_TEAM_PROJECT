@@ -75,7 +75,8 @@ public class ChoiceExerciseController implements Controller {
 			}
 		}
 		request.setAttribute("repetitionList", repetitionList);
-
+		request.setAttribute("forChoice", "forChoice");
+		
 		if (request.getParameter("thisIsForChoice") == null) {
 			RoutineManager routineManager = RoutineManager.getInstance();
 			int routineId = Integer.parseInt(request.getParameter("routineId"));
@@ -84,6 +85,7 @@ public class ChoiceExerciseController implements Controller {
 			
 			request.setAttribute("thisIsForStorage", "thisIsForStorage");
 			request.setAttribute("storage", "storage");
+			
 			
 			return "/routine/routine_updateForm.jsp";
 		}

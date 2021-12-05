@@ -22,7 +22,7 @@ public class ChoiceManager {
 		return choiceDao.getChoiceList();
 	}
 	
-	public Choice getChoiceListByRoutineId(int routineId) {
+	public List<Choice> getChoiceListByRoutineId(int routineId) {
 		return choiceDao.getChoiceListByRoutineId(routineId);
 	}
 	
@@ -40,5 +40,13 @@ public class ChoiceManager {
 	
 	public int deleteChoice(int routineId) {
 		return choiceDao.deleteChoice(routineId);
+	}
+	
+	public int[] getSequenceList(int routineId) {
+		return choiceDao.getSequenceList(routineId);
+	}
+	
+	public int[] getRepetitionList(int routineId) {
+		return choiceDao.getRepetitionList(routineId);
 	}
 }

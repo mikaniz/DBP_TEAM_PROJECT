@@ -38,21 +38,24 @@ private JDBCUtil jdbcUtil = null;
 		return null;
 	}
 
-	public Choice getChoiceListByRoutineId(int routineId) {
+	public List<Choice> getChoiceListByRoutineId(int routineId) {
 		String searchListQuery = "SELECT * FROM choice WHERE routineId=?";
 		Object[] param = new Object[] {routineId};
 		jdbcUtil.setSqlAndParameters(searchListQuery, param);
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();
-			Choice choice = new Choice();
+			List<Choice> list = new ArrayList<Choice>();
 			
 			while (rs.next()) {
-				choice.setRoutineId(rs.getInt("routineId"));
-				choice.setExerciseId(rs.getInt("exerciseId"));
-				choice.setSequence(rs.getInt("sequence"));
-				choice.setRepetition(rs.getInt("repetition"));
+				Choice dto = new Choice();
+				dto.setRoutineId(rs.getInt("routineId"));
+				dto.setExerciseId(rs.getInt("exerciseId"));
+				dto.setSequence(rs.getInt("sequence"));
+				dto.setRepetition(rs.getInt("repetition"));
+				
+				list.add(dto);
 			}
-			return choice;
+			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -136,5 +139,51 @@ private JDBCUtil jdbcUtil = null;
 			jdbcUtil.close();
 		}
 		return result;
+	}
+	
+	@SuppressWarnings("null")
+	public int[] getSequenceList(int routineId) {
+		String allQuery = "SELECT sequence FROM choice WHERE routineId = ? ORDER BY exerciseId ASC";
+		Object[] param = new Object[] {routineId};
+		jdbcUtil.setSqlAndParameters(allQuery, param);
+		try {
+			ResultSet rs = jdbcUtil.executeQuery();
+			int[] list = null;
+			int i = 0;
+			
+			while (rs.next()) {
+				list[i] = rs.getInt("sequence");
+				i++;
+			}
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			jdbcUtil.close();
+		}
+		return null;
+	}
+	
+	@SuppressWarnings("null")
+	public int[] getRepetitionList(int routineId) {
+		String allQuery = "SELECT repetition FROM choice WHERE routineId = ? ORDER BY exerciseId ASC";
+		Object[] param = new Object[] {routineId};
+		jdbcUtil.setSqlAndParameters(allQuery, param);
+		try {
+			ResultSet rs = jdbcUtil.executeQuery();
+			int[] list = null;
+			int i = 0;
+			
+			while (rs.next()) {
+				list[i] = rs.getInt("repetition");
+				i++;
+			}
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			jdbcUtil.close();
+		}
+		return null;
 	}
 }
