@@ -4,8 +4,12 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>ETW schedule_createForm</title>
+<title>EASY TO WORK OUT</title>
 <style>
+@import url(//font.elice.io/EliceDigitalBaeum.css);
+body {
+    font-family: "Elice Digital Baeum",sans-serif;
+}
 .menu {
 	height: 50px;
 	background-color: #213963;
@@ -177,7 +181,7 @@ function chooseRoutine(targetUri) {
 							<td style="width: 130px;">접속 주소 :</td>
 							<td>
 								<input type="text" name="contactAddress" value="<c:if test="${contactAddress ne null}">${contactAddress}</c:if>"
-									style="width: 300px; height: 20px; font-size: 15px;">
+									autocomplete="off" style="width: 300px; height: 20px; font-size: 15px;">
 							</td>
 						</tr>
 						<tr id="clubTableTr">
@@ -205,7 +209,7 @@ function chooseRoutine(targetUri) {
 						<tr id="clubTableTr">
 							<td style="width: 130px;">공지 사항 :</td>
 							<td>
-								<textarea name="notice" rows=10 cols=60 style="resize: none;"><c:if test="${notice ne null}">${notice}</c:if></textarea>
+								<textarea name="notice" autocomplete="off" rows=10 cols=60 style="resize: none;"><c:if test="${notice ne null}">${notice}</c:if></textarea>
 							</td>
 						</tr>
 					</table>

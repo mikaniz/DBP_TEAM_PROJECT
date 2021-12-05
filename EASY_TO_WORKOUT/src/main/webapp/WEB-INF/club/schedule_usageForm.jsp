@@ -4,8 +4,12 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>ETW schedule_usageForm</title>
+<title>EASY TO WORK OUT</title>
 <style>
+@import url(//font.elice.io/EliceDigitalBaeum.css);
+body {
+    font-family: "Elice Digital Baeum",sans-serif;
+}
 .menu {
 	height: 50px;
 	background-color: #213963;
@@ -161,7 +165,7 @@ function chooseUsage() {
 							<c:when test="${findRoutineFailed}">${exception.getMessage()}</c:when>
 							<c:otherwise>루틴명을 입력하세요</c:otherwise>
 						</c:choose>
-					" style="width: 580px; height: 42px;"> 
+					" autocomplete="off" style="width: 580px; height: 42px;"> 
 	    			<input id="searchButton" type="button"
 						value="검색" onclick="search()">
 				</form>

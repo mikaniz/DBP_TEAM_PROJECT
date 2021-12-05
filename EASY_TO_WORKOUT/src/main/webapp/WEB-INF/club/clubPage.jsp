@@ -4,12 +4,11 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>ETW ClubPage</title>
+<title>EASY TO WORK OUT</title>
 <style>
-
 @import url(//font.elice.io/EliceDigitalBaeum.css);
 body {
-	 font-family: "Elice Digital Baeum",sans-serif;
+    font-family: "Elice Digital Baeum",sans-serif;
 }
 .menu {
 	height: 50px;
@@ -161,7 +160,7 @@ function search() {
 							<c:when test="${findClubFailed}">${exception.getMessage()}</c:when>
 							<c:otherwise>모임을 입력하세요</c:otherwise>
 						</c:choose>
-					" style="width: 580px; height: 42px;"> 
+					" autocomplete="off" style="width: 580px; height: 42px;"> 
 	    			<input id="searchButton" type="button"
 						value="검색" onclick="search()">
 				</form>
