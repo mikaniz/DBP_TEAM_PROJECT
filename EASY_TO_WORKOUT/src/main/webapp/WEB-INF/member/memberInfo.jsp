@@ -93,7 +93,8 @@
 						style="width: 400px; height: 50px;">
 				</c:when>
 				<c:otherwise>
-					<input type="button" style="width: 400px; height: 50px; background-color: #90ABDA;">
+					<input type="button" disabled="disabled"
+						style="width: 400px; height: 50px; background-color: #90ABDA;">
 				</c:otherwise>
 		</c:choose>
 	</div>
