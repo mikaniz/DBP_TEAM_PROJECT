@@ -147,6 +147,15 @@ th, td {
 	text-align: center;
 }
 </style>
+<script>
+
+function askDelete() {
+	if (window.confirm('모임을 삭제하시겠습니까?')) {
+		deleteForm.submit();
+	}
+}
+
+</script>
 </head>
 
 <body>
@@ -232,12 +241,22 @@ th, td {
 					</tr>
 				</table>
 				<div style="text-align: center;">
-					<a href="<c:url value='/club/schedule/list'>
+					
+					<form name="deleteForm"  method="GET" action="<c:url value='/club/schedule/list' />">
+						<input type="hidden" name="clubId" value="${clubId}">
+						<input type="hidden" name="clubName" value="${clubName}"/>
+						<c:if test="${isMaster eq '1'}">							
+								<input type="hidden" name="scheduleId" value="${scheduleId}">
+								<input type="hidden" name="thisIsForDeleteSchedule" value="thisIsForDeleteSchedule"/>
+								<input id="backButton" type="button" value="모임 삭제" onclick="askDelete()">							
+						</c:if>
+						<a href="<c:url value='/club/schedule/list'>
 								<c:param name='clubId' value='${clubId}'/>
 								<c:param name='clubName' value='${clubName}' />
 							</c:url>">
 							<input id="backButton" type="button" value="돌아가기">
-					</a>
+						</a>
+					</form>
 				</div>
 			</div>
 		</div>

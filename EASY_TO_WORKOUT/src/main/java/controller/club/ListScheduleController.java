@@ -24,6 +24,11 @@ public class ListScheduleController implements Controller  {
 		
 		ClubScheduleManager scheduleManager = ClubScheduleManager.getInstance();
 		
+		if (request.getParameter("thisIsForDeleteSchedule") != null) {	// 스케줄 버튼 클릭 시
+			int scheduleId = Integer.parseInt(request.getParameter("scheduleId"));
+			scheduleManager.deleteClubSchedule(scheduleId);
+		}
+		
 		int clubId = Integer.parseInt(request.getParameter("clubId"));
 		List<ClubSchedule> scheduleList = scheduleManager.getClubScheduleListById(clubId);
 		request.setAttribute("scheduleList", scheduleList);

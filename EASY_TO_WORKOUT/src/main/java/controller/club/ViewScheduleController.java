@@ -9,9 +9,11 @@ import javax.servlet.http.HttpSession;
 
 import controller.Controller;
 import controller.member.MemberSessionUtils;
+import service.ClubManager;
 import service.ClubScheduleManager;
 import service.RoutineManager;
 import service.UsageManager;
+import service.dto.Club;
 import service.dto.ClubSchedule;
 import service.dto.Routine;
 import service.dto.Usage;
@@ -27,12 +29,14 @@ public class ViewScheduleController implements Controller {
 		}
 		
 		MemberSessionUtils.setLoginUserInfo(session, request);
+		String memberId = MemberSessionUtils.getLoginMemberId(session);
 		
 		int clubId = Integer.parseInt(request.getParameter("clubId"));
 		int scheduleId = Integer.parseInt(request.getParameter("scheduleId"));
 		
 		ClubScheduleManager scheduleManager = ClubScheduleManager.getInstance();
 		ClubSchedule schedule = scheduleManager.getClubScheduleById(scheduleId, clubId);
+		request.setAttribute("scheduleId", scheduleId);
 		request.setAttribute("clubName", request.getParameter("clubName"));
 		request.setAttribute("clubId", String.valueOf(schedule.getClubId()));
 		request.setAttribute("creationDate", schedule.getCreationDate());
@@ -50,6 +54,13 @@ public class ViewScheduleController implements Controller {
 			routineList.add(routine);
 		}
 		request.setAttribute("routineList", routineList);
+		
+		ClubManager clubManager = ClubManager.getInstance();	// 모임 개설자 판별
+		Club club = clubManager.getClubById(clubId);
+		if (memberId.equals(club.getClubMaster())) {					
+			request.setAttribute("isMaster", "1");
+		} else 
+			request.setAttribute("isMaster", "0");
 		
 		return "/club/schedule_view.jsp";
 	}
