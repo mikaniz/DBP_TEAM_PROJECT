@@ -4,8 +4,12 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>ETW club_openForm</title>
+<title>EASY TO WORK OUT</title>
 <style>
+@import url(//font.elice.io/EliceDigitalBaeum.css);
+body {
+    font-family: "Elice Digital Baeum",sans-serif;
+}
 .menu {
 	height: 50px;
 	background-color: #213963;
@@ -156,7 +160,7 @@ function clubCreate() {
 						<tr id="clubTableTr">
 							<td style="width: 130px;">모임 이름 :</td>
 							<td><input type="text" name="clubName"
-								style="width: 300px; height: 20px; font-size: 15px;"></td>
+								autocomplete="off" style="width: 300px; height: 20px; font-size: 15px;"></td>
 						</tr>
 						<tr id="clubTableTr">
 							<td style="width: 130px;">모임 유형 :</td>
@@ -176,7 +180,7 @@ function clubCreate() {
 						</tr>
 						<tr id="clubTableTr">
 							<td style="width: 130px;">모임 소개 :</td>
-							<td><textarea name="clubIntro" rows=15 cols=60 style="resize: none;"></textarea></td>
+							<td><textarea name="clubIntro" autocomplete="off" rows=15 cols=60 style="resize: none;"></textarea></td>
 						</tr>
 					</table>
 					<div style="text-align: center; margin-left: 130px;">
