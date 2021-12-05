@@ -31,6 +31,12 @@ public class CreateRoutineController implements Controller {
 		request.setAttribute("member", member);
 		
 		if (request.getMethod().equals("GET")) {
+			request.setAttribute("routineName", request.getParameter("routineName"));
+			request.setAttribute("routinePart", request.getParameter("routinePart"));
+			request.setAttribute("routineTime", request.getParameter("routineTime"));
+			request.setAttribute("routineLevel", request.getParameter("routineLevel"));
+			request.setAttribute("routineType", request.getParameter("routineType"));
+			
 			return "/routine/routine_createForm.jsp";
 		}
 		
@@ -102,25 +108,22 @@ public class CreateRoutineController implements Controller {
 			Routine findRoutine = routineManager.getRoutineByName(request.getParameter("routineName"));
 			
 			String[] exerciseIdList = request.getParameterValues("exerciseIdList");
+			int exerciseLength = exerciseIdList.length;
 			
-			String[] sequenceList = request.getParameterValues("sequenceList");
-			int sequenceLength = sequenceList.length;
+			String[] sequenceList = request.getParameterValues("sequence");
 			
-			String[] repetitionList = request.getParameterValues("repetitionList");
+			String[] repetitionList = request.getParameterValues("repetition");
 			
 			ChoiceManager choiceManager = ChoiceManager.getInstance();
 			
-			for (int i = 0; i < sequenceLength; i++)  {
+			for (int i = 0; i < exerciseLength; i++)  {
 				Choice choice = new Choice();
 				choice.setRoutineId(findRoutine.getRoutineId());
 				choice.setExerciseId(Integer.parseInt(exerciseIdList[i]));
+				choice.setSequence(Integer.parseInt(sequenceList[i]));
+				choice.setRepetition(Integer.parseInt(repetitionList[i]));
 				
-				if (sequenceList[i] != null ) 
-					choice.setSequence(Integer.parseInt(sequenceList[i]));
-				if (repetitionList[i] != null) {
-					choice.setRepetition(Integer.parseInt(repetitionList[i]));
-					choiceManager.insertChoice(choice);
-				}
+				choiceManager.insertChoice(choice);
 			}
 			
 			return "redirect:/routine/list";
