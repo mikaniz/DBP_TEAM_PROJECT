@@ -129,6 +129,7 @@ public class UpdateRoutineController implements Controller {
 		String[] repetitionList = request.getParameterValues("repetition");
 		
 		ChoiceManager choiceManager = ChoiceManager.getInstance();
+		choiceManager.deleteChoice(Integer.parseInt(request.getParameter("routineId")));
 		
 		for (int i = 0; i < exerciseLength; i++)  {
 			Choice choice = new Choice();
@@ -137,10 +138,7 @@ public class UpdateRoutineController implements Controller {
 			choice.setSequence(Integer.parseInt(sequenceList[i]));
 			choice.setRepetition(Integer.parseInt(repetitionList[i]));
 			
-			Choice findChoice = choiceManager.getChoiceByRoutineIdAndExerciseId(
-										Integer.parseInt(request.getParameter("routineId")), choice.getExerciseId());
-			
-			choiceManager.updateChoice(findChoice);
+			choiceManager.insertChoice(choice);
 		}
 		
 		return "redirect:/routine/list";

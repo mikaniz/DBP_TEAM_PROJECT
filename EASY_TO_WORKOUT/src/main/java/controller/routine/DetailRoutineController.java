@@ -33,8 +33,8 @@ public class DetailRoutineController implements Controller {
 		int routineId = Integer.parseInt(request.getParameter("routineId"));
 		
 		if (request.getParameter("thisIsForDel") != null) {
-			routineManager.deleteRoutine(routineId);
 			choiceManager.deleteChoice(routineId);
+			routineManager.deleteRoutine(routineId);
 			
 			return "redirect:/routine/list";
 		}
