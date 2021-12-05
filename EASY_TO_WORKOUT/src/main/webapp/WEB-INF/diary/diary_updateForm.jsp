@@ -161,7 +161,7 @@ function diaryUpdateBtn_click() {
 				<table id="diaryTable">
 					<tr id="diaryTableTr">
 						<td style="width: 130px;">제목 :</td>
-						<td><input type="text" name="diaryTitle" value="${diary.title}"
+						<td><input type="text" name="diaryTitle" value="${diary.title}" autocomplete="off"
 							style="width: 450px; height: 20px; font-size: 15px;"></td>
 					</tr>
 					<tr id="diaryTableTr">

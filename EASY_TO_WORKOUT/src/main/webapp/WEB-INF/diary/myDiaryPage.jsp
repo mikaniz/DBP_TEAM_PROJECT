@@ -149,7 +149,7 @@ function search() {
 							<c:when test="${findDiaryFailed}">${exception.getMessage()}</c:when>
 							<c:otherwise>제목을 입력하세요.</c:otherwise>
 						</c:choose>	
-					" style="width: 580px; height: 42px;">
+					" autocomplete="off" style="width: 580px; height: 42px;">
 						<input id="searchButton" type="button" value="검색" onclick="search()">
 				</form>
 			</div>

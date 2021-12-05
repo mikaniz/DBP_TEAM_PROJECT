@@ -229,12 +229,12 @@ function memberUpdateBtn_click() {
 						<tr id="memberTableTr">
 							<td style="width: 130px;">전화번호 :</td>
 							<td><input type="text" name="phone" value="${loginMember.phone}"
-								style="width: 500px; height: 20px; font-size: 15px;"></td>
+								autocomplete="off" style="width: 500px; height: 20px; font-size: 15px;"></td>
 						</tr>
 						<tr id="memberTableTr">
 							<td style="width: 130px;">이메일 :</td>
 							<td><input type="text" name="email" value="${loginMember.email}"
-								style="width: 500px; height: 20px; font-size: 15px;"></td>
+								autocomplete="off" style="width: 500px; height: 20px; font-size: 15px;"></td>
 						</tr>
 					</table>
 					<div style="text-align: center; margin-left: 130px;">

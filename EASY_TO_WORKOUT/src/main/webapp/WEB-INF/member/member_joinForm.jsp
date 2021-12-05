@@ -76,16 +76,20 @@ function join() {
 	</div>
 	<!-- 회원 정보 입력 -->
 	<div style="text-align: center">
-		<input type="text" name="id" placeholder="아이디" style="width: 450px; height: 30px; margin: 10px">
+		<input type="text" name="id" placeholder="아이디" autocomplete="off" 
+			style="width: 450px; height: 30px; margin: 10px">
 		<br>
 		<input type="password" name="pw" placeholder="비밀번호" style="width: 450px; height: 30px; margin: 10px">
 		<br>
 		<input type="password" name="pw2" placeholder="비밀번호 확인" style="width: 450px; height: 30px; margin: 10px">
 		<br>
-		<input type="text" name="name" placeholder="이름" style="width: 210px; height: 30px; margin: 10px">
-		<input type="text" name="phone" placeholder="전화번호 ('-' 없이 입력하세요.)" style="width: 210px; height: 30px; margin: 10px">
+		<input type="text" name="name" placeholder="이름" autocomplete="off" 
+			style="width: 210px; height: 30px; margin: 10px" autocomplete="off">
+		<input type="text" name="phone" placeholder="전화번호 ('-' 없이 입력하세요.)" autocomplete="off" 
+			style="width: 210px; height: 30px; margin: 10px">
 		<br>
-		<input type="text" name="email" placeholder="이메일" style="width: 450px; height: 30px; margin: 10px">
+		<input type="text" name="email" placeholder="이메일" autocomplete="off" 
+			style="width: 450px; height: 30px; margin: 10px">
 		<br>
 		<input id="btn" type="button" onclick="join()" value="회원 가입">
 	</div>

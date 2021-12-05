@@ -38,7 +38,8 @@ function login() {
 			width=500px height=130px /></a>
 	</div>
 	<div style="text-align: center">
-		<input type="text" name="loginId" placeholder="아이디" style="width: 400px; height: 50px; margin: 10px">
+		<input type="text" name="loginId" placeholder="아이디" autocomplete="off" 
+			style="width: 400px; height: 50px; margin: 10px">
 	</div>
 	<div style="text-align: center">
 		<input type="password" name="loginPw" placeholder="비밀번호" style="width: 400px; height: 50px; margin: 10px">
