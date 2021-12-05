@@ -115,32 +115,64 @@ public class RoutineDAO {
 		return null;
 	}
 	
-	public Routine getRoutineById(String routineId) {
-		String searchQuery = query + 
+	public Routine getRoutineById(int routineId) {
+		String searchQuery = query +
 		        "FROM ROUTINE " +
-		        "WHERE ROUTINEID = ? ";
-		   	 
-		jdbcUtil.setSqlAndParameters(searchQuery, new Object[] {routineId});			// JDBCUtil 에 query 문 설정
+		        "WHERE ROUTINE.ROUTINEID = ? ";
+	
+		Object[] param = new Object[] { routineId };
+		
+		jdbcUtil.setSqlAndParameters(searchQuery, param);
 
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();		// query 문 실행
-			Routine routine = null;
-			
-			while (rs.next()) {
-				routine = new Routine();
-				routine.setRoutineId(rs.getInt("ROUTINE_ID"));
-				routine.setrName(rs.getString("ROUTINE_NAME"));
-				routine.setrTime(rs.getInt("ROUTINE_TIME"));
-				routine.setDifficulty(rs.getInt("ROUTINE_DIFFICULTY"));
-				routine.setrType(rs.getString("ROUTINE_TYPE"));
-				routine.setPart(rs.getString("ROUTINE_PART"));
-				routine.setRoutineCreater(rs.getString("ROUTINE_CREATER"));
+			Routine dto = null;
+			if (rs.next()) {						// 찾은 루틴의 정보를 RoutineDTO 객체에 설정
+				dto = new Routine();
+				dto.setRoutineId(rs.getInt("ROUTINE_ID"));
+				dto.setrName(rs.getString("ROUTINE_NAME"));
+				dto.setrTime(rs.getInt("ROUTINE_TIME"));
+				dto.setDifficulty(rs.getInt("ROUTINE_DIFFICULTY"));
+				dto.setrType(rs.getString("ROUTINE_TYPE"));
+				dto.setPart(rs.getString("ROUTINE_PART"));
+				dto.setRoutineCreater(rs.getString("ROUTINE_CREATER"));
 			}
-			return routine;				
+			return dto;				// 찾은 루틴의 정보를 담고 있는 RoutineDTO 객체 반환
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
-			jdbcUtil.close();	
+			jdbcUtil.close();		// ResultSet, PreparedStatement, Connection 반환
+		}
+		return null;
+	}
+	
+	public Routine getRoutineByName(String rName) {
+		String searchQuery = query +
+		        "FROM ROUTINE " +
+		        "WHERE RNAME = ? ";
+	
+		Object[] param = new Object[] { rName };
+		
+		jdbcUtil.setSqlAndParameters(searchQuery, param);
+
+		try {
+			ResultSet rs = jdbcUtil.executeQuery();		// query 문 실행
+			Routine dto = null;
+			if (rs.next()) {						// 찾은 루틴의 정보를 RoutineDTO 객체에 설정
+				dto = new Routine();
+				dto.setRoutineId(rs.getInt("ROUTINE_ID"));
+				dto.setrName(rs.getString("ROUTINE_NAME"));
+				dto.setrTime(rs.getInt("ROUTINE_TIME"));
+				dto.setDifficulty(rs.getInt("ROUTINE_DIFFICULTY"));
+				dto.setrType(rs.getString("ROUTINE_TYPE"));
+				dto.setPart(rs.getString("ROUTINE_PART"));
+				dto.setRoutineCreater(rs.getString("ROUTINE_CREATER"));
+			}
+			return dto;				// 찾은 루틴의 정보를 담고 있는 RoutineDTO 객체 반환
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			jdbcUtil.close();		// ResultSet, PreparedStatement, Connection 반환
 		}
 		return null;
 	}
@@ -183,13 +215,13 @@ public class RoutineDAO {
 	public int insertRoutine(Routine routine) {
 		int result = 0;
 		String insertQuery = "INSERT INTO "
-				+ "ROUTINE (ROUTINEID, RNAME, RTIME, DIFFICULTY, RTYPE, RPART, ROUTINECREATER) "
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?)";
+				+ "ROUTINE (ROUTINEID, RTIME, DIFFICULTY, RTYPE, PART, ROUTINECREATER, RNAME) "
+				+ "VALUES (RoutineIdSeq.NEXTVAL, ?, ?, ?, ?, ?, ?)";
 		
-		Object[] param = new Object[] {routine.getRoutineId(), routine.getrName(), 
+		Object[] param = new Object[] { 
 				routine.getrTime(), routine.getDifficulty(), 
 				routine.getrType(), routine.getPart(), 
-				routine.getRoutineCreater()};
+				routine.getRoutineCreater(), routine.getrName()};
 		
 		jdbcUtil.setSqlAndParameters(insertQuery, param);
 		
@@ -208,13 +240,13 @@ public class RoutineDAO {
 	public int updateRoutine(Routine routine) {
 		int result = 0;
 		String updateQuery = "UPDATE ROUTINE "
-				+ "SET RNAME=?, RTIME=?, DIFFICULTY=?, RTYPE=?, RPART=?, ROUTINECREATER=? "
+				+ "SET RTIME=?, DIFFICULTY=?, RTYPE=?, PART=?, ROUTINECREATER=?, RNAME=? "
 				+ "WHERE ROUTINEID=?";
 		
-		Object[] param = new Object[] {routine.getrName(), 
+		Object[] param = new Object[] { 
 				routine.getrTime(), routine.getDifficulty(), 
 				routine.getrType(), routine.getPart(), 
-				routine.getRoutineCreater(), routine.getRoutineId()};
+				routine.getRoutineCreater(), routine.getrName(), routine.getRoutineId()};
 		
 		jdbcUtil.setSqlAndParameters(updateQuery, param);
 		
@@ -248,37 +280,6 @@ public class RoutineDAO {
 			jdbcUtil.close();		// ResultSet, PreparedStatement, Connection 반환
 		}
 		return 0;
-	}
-
-	public Routine getRoutineById(int routineId) {
-		String searchQuery = query +
-		        "FROM ROUTINE " +
-		        "WHERE ROUTINE.ROUTINEID = ? ";
-	
-		Object[] param = new Object[] { routineId };
-		
-		jdbcUtil.setSqlAndParameters(searchQuery, param);
-
-		try {
-			ResultSet rs = jdbcUtil.executeQuery();		// query 문 실행
-			Routine dto = null;
-			if (rs.next()) {						// 찾은 루틴의 정보를 RoutineDTO 객체에 설정
-				dto = new Routine();
-				dto.setRoutineId(rs.getInt("ROUTINE_ID"));
-				dto.setrName(rs.getString("ROUTINE_NAME"));
-				dto.setrTime(rs.getInt("ROUTINE_TIME"));
-				dto.setDifficulty(rs.getInt("ROUTINE_DIFFICULTY"));
-				dto.setrType(rs.getString("ROUTINE_TYPE"));
-				dto.setPart(rs.getString("ROUTINE_PART"));
-				dto.setRoutineCreater(rs.getString("ROUTINE_CREATER"));
-			}
-			return dto;				// 찾은 루틴의 정보를 담고 있는 RoutineDTO 객체 반환
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		} finally {
-			jdbcUtil.close();		// ResultSet, PreparedStatement, Connection 반환
-		}
-		return null;
 	}
 
 	public boolean existingRoutine(String rName) {

@@ -39,6 +39,14 @@ public class RoutineManager {
 		return dao.getRoutineListByPersonal(id);
 	}
 	
+	public Routine getRoutineById(int routineId) throws SQLException  {
+		return dao.getRoutineById(routineId);
+	}
+	
+	public Routine getRoutineByName(String name) throws SQLException  {
+		return dao.getRoutineByName(name);
+	}
+	
 	public List<Routine> getRoutineByPart(String part) throws ExistingPartException, SQLException {
 		// TODO Auto-generated method stub
 		if (part.equals("")) {
@@ -50,40 +58,27 @@ public class RoutineManager {
 		return dao.getRoutineByPart(part);
 	}
 	
+	public int insertRoutine(Routine routine) throws SQLException, ExistingRoutineException {
+		if (dao.existingRoutine(routine.getrName()) == true) {
+			throw new ExistingRoutineException(routine.getrName() + "는 이미 존재하는 루틴입니다.");
+		}
+		return dao.insertRoutine(routine);
+	}
+	
+	public int updateRoutine(Routine routine) throws SQLException {
+		return dao.updateRoutine(routine);
+	}
+	
+	public int deleteRoutine(int routineId) throws SQLException  {
+		return dao.deleteRoutine(routineId);
+	}
+	
 	public boolean existingRoutine(String rName) throws SQLException {
 		return dao.existingRoutine(rName);
 	}
 	
 	public boolean existingPart(String part) throws SQLException {
 		return dao.existingPart(part);
-	}
-	
-	public int insertRoutine(Routine routine) throws SQLException, ExistingRoutineException {
-		if (dao.existingRoutine(routine.getrName()) == true) {
-			throw new ExistingRoutineException(routine.getrName() + "는 존재하는 루틴입니다.");
-		}
-		return dao.insertRoutine(routine);
-	}
-	
-	public Routine getRoutineById(String routineId) {
-		return dao.getRoutineById(routineId);
-	}
-	
-	
-	public int updateRoutine(Routine routine) throws SQLException, ExistingRoutineException {
-		String oldRoutineName = getRoutine(routine.getRoutineId()).getrName();
-		if (routine.getrName().equals(oldRoutineName) == false) {
-			throw new ExistingRoutineException(routine.getrName() + "는 존재하지 않는 루틴입니다.");
-		}
-		return dao.updateRoutine(routine);
-	}
-	
-	public int deleteRoutine(int routineId) {
-		return dao.deleteRoutine(routineId);
-	}
-	
-	public Routine getRoutine(int routineId) throws SQLException, ExistingRoutineException {
-		return dao.getRoutineById(routineId);
 	}
 	
 	public List<Exercise> getExercises(int routineId) throws SQLException {

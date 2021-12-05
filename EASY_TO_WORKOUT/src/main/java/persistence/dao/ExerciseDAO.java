@@ -45,13 +45,13 @@ public class ExerciseDAO {
 		return null;
 	}
 	
-	public List<Exercise> getExerciseByName(String name) { // 루틴 이름으로 모임 검색
+	public List<Exercise> getExerciseByName(String name) { // 운동명으로 운동 검색
 		// TODO Auto-generated method stub
 		String searchQuery = query +
 				"FROM EXERCISE " +
-		        "WHERE NAME = ? ";
+		        "WHERE NAME LIKE ? ";
 		
-		Object[] param = new Object[] {name}; // 루틴 이름으로 검색 후 정렬 조건 설정
+		Object[] param = new Object[] {"%" + name + "%"}; // 운동명으로 검색 후 정렬 조건 설정
 		jdbcUtil.setSqlAndParameters(searchQuery, param);
 		
 		try {
@@ -67,7 +67,7 @@ public class ExerciseDAO {
 				
 				list.add(dto); // 리스트에 DTO 객체 저장
 			}
-			return list; // 루틴 정보를 저장한 DTO 객체들의 리스트 반환
+			return list; // 운동 정보를 저장한 DTO 객체들의 리스트 반환
 		} catch(Exception ex) {
 			ex.printStackTrace();
 		} finally {
@@ -78,15 +78,15 @@ public class ExerciseDAO {
 	}
 	
 	public boolean existingExercise(String name) {
-		String sql = "SELECT count(*) FROM EXERCISE WHERE NAME = ?";   
+		String sql = "SELECT count(*) FROM EXERCISE WHERE NAME LIKE ? ";   
 		
-		jdbcUtil.setSqlAndParameters(sql, new Object[] {name});	// JDBCUtil에 query문과 매개 변수 설정
+		jdbcUtil.setSqlAndParameters(sql, new Object[] {"%" + name + "%"});	// JDBCUtil에 query문과 매개 변수 설정
 
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();		// query 실행
 			if (rs.next()) {
 				int count = rs.getInt(1);
-				return (count == 1 ? true : false);
+				return (count == 0 ? false : true);
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();

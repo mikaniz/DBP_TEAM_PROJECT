@@ -1,12 +1,17 @@
 package controller.routine;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import controller.Controller;
 import controller.member.MemberSessionUtils;
+import service.MemberManager;
 import service.RoutineManager;
+import service.dto.Exercise;
+import service.dto.Member;
 import service.dto.Routine;
 
 public class UpdateRoutineController implements Controller {
@@ -19,99 +24,91 @@ public class UpdateRoutineController implements Controller {
 		}
 		
 		MemberSessionUtils.setLoginUserInfo(session, request);
+		String memberId = MemberSessionUtils.getLoginMemberId(session);
+		
+		MemberManager memberManager = MemberManager.getInstance();
+		Member member = memberManager.findMember(memberId);
+		request.setAttribute("member", member);
+		
 		request.setAttribute("btnType", "routineCreate");
 		
 		RoutineManager manager = RoutineManager.getInstance();
 		
 		if (request.getMethod().equals("GET")) {
 			int routineId = Integer.parseInt(request.getParameter("routineId"));
-			Routine routine = manager.getRoutine(routineId);
+			Routine routine = manager.getRoutineById(routineId);
 			
 			request.setAttribute("routine", routine);
+			
+			List<Exercise> exerciseList = manager.getExercises(routineId);
+			request.setAttribute("exerciseList", exerciseList);
 			
 			return "/routine/routine_updateForm.jsp";
 		}
 		
-		Routine updateRoutine = new Routine();
-		updateRoutine.setRoutineId(Integer.parseInt(request.getParameter("routineId")));
-		updateRoutine.setrName(request.getParameter("routineName"));
+		Routine routine = new Routine();
+		routine.setRoutineId(Integer.parseInt(request.getParameter("routineId")));
+		routine.setrName(request.getParameter("routineName"));
+		routine.setRoutineCreater(member.getId());
 		
+		String[] parts = request.getParameterValues("routinePart");
 		String part = "";
 		int num = 0;
 		
-		if (request.getParameter("routinePart").equals("상체")) {
-			if (num == 0) {
-				part += "상체 ";
+		for (int i = 0; i < parts.length; i++) {
+			if (parts[i].equals("상체")) {
+				if (num == 0) {
+					part += "상체 ";
+				}
+				else {
+					part += ", 상체 ";
+				}
+				num += 1;
+			}
+			else if (parts[i].equals("하체")) {
+				if (num == 0) {
+					part += "하체 ";
+				}
+				else {
+					part += ", 하체 ";
+				}
+				num += 1;
+			}
+			else if (parts[i].equals("복부")) {
+				if (num == 0) {
+					part += "복부 ";
+				}
+				else {
+					part += ", 복부 ";
+				}
+				num += 1;
+			}
+			else if (parts[i].equals("어깨")) {
+				if (num == 0) {
+					part += "어깨 ";
+				}
+				else {
+					part += ", 어깨 ";
+				}
+				num += 1;
 			}
 			else {
-				part += ", 상체 ";
+				if (num == 0) {
+					part += "전신 ";
+				}
+				else {
+					part += ", 전신 ";
+				}
+				num += 1;
 			}
-			num += 1;
 		}
-		else if (request.getParameter("routinePart").equals("하체")) {
-			if (num == 0) {
-				part += "하체 ";
-			}
-			else {
-				part += ", 하체 ";
-			}
-			num += 1;
-		}
-		else if (request.getParameter("routinePart").equals("복부")) {
-			if (num == 0) {
-				part += "복부 ";
-			}
-			else {
-				part += ", 복부 ";
-			}
-			num += 1;
-		}
-		else if (request.getParameter("routinePart").equals("어깨")) {
-			if (num == 0) {
-				part += "어깨 ";
-			}
-			else {
-				part += ", 어깨 ";
-			}
-			num += 1;
-		}
-		else {
-			if (num == 0) {
-				part += "전신 ";
-			}
-			else {
-				part += ", 전신 ";
-			}
-			num += 1;
-		}
-		updateRoutine.setPart(part);
+		routine.setPart(part);
 		
-		updateRoutine.setrTime(Integer.parseInt(request.getParameter("routineTime")));
+		routine.setrTime(Integer.parseInt(request.getParameter("routineTime"))); 
+		routine.setDifficulty(Integer.parseInt(request.getParameter("routineLevel"))); 
+		routine.setrType(request.getParameter("routineType"));
 		
-		if (request.getParameter("routineLevel") == "1") {
-			updateRoutine.setDifficulty(1);
-		}
-		else if (request.getParameter("routineLevel") == "2") {
-			updateRoutine.setDifficulty(2);
-		}
-		else if (request.getParameter("routineLevel") == "3") {
-			updateRoutine.setDifficulty(3);
-		}
-		else if (request.getParameter("routineLevel") == "4") {
-			updateRoutine.setDifficulty(4);
-		}
-		else {
-			updateRoutine.setDifficulty(5);
-		}
-		
-		if (request.getParameter("routineType") == "0") {
-			updateRoutine.setrType("0");
-		}
-		else {
-			updateRoutine.setrType("1");
-		}
-		
-		manager.updateRoutine(updateRoutine);
+		manager.updateRoutine(routine);
 		
 		return "redirect:/routine/list";
 	}

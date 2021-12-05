@@ -4,9 +4,9 @@ import persistence.dao.*;
 
 public class DAOFactory {
 	
-//	public ChoiceDAO getChoiceDAO() {
-//		return new ChoiceDAOImpl();
-//	}
+	public ChoiceDAO getChoiceDAO() {
+		return new ChoiceDAO();
+	}
 	
 	public ClubDAO getClubDAO() {
 		return new ClubDAO();
