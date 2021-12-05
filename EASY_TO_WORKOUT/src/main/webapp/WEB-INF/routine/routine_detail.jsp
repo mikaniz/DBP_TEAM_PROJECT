@@ -217,7 +217,7 @@ function askDelete() {
 							</c:if>
 						</c:if>
 						<input id="backButton" type="button" value="돌아가기" 
-							onclick="location.href='<c:url value='/routine/list' />'">
+							onclick="history.back()">
 					</form>
 				</div>
 			</div>

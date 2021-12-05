@@ -54,20 +54,24 @@ public class ChoiceExerciseController implements Controller {
 			
 		String[] sequence = request.getParameterValues("sequence");
 		int sequenceLength = sequence.length;
+		int snum = 0;
 		String[] sequenceList = new String[exerciseLength];
 		for (int i = 0; i < sequenceLength; i++) {
 			if (sequence[i] != "") {
-				sequenceList[i] = sequence[i];
+				sequenceList[snum] = sequence[i];
+				snum++;
 			}
 		}
 		request.setAttribute("sequenceList", sequenceList);
 		
 		String[] repetition = request.getParameterValues("repetition");
 		int repetitionLength = repetition.length;
+		int rnum = 0;
 		String[] repetitionList = new String[exerciseLength];
 		for (int i = 0; i < repetitionLength; i++) {
 			if (repetition[i] != "") {
-				repetitionList[i] = repetition[i];
+				repetitionList[rnum] = repetition[i];
+				rnum++;
 			}
 		}
 		request.setAttribute("repetitionList", repetitionList);
