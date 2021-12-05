@@ -22,6 +22,7 @@ public class FindMyDiaryController implements Controller {
 		}
 		
 		MemberSessionUtils.setLoginUserInfo(session, request);
+		request.setAttribute("btnType", "diaryWrite");
 		
 		String id = MemberSessionUtils.getLoginMemberId(session);
 		

@@ -22,6 +22,7 @@ public class FindAllDiaryController implements Controller {
 		}
 		
 		MemberSessionUtils.setLoginUserInfo(session, request);
+		request.setAttribute("btnType", "diaryWrite");
 		
 		DiaryManager manager = DiaryManager.getInstance();
 		
