@@ -4,8 +4,12 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>ETW MemberLoginPage</title>
+<title>EASY TO WORK OUT</title>
 <style>
+@import url(//font.elice.io/EliceDigitalBaeum.css);
+body {
+    font-family: "Elice Digital Baeum",sans-serif;
+}
 #btn {
 	background-color: #90ABDA;
 	width: 190px; 

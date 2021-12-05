@@ -5,8 +5,12 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>ETW AllDiaryPage</title>
+<title>EASY TO WORK OUT</title>
 <style>
+@import url(//font.elice.io/EliceDigitalBaeum.css);
+body {
+    font-family: "Elice Digital Baeum",sans-serif;
+}
 .menu {
 	height: 50px;
 	background-color: #213963;

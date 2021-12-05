@@ -4,8 +4,12 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>ETW MEMBER UPDATE</title>
+<title>EASY TO WORK OUT</title>
 <style>
+@import url(//font.elice.io/EliceDigitalBaeum.css);
+body {
+    font-family: "Elice Digital Baeum",sans-serif;
+}
 .menu {
 	height: 50px;
 	background-color: #213963;
@@ -191,19 +195,19 @@ function memberUpdateBtn_click() {
 					<input type="hidden" name="id" value="${loginMember.id}">
 					<table id="memberTable">
 						<tr id="memberTableTr">
-							<td style="width: 130px;">아이디 :</td>
+							<td style="width: 150px;">아이디 :</td>
 							<td style="text-align:left; font-size: 13px;">
 								<p>${loginMember.id}
 							</td>
 						</tr>
 						<tr id="memberTableTr">
-							<td style="width: 130px;">이름 :</td>
+							<td style="width: 150px;">이름 :</td>
 							<td style="text-align:left; font-size: 13px;">
 								<p>${loginMember.name}
 							</td>
 						</tr>
 						<tr id="memberTableTr">
-							<td style="width: 130px;">등급 :</td>
+							<td style="width: 150px;">등급 :</td>
 							<td style="text-align:left; font-size: 13px;">
 								<p><c:choose>
 									<c:when test="${loginMember.grade eq 'green'}">새싹</c:when>
@@ -212,29 +216,29 @@ function memberUpdateBtn_click() {
 							</td>
 						</tr>
 						<tr id="memberTableTr">
-							<td style="width: 130px;">현재 비밀번호 :</td>
+							<td style="width: 150px;">현재 비밀번호 :</td>
 							<td><input type="password" name="pw"
-								style="width: 500px; height: 20px; font-size: 15px;"></td>
+								style="width: 450px; height: 20px; font-size: 15px;"></td>
 						</tr>
 						<tr id="memberTableTr">
-							<td style="width: 130px;">수정 비밀번호 :</td>
+							<td style="width: 150px;">수정 비밀번호 :</td>
 							<td><input type="password" name="updatePw"
-								style="width: 500px; height: 20px; font-size: 15px;"></td>
+								style="width: 450px; height: 20px; font-size: 15px;"></td>
 						</tr>
 						<tr id="memberTableTr">
-							<td style="width: 130px;">수정 비밀번호 확인 :</td>
+							<td style="width: 150px;">수정 비밀번호 확인 :</td>
 							<td><input type="password" name="updatePw2"
-								style="width: 500px; height: 20px; font-size: 15px;"></td>
+								style="width: 450px; height: 20px; font-size: 15px;"></td>
 						</tr>
 						<tr id="memberTableTr">
-							<td style="width: 130px;">전화번호 :</td>
+							<td style="width: 150px;">전화번호 :</td>
 							<td><input type="text" name="phone" value="${loginMember.phone}"
-								autocomplete="off" style="width: 500px; height: 20px; font-size: 15px;"></td>
+								autocomplete="off" style="width: 450px; height: 20px; font-size: 15px;"></td>
 						</tr>
 						<tr id="memberTableTr">
-							<td style="width: 130px;">이메일 :</td>
+							<td style="width: 150px;">이메일 :</td>
 							<td><input type="text" name="email" value="${loginMember.email}"
-								autocomplete="off" style="width: 500px; height: 20px; font-size: 15px;"></td>
+								autocomplete="off" style="width: 450px; height: 20px; font-size: 15px;"></td>
 						</tr>
 					</table>
 					<div style="text-align: center; margin-left: 130px;">

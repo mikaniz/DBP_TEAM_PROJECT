@@ -5,8 +5,12 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>ETW MainPage</title>
+<title>EASY TO WORK OUT</title>
 <style>
+@import url(//font.elice.io/EliceDigitalBaeum.css);
+body {
+    font-family: "Elice Digital Baeum",sans-serif;
+}
 .menu {
 	height: 50px;
 	background-color: #213963;
@@ -111,7 +115,7 @@ th, td {
 		var records = [];
 		for (var index in ${recordList}) {
 			records[index] = [
-				Math.floor(${recordList}[index][0] / 10000).toString() + "년\n"
+				Math.floor(${recordList}[index][0] / 10000).toString() + "년 "
 				+ Math.floor(${recordList}[index][0] % 10000 / 100).toString() + "월 "
 				+ (${recordList}[index][0] % 100).toString() + "일",
 				${recordList}[index][1]
@@ -123,6 +127,7 @@ th, td {
 			'title' : '운동 기록 ',
 			'width' : 700,
 			'height' : 250,
+			'fontSize' : 10,
 		};
 
 		var chart = new google.visualization.BarChart(document
