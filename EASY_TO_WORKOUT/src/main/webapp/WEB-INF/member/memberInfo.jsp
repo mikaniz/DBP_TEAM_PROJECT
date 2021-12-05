@@ -21,7 +21,7 @@
 			</tr>
 		</table>
 		<br><hr>
-		<c:if test="${isMaster}">
+		<c:if test="${infoIsMaster}">
 			<article>
 				<h4 style="margin: 20px;">개설 모임 목록</h4>
 				<ul>
@@ -74,7 +74,7 @@
 							</form>
 						</div>
 					</c:if>
-					<c:if test="${isMaster eq '0'}">
+					<c:if test="${!infoIsMaster}">
 						<c:if test="${club.signUp eq '1'}">
 							<c:if test="${isInClub eq '0' }">
 								<div style="height: 50px;">
