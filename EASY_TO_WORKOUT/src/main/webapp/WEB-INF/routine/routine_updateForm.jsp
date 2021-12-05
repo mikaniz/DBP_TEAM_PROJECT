@@ -79,28 +79,61 @@
 	background-color: #90ABDA;
 }
 
+#exerciseChoiceButton {
+	width: 120px;
+	height: 35px;
+	text-align: center;
+	font-size: 12px;
+}
+
+#createButton {
+	width: 400px; 
+	height: 50px;	
+	background-color: #90ABDA;
+}
 th, td {
 	text-align: center;
 }
 </style>
 
 <script>
-function routineUpdateBtn_click() {
-	if (updateForm.diaryTitle.value == "") {
-		alert("제목을 입력하세요.");
-		updateForm.diaryTitle.focus();
+function routineUpdate() {
+	if(updateForm.routineName.value == "") {
+		alert("루틴명을 입력해주세요.");
+		updateForm.routineName.focus();
 		return false;
 	}
-	if (updateForm.workTime.value == "") {
-		alert("운동시간을 입력하세요.");
-		updateForm.workTime.focus();
+	
+	if(checkCount() == 0) {
+		alert("운동 부위를 선택해주세요.");
+		updateForm.routinePart.focus();
 		return false;
 	}
-	if (updateForm.diaryContents.value == "") {
-		alert("내용을 입력하세요.");
-		updateForm.diaryContents.focus();
+	
+	if(updateForm.routineTime.value == "") {
+		alert("소요시간을 입력해주세요.");
+		updateForm.routineTime.focus();
 		return false;
 	}
+	
+	
+	updateForm.submit();
+}
+
+function checkCount(){
+	var chk = document.getElementsByName("routinePart");
+	var num = 0;
+
+	for(i = 0; i < chk.length; i++) {
+		if (chk[i].checked)
+			num++;
+	}
+
+	return num;
+}
+
+function chooseExercise(targetUri) {
+	updateForm.action = targetUri;
 	updateForm.submit();
 }
 </script>
@@ -144,65 +177,72 @@ function routineUpdateBtn_click() {
 				<table id="routineTable">
 					<tr id="routineTableTr">
 						<td style="width: 130px;">루틴명 :</td>
-						<td><input type="text" name="routineName" value="${routine.rName}"
-							style="width: 300px; height: 20px; font-size: 15px;"></td>
+						<td>
+							<input type="text" name="routineName" 
+								value="<c:if test="${storage eq null}">${routine.rName}</c:if><c:if test="${storage ne null}">${routineName}</c:if>" 
+								style="width: 300px; height: 20px; font-size: 15px;" autocomplete="off">
+						</td>
 					</tr>
 					<tr id="routineTableTr">
 						<td style="width: 130px; font-size: 15px;">등록자 :</td>
-						<td style="text-align:left; font-size: 13px;">
-							<p>${routine.routineCreater}
-						</td>
+						<td>${routine.routineCreater}</td>
 					</tr>
 					<tr id="routineTableTr">
 						<td style="width: 130px;">운동 부위 :</td>
 						<td>
-							<input type="checkbox" name="routinePart" 
-								<c:if test="${routine.part.contains("상체")}">checked</c:if>
-							value="상체" />상체
+							<input type="checkbox" name="routinePart" value="상체" 
+								<c:if test="${storage eq null && routine.part.contains('상체')}">checked</c:if>
+								<c:if test="${storage ne null && routinePart.contains('상체')}">checked</c:if> />상체
 							&nbsp;&nbsp; 
-							<input type="checkbox" name="routinePart" 
-								<c:if test="${routine.part.contains("하체")}">checked</c:if>
-							value="하체" />하체
+							<input type="checkbox" name="routinePart" value="하체"
+								<c:if test="${storage eq null && routine.part.contains('하체')}">checked</c:if>
+								<c:if test="${storage ne null && routinePart.contains('하체')}">checked</c:if> />하체
 							&nbsp;&nbsp; 
-							<input type="checkbox" name="routinePart" 
-								<c:if test="${routine.part.contains("복부")}">checked</c:if>
-							value="복부" />복부
+							<input type="checkbox" name="routinePart" value="복부"
+								<c:if test="${storage eq null && routine.part.contains('복부')}">checked</c:if>
+								<c:if test="${storage ne null && routinePart.contains('복부')}">checked</c:if> />복부
 							&nbsp;&nbsp; 
-							<input type="checkbox" name="routinePart" 
-								<c:if test="${routine.part.contains("어깨")}">checked</c:if>
-							value="어깨" />어깨
+							<input type="checkbox" name="routinePart" value="어깨"
+								<c:if test="${storage eq null && routine.part.contains('어깨')}">checked</c:if>
+								<c:if test="${storage ne null && routinePart.contains('어깨')}">checked</c:if> />어깨
 							&nbsp;&nbsp; 
-							<input type="checkbox" name="routinePart" 
-								<c:if test="${routine.part.contains("전신")}">checked</c:if>
-							value="전신" />전신
+							<input type="checkbox" name="routinePart" value="전신"
+								<c:if test="${storage eq null && routine.part.contains('전신')}">checked</c:if>
+								<c:if test="${storage ne null && routinePart.contains('전신')}">checked</c:if> />전신
 						</td>
 					</tr>
 					<tr id="routineTableTr">
 						<td style="width: 130px;">소요시간 :</td>
-						<td><input type="text" name="routineTime" value="${routine.rTime}"
-							style="width: 300px; height: 20px; font-size: 15px;"></td>
+						<td><input type="text" name="routineTime" 
+								value="<c:if test="${storage eq null}">${routine.rTime}</c:if><c:if test="${storage ne null}">${routineTime}</c:if>"
+								style="width: 300px; height: 20px; font-size: 15px;" autocomplete="off"></td>
 					</tr>
 					<tr id="routineTableTr">
 						<td style="width: 130px;">운동 강도 :</td>
 						<td>
 							<input type="radio" name="routineLevel" 
-								<c:if test="${routine.difficulty eq 1}">checked</c:if>
+								<c:if test="${storage eq null && routine.difficulty eq 1}">checked</c:if>
+								<c:if test="${storage ne null && routineLevel eq 1}">checked</c:if>
 							value="1" />1
 							&nbsp;&nbsp; 
 							<input type="radio" name="routineLevel" 
-								<c:if test="${routine.difficulty eq 2}">checked</c:if>
+								<c:if test="${storage eq null && routine.difficulty eq 2}">checked</c:if>
+								<c:if test="${storage ne null && routineLevel eq 2}">checked</c:if>
 							value="2" />2
 							&nbsp;&nbsp; 
 							<input type="radio" name="routineLevel" 
-								<c:if test="${routine.difficulty eq 3}">checked</c:if>
+								<c:if test="${storage eq null && routine.difficulty eq 3}">checked</c:if>
+								<c:if test="${storage ne null && routineLevel eq 3}">checked</c:if>
 							value="3" />3
 							&nbsp;&nbsp; 
 							<input type="radio" name="routineLevel" 
-								<c:if test="${routine.difficulty eq 4}">checked</c:if>
+								<c:if test="${storage eq null && routine.difficulty eq 4}">checked</c:if>
+								<c:if test="${storage ne null && routineLevel eq 4}">checked</c:if>
 							value="4" />4
 							&nbsp;&nbsp; 
 							<input type="radio" name="routineLevel" 
-								<c:if test="${routine.difficulty eq 5}">checked</c:if>
+								<c:if test="${storage eq null && routine.difficulty eq 5}">checked</c:if>
+								<c:if test="${storage ne null && routineLevel eq 5}">checked</c:if>
 							value="5" />5
 						</td>
 					</tr>
@@ -210,63 +250,51 @@ function routineUpdateBtn_click() {
 						<td style="width: 130px;">루틴 유형 :</td>
 						<td>
 							<input type="radio" name="routineType" 
-								<c:if test="${routine.rType eq 0}">checked</c:if>
-							value="0" />전체
+								<c:if test="${storage eq null && routine.rType eq 0}">checked</c:if>
+								<c:if test="${storage ne null && routineType eq 0}">checked</c:if>
+							value="0" />공개
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 							<input type="radio" name="routineType" 
-								<c:if test="${routine.rType eq 1}">checked</c:if>
+								<c:if test="${storage eq null && routine.rType eq 1}">checked</c:if>
+								<c:if test="${storage ne null && routineType eq 1}">checked</c:if>
 							value="1" />개인
 						</td>
 					</tr>
 					<tr id="routineTableTr">
-						<td style="width: 130px;">운동 선택 :</td>
+						<td style="width: 130px; font-size: 15px;">운동 선택 :</td>
 						<td>
-							<div style="text-align: center; margin-left: 90px;">
-								<!-- 검색창 -->
-								<div id="search" style="width: 400px; height: 20px;">
-										<input type="text" name="searchExercise" placeholder="
-											<c:choose>
-												<c:when test="${findExerciseFailed}">${exception.getMessage()}</c:when>
-												<c:otherwise>운동명을 입력하세요</c:otherwise>
-											</c:choose>
-										" style="width: 330px; height: 22px;"> 
-										<a href="<c:url value='/exercise/find'>
-												<c:param name='exerciseName' value='${routine.routineId}'/>
-											</c:url>">
-	    									<input id="searchButton" type="button" value="검색">
-										</a>
-								</div>
-								<!-- 전체 운동 목록 -->
-								<div id="list">
-									<div style="width: 380px; height: 20px;">
-										<table id="listTable">
-											<tr id="listItem">
-												<th style="font-size: 13px;">운동명</th>
-												<th style="font-size: 13px;">운동 부위</th>
-											</tr>
-											<c:forEach var="exercise" items="${exerciseList}">
-												<tr id="listTr">
-													<td>${exercise.name}</td>
-													<td>${exercise.part}</td>
-													<td><a href="<c:url value='/exercise/detail'>
-																<c:param name='exerciseId' value='${exercise.exerciseId}'/>
-															</c:url>">
-															<input id="etcButton" type="button" value="더보기">
-														</a>
-													</td>
-												</tr>
-											</c:forEach>
-										</table>
-									</div>
-								</div>
-						</div></td>
+							<input id="exerciseChoiceButton" type="button" value="운동 선택하러 가기" 
+									onclick="chooseExercise('<c:url value='/exercise/list' />')">
+						</td>
 					</tr>
+					<tr id="routineTableTr">
+							<td style="width: 130px; font-size: 15px;"> 선택된 운동 목록 :</td>
+							<td>
+								<c:forEach var="exercise" items="${exerciseList}">
+									<input type="hidden" name="exerciseIdList" value="${exercise.exerciseId}">
+								</c:forEach>
+								<c:forEach var="sequence" items="${sequenceList}">
+									<input type="hidden" name="sequence" value="${sequence}">
+								</c:forEach>
+								<c:forEach var="repetition" items="${repetitionList}">
+									<input type="hidden" name="repetition" value="${repetition}">
+								</c:forEach>
+								<textarea name="checkedExercise" rows=6 cols=60 style="overflow: scroll; resize: none; margin-top: 10px;"  
+									readonly="readonly" disabled>
+									<c:forEach var="exercise" items="${exerciseList}">${exercise.name} (${exercise.part})
+									</c:forEach>
+								</textarea>
+							</td>
+						</tr>
 				</table>
 				<div style="text-align: center; margin-left: 130px;">
 					<input id="routineUpdateButton" type="button" value="루틴 수정"
-						onclick="routineUpdateBtn_click()"> 
-					<input id="backButton" type="button" value="돌아가기" 
-						onclick="history.back()">
+						onclick="routineUpdate()"> 
+					<a href="<c:url value='/routine/detail'>
+								<c:param name='routineId' value='${routine.routineId}' />
+							</c:url>">
+								<input id="backButton" type="button" value="돌아가기">
+					</a>
 				</div>
 				</form>
 			</div>

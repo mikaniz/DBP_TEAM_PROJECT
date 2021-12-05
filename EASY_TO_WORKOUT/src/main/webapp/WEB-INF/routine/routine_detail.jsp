@@ -173,7 +173,7 @@ function askDelete() {
 						<td style="width: 130px; font-size: 14px;">루틴 유형 :</td>
 						<td style="text-align:left; font-size: 12px;">
 							<p><c:choose>
-									<c:when test="${routine.rType == 0}">전체</c:when>
+									<c:when test="${routine.rType == 0}">공개</c:when>
 									<c:otherwise>개인</c:otherwise>
 								</c:choose>
 						</td>
@@ -217,7 +217,7 @@ function askDelete() {
 							</c:if>
 						</c:if>
 						<input id="backButton" type="button" value="돌아가기" 
-							onclick="history.back()">
+							onclick="location.href='<c:url value='/routine/list' />'">
 					</form>
 				</div>
 			</div>

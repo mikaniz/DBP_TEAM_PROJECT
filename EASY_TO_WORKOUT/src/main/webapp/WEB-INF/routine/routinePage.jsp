@@ -150,7 +150,7 @@ function search() {
 							<c:when test="${findRoutineFailed}">${exception.getMessage()}</c:when>
 							<c:otherwise>운동부위를 입력하세요</c:otherwise>
 						</c:choose>
-					" style="width: 580px; height: 42px;"> 
+					" style="width: 580px; height: 42px;" autocomplete="off"> 
 	    			<input id="searchButton" type="button"
 						value="검색" onclick="search()">
 				</form>

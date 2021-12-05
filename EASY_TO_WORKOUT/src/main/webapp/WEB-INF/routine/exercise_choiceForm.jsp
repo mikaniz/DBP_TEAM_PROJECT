@@ -62,8 +62,8 @@
 }
 
 #list {
-	width: 700px;
-	height: 540px;
+	width: 697px;
+	height: 400px;
 	border: 1px solid;
 	margin-top: 10px;
 	overflow: scroll;
@@ -71,7 +71,7 @@
 
 #listTable {
 	border-collapse: collapse;
-	width: 700px;
+	width: 690px;
 	table-layout: fixed;
 }
 
@@ -81,9 +81,15 @@
 }
 
 #listTr {
-	width: 700px;
+	width: 690px;
 	height: 40px;
 	table-layout: fixed;
+}
+
+#exerciseChoice {
+	width: 700px;
+	height: 600px;
+	border: 1px solid;
 }
 
 #etcButton{
@@ -92,7 +98,7 @@
 
 #searchButton {
 	width: 100px; 
-	height: 47px;
+	height: 42px;
 	background-color: #90ABDA;
 }
 
@@ -102,11 +108,42 @@
 	background-color: #90ABDA;
 }
 
+#exerciseChoiceButton, #backButton {
+	width: 150px;
+	height: 45px;
+	text-align: center;
+	margin: 10px;
+	background-color: #90ABDA;
+}
+
 th, td {
 	text-align: center;
 }
 </style>
 <script>
+function exerciseChoice() {
+	if(checkCount() == 0) {
+		alert("운동을 선택해주세요.");
+		createForm.routinePart.focus();
+		return false;
+	}
+	
+	choiceForm.submit();
+}
+
+function checkCount(){
+	var chk = document.getElementsByName("checkExerciseId");
+	var num = 0;
+
+	for(i = 0; i < chk.length; i++) {
+		if (chk[i].checked)
+			num++;
+	}
+
+	return num;
+}
+
+
 function search() {
 	searchForm.submit();
 }
@@ -142,22 +179,37 @@ function search() {
 		<jsp:include page="/WEB-INF/member/memberInfo.jsp"/>
 
 		<div style="float: right">
+		<!-- 운동 선택 부분 -->
+		<div id="exerciseChoice">
+			<h3 style="margin: 20px;">
+					운동 선택&nbsp;&nbsp;
+					<c:if test="${creationFailed}"><font color="red">${exception.getMessage()}</font></c:if>
+			</h3>
+			<hr>
 			<!-- 검색창 -->
-			<div id="search" style="width: 700px; height: 50px;">
+			<div id="search" style="width: 700px; height: 40px;">
 				<form name="searchForm" method="POST" action="<c:url value='/exercise/find' />">
 					<input type="text" name="searchExercise" placeholder="
 						<c:choose>
 							<c:when test="${findExerciseFailed}">${exception.getMessage()}</c:when>	
 							<c:otherwise>운동명을 입력하세요</c:otherwise>
 						</c:choose>
-					" style="width: 580px; height: 42px;"> 
+					" style="width: 580px; height: 37px;" autocomplete="off"> 
 	    			<input id="searchButton" type="button"
 						value="검색" onclick="search()">
 				</form>
 			</div>
 			<!-- 전체 운동 목록 -->
+			<form name="choiceForm" method="POST" action="<c:url value='/exercise/choice' />">
+			<c:if test="${thisIsForChoice ne null}"><input type="hidden" name="thisIsForChoice" value='thisIsForChoice'></c:if>
+			<c:if test="${thisIsForChoice eq null}"><input type="hidden" name="routineId" value='${routine.routineId}'></c:if>
 			<div id="list">
 				<div style="width: 670px; height: 30px;">
+					<input type="hidden" name="routineName" value='${routineName}'>  
+					<input type="hidden" name="routinePart" value='${routinePart}'>
+					<input type="hidden" name="routineTime" value='${routineTime}'>
+					<input type="hidden" name="routineLevel" value='${routineLevel}'>
+					<input type="hidden" name="routineType" value='${routineType}'>
 					<table id="listTable">
 						<tr id="listItem">
 							<th style="font-size: 13px;">선택</th>
@@ -169,17 +221,18 @@ function search() {
 						<c:forEach var="exercise" items="${exerciseList}">
 						<tr id="listTr">
 							<td>
-								<input type="checkbox" name="choice" value='${exercise.exerciseId}' />
+								<input type="checkbox" name="checkExerciseId" value='${exercise.exerciseId}' />
 							</td>
 							<td>${exercise.name}</td>
 							<td>${exercise.part}</td>
 							<td>
-								<input type="text" name="exerciseSequence" style="width: 15px; height: 15px; font-size: 12px;">
+								<input type="text" name="sequence" style="width: 15px; height: 15px; font-size: 12px;" autocomplete="off">
 							</td>
 							<td>
-								<input type="text" name="exerciseRepetition" style="width: 15px; height: 15px; font-size: 12px;">
+								<input type="text" name="repetition" style="width: 15px; height: 15px; font-size: 12px;" autocomplete="off">
 							</td>
-							<td><a href="<c:url value='/exercise/detail'>
+							<td>
+								<a href="<c:url value='/exercise/detail'>
 											<c:param name='exerciseId' value='${exercise.exerciseId}'/>
 										</c:url>">
 										<input id="etcButton" type="button" value="더보기">
@@ -190,6 +243,38 @@ function search() {
 					</table>
 				</div>
 			</div>
+			<div style="text-align: center;">
+					<input id="exerciseChoiceButton" type="button" value="운동 선택 완료"
+						onclick="exerciseChoice()"> 
+					<c:choose>
+							<c:when test="${thisIsForChoice ne null}">
+								<a href="<c:url value='/routine/create'>
+											<c:param name='routineName' value='${routineName}' />
+											<c:param name='routinePart' value='${routinePart}' />
+											<c:param name='routineTime' value='${routineTime}' />
+											<c:param name='routineLevel' value='${routineLevel}' />
+											<c:param name='routineType' value='${routineType}' />
+										</c:url>">
+										<input id="backButton" type="button" value="돌아가기">
+								</a>
+							</c:when>
+							<c:otherwise>
+								<a href="<c:url value='/routine/update'>
+											<c:param name='thisIsForStorage' value='thisIsForStorage' />
+											<c:param name='routineId' value='${routine.routineId}' />
+											<c:param name='routineName' value='${routineName}' />
+											<c:param name='routinePart' value='${routinePart}' />
+											<c:param name='routineTime' value='${routineTime}' />
+											<c:param name='routineLevel' value='${routineLevel}' />
+											<c:param name='routineType' value='${routineType}' />
+										</c:url>">
+										<input id="backButton" type="button" value="돌아가기">
+								</a>
+							</c:otherwise>
+					</c:choose>
+			</div>
+			</form>
+		</div>
 		</div>
 	</div>
 </body>

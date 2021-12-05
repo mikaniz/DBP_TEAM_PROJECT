@@ -95,8 +95,9 @@
 #routineTable {
 	border-collapse: collapse;
 	width: 700px;
-	height: 450px;
+	height: 400px;
 	float: center;
+	margin-left : 10px;
 }
 
 #routineTableTr {
@@ -138,31 +139,39 @@ function routineCreate() {
 		createForm.routineName.focus();
 		return false;
 	}
-	if(createForm.routinePart.value == "") {
+	
+	if(checkCount() == 0) {
 		alert("운동 부위를 선택해주세요.");
 		createForm.routinePart.focus();
 		return false;
 	}
+	
 	if(createForm.routineTime.value == "") {
 		alert("소요시간을 입력해주세요.");
 		createForm.routineTime.focus();
 		return false;
 	}
-	if(createForm.routineName.value == "") {
-		alert("루틴명을 입력해주세요.");
-		createForm.routineName.focus();
-		return false;
-	}
-	if(createForm.routineName.value == "") {
-		alert("루틴명을 입력해주세요.");
-		createForm.routineName.focus();
-		return false;
-	}
+	
+	
+	
 	createForm.submit();
 }
 
-function search() {
-	searchForm.submit();
+function checkCount(){
+	var chk = document.getElementsByName("routinePart");
+	var num = 0;
+
+	for(i = 0; i < chk.length; i++) {
+		if (chk[i].checked)
+			num++;
+	}
+
+	return num;
+}
+
+function chooseExercise(targetUri) {
+	createForm.action = targetUri;
+	createForm.submit();
 }
 </script>
 
@@ -204,67 +213,108 @@ function search() {
 				</h3>
 				<hr>
 				<form name="createForm" method="POST" action="<c:url value='/routine/create' />">
+				<input type="hidden" name="thisIsForChoice" value='thisIsForChoice'>
 				<table id="routineTable">
 					<tr id="routineTableTr">
-						<td style="width: 130px;">루틴명 :</td>
+						<td style="width: 130px; font-size: 15px;">루틴명 :</td>
 						<td><input type="text" name="routineName"
-							style="width: 300px; height: 20px; font-size: 15px;"></td>
+							style="width: 300px; height: 20px; font-size: 15px;" autocomplete="off"
+							value="${routineName}"></td>
 					</tr>
 					<tr id="routineTableTr">
-						<td style="width: 130px;">등록자 :</td>
+						<td style="width: 130px; font-size: 15px;">등록자 :</td>
 						<td>${member.getId()}</td>
 					</tr>
 					<tr id="routineTableTr">
-						<td style="width: 130px;">운동 부위 :</td>
+						<td style="width: 130px; font-size: 15px;">운동 부위 :</td>
 						<td>
-							<input type="checkbox" name="routinePart" value="상체" />상체
+							<input type="checkbox" name="routinePart" value="상체" 
+								<c:if test="${routinePart.contains('상체')}">checked</c:if> />상체
 							&nbsp;&nbsp; 
-							<input type="checkbox" name="routinePart" value="하체" />하체
+							<input type="checkbox" name="routinePart" value="하체"
+								<c:if test="${routinePart.contains('하체')}">checked</c:if> />하체
 							&nbsp;&nbsp; 
-							<input type="checkbox" name="routinePart" value="복부" />복부
+							<input type="checkbox" name="routinePart" value="복부"
+								<c:if test="${routinePart.contains('복부')}">checked</c:if> />복부
 							&nbsp;&nbsp; 
-							<input type="checkbox" name="routinePart" value="어깨" />어깨
+							<input type="checkbox" name="routinePart" value="어깨"
+								<c:if test="${routinePart.contains('어깨')}">checked</c:if> />어깨
 							&nbsp;&nbsp; 
-							<input type="checkbox" name="routinePart" value="전신" />전신
+							<input type="checkbox" name="routinePart" value="전신"
+								<c:if test="${routinePart.contains('전신')}">checked</c:if> />전신
 						</td>
 					</tr>
 					<tr id="routineTableTr">
-						<td style="width: 130px;">소요시간 :</td>
-						<td><input type="text" name="routineTime"
-							<c:if test="${creationFailed}">value="${routine.rTime}"</c:if>
-							style="width: 300px; height: 20px; font-size: 15px;"></td>
+						<td style="width: 130px; font-size: 15px;">소요시간(분) :</td>
+						<td><input type="text" name="routineTime" value="${routineTime}"
+							style="width: 300px; height: 20px; font-size: 15px;" autocomplete="off"></td>
 					</tr>
 					<tr id="routineTableTr">
-						<td style="width: 130px;">운동 강도 :</td>
+						<td style="width: 130px; font-size: 15px;">운동 강도 :</td>
 						<td>
-							<input type="radio" name="routineLevel" value="1" checked />1
+							<input type="radio" name="routineLevel" value="1" 
+								<c:if test='${routineLevel eq null}'>checked</c:if>
+								<c:if test='${routineLevel eq 1}'>checked</c:if>
+							 />1
 							&nbsp;&nbsp; 
-							<input type="radio" name="routineLevel" value="2" />2
+							<input type="radio" name="routineLevel" value="2"
+								<c:if test='${routineLevel eq 2}'>checked</c:if>
+							 />2
 							&nbsp;&nbsp; 
-							<input type="radio" name="routineLevel" value="3" />3
+							<input type="radio" name="routineLevel" value="3"
+								<c:if test='${routineLevel eq 3}'>checked</c:if>
+							 />3
 							&nbsp;&nbsp; 
-							<input type="radio" name="routineLevel" value="4" />4
+							<input type="radio" name="routineLevel" value="4"
+								<c:if test='${routineLevel eq 4}'>checked</c:if>
+							 />4
 							&nbsp;&nbsp; 
-							<input type="radio" name="routineLevel" value="5" />5
+							<input type="radio" name="routineLevel" value="5"
+								<c:if test='${routineLevel eq 5}'>checked</c:if>
+							 />5
 						</td>
 					</tr>
 					<tr id="routineTableTr">
-						<td style="width: 130px;">루틴 유형 :</td>
+						<td style="width: 130px; font-size: 15px;">루틴 유형 :</td>
 						<td>
-							<input type="radio" name="routineType" value="0" checked />전체
+							<input type="radio" name="routineType" value="0" 
+								<c:if test='${routineType eq null}'>checked</c:if>
+								<c:if test='${routineType eq 0}'>checked</c:if>
+							/>공개
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-							<input type="radio" name="routineType" value="1" />개인
+							<input type="radio" name="routineType" value="1"
+								<c:if test='${routineType eq 1}'>checked</c:if>
+							 />개인
 						</td>
 					</tr>
 					<tr id="routineTableTr">
-						<td style="width: 130px;">운동 선택 :</td>
+						<td style="width: 130px; font-size: 15px;">운동 선택 :</td>
 						<td>
-							<input id="exerciseChoiceButton" type="button" value="운동 선택하러 가기"
-									onclick="location.href='<c:url value='/exercise/list' />'"> 
+							<input id="exerciseChoiceButton" type="button" value="운동 선택하러 가기" 
+									onclick="chooseExercise('<c:url value='/exercise/list' />')">
 						</td>
 					</tr>
+					<tr id="routineTableTr">
+							<td style="width: 130px; font-size: 15px;"> 선택된 운동 목록 :</td>
+							<td>
+								<c:forEach var="exercise" items="${exerciseList}">
+									<input type="hidden" name="exerciseIdList" value="${exercise.exerciseId}">
+								</c:forEach>
+								<c:forEach var="sequence" items="${sequenceList}">
+									<input type="hidden" name="sequence" value="${sequence}">
+								</c:forEach>
+								<c:forEach var="repetition" items="${repetitionList}">
+									<input type="hidden" name="repetition" value="${repetition}">
+								</c:forEach>
+								<textarea name="checkedExercise" rows=6 cols=60 style="overflow: scroll; resize: none; margin-top: 10px;"  
+									readonly="readonly" disabled>
+									<c:forEach var="exercise" items="${exerciseList}">${exercise.name} (${exercise.part})
+									</c:forEach>
+								</textarea>
+							</td>
+						</tr>
 				</table>
-				<div style="text-align: center; margin-left: 130px;">
+				<div style="text-align: center; margin-left: 150px;">
 					<input id="routineCreateButton" type="button" value="루틴 등록"
 						onclick="routineCreate()"> 
 					<input id="backButton" type="button" value="돌아가기" 
