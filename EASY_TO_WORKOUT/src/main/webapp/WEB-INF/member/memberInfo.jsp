@@ -21,7 +21,7 @@
 			</tr>
 		</table>
 		<br><hr>
-		<c:if test="${isMaster}">
+		<c:if test="${infoIsMaster}">
 			<article>
 				<h4 style="margin: 20px;">개설 모임 목록</h4>
 				<ul>

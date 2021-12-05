@@ -47,7 +47,7 @@ public class MemberSessionUtils {
     		request.setAttribute("loginMember", loginMember);
     		
     		if (loginMember.getGrade().equals("master")) {
-    			request.setAttribute("isMaster", true);
+    			request.setAttribute("infoIsMaster", true);
     		}
     		
     		List<Membership> membershipList = membershipManager.getClubListByMemberId(loginMember.getId());
