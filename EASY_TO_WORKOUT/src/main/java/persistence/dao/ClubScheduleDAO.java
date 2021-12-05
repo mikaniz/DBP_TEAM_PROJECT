@@ -190,5 +190,24 @@ public class ClubScheduleDAO {
 		return 0;
 	}
 
+	public int deleteClubSchedule(int scheduleId) { 
+		// TODO Auto-generated method stub
+		String deleteQuery = "delete from clubschedule where scheduleid=?";
+		
+		Object[] param = new Object[] {scheduleId};
+		jdbcUtil.setSqlAndParameters(deleteQuery, param);
+		
+		try {
+			int result = jdbcUtil.executeUpdate();
+			return result;
+		} catch (Exception e) {
+			jdbcUtil.rollback();
+			e.printStackTrace();
+		} finally {
+			jdbcUtil.commit();
+			jdbcUtil.close();
+		}
+		return 0;
+	}
 
 }

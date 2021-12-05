@@ -38,4 +38,8 @@ public class ClubScheduleManager {
 		return scheduleDao.getCurrentScheduleId(clubSchedule);
 	}
 	
+	public int deleteClubSchedule(int scheduleId) { 
+		return scheduleDao.deleteClubSchedule(scheduleId);
+	}
+	
 }

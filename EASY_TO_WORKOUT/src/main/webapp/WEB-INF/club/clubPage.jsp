@@ -6,6 +6,11 @@
 <meta charset="EUC-KR">
 <title>ETW ClubPage</title>
 <style>
+
+@import url(//font.elice.io/EliceDigitalBaeum.css);
+body {
+	 font-family: "Elice Digital Baeum",sans-serif;
+}
 .menu {
 	height: 50px;
 	background-color: #213963;
