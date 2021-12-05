@@ -203,21 +203,25 @@ function askDelete() {
 				<p>
 				<div style="text-align: center;">
 					<form>
-						<c:if test="${isCreater}">
-							<c:if test="${thisIsForUsage eq null}">
-							<a href="<c:url value='/routine/update'>
-								<c:param name='routineId' value='${routine.routineId}' /></c:url>">
-									<input id="routineUpdateButton" type="button" value="루틴 수정">
-							</a>
-							<a href="<c:url value='/routine/detail'>
-								<c:param name='routineId' value='${routine.routineId}' />
-								<c:param name='thisIsForDel' value='thisIsForDel' /></c:url>">
-									<input id="routineDeleteButton" type="button" value="루틴 삭제"  onclick="askDelete()">
-							</a>
+						<c:if test="${thisIsForUsage eq null}">
+							<c:if test="${isCreater}">
+								<a href="<c:url value='/routine/update'>
+									<c:param name='routineId' value='${routine.routineId}' /></c:url>">
+										<input id="routineUpdateButton" type="button" value="루틴 수정">
+								</a>
+								<a href="<c:url value='/routine/detail'>
+									<c:param name='routineId' value='${routine.routineId}' />
+									<c:param name='thisIsForDel' value='thisIsForDel' /></c:url>">
+										<input id="routineDeleteButton" type="button" value="루틴 삭제"  onclick="askDelete()">
+								</a>
 							</c:if>
+							<input id="backButton" type="button" value="돌아가기" 
+								onclick="location.href='<c:url value='/routine/list' />'">
 						</c:if>
-						<input id="backButton" type="button" value="돌아가기" 
-							onclick="history.back()">
+						<c:if test="${thisIsForUsage ne null}">
+							<input id="backButton" type="button" value="돌아가기" 
+								onclick="history.back()">
+						</c:if>
 					</form>
 				</div>
 			</div>
