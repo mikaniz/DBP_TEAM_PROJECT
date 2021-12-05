@@ -57,7 +57,7 @@ public class CreateScheduleController implements Controller {
 				
 				for (String routineId : routineIdList)  {
 					log.debug("routine id lists : {}", routineId);
-					Routine routine = routineManager.getRoutineById(routineId);
+					Routine routine = routineManager.getRoutineById(Integer.parseInt(routineId));
 					routineList.add(routine);
 				}
 				request.setAttribute("routineList", routineList);

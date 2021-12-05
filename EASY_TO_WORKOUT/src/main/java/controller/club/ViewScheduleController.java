@@ -46,7 +46,7 @@ public class ViewScheduleController implements Controller {
 		List<Routine> routineList = new ArrayList<Routine>();
 		
 		for (Usage usage : usageList) {
-			Routine routine = routineManager.getRoutineById(String.valueOf(usage.getRoutineId()));
+			Routine routine = routineManager.getRoutineById(usage.getRoutineId());
 			routineList.add(routine);
 		}
 		request.setAttribute("routineList", routineList);
