@@ -2,7 +2,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div style="width: 400px; height: 600px; border: 1px solid; float: left; margin-right: 10px;">
-	<div style="height: 550px; overflow: scroll;">
+	<div style="height: 550px; overflow-y: scroll;">
 		<h3 style="margin: 20px;">회원정보</h3>
 		<table id="memberDataTable">
 			<tr>
