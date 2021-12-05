@@ -74,7 +74,7 @@
 							</form>
 						</div>
 					</c:if>
-					<c:if test="${isMaster eq '0'}">
+					<c:if test="${!infoIsMaster}">
 						<c:if test="${club.signUp eq '1'}">
 							<c:if test="${isInClub eq '0' }">
 								<div style="height: 50px;">
