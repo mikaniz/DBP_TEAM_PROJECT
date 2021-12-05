@@ -33,49 +33,53 @@ public class ChoiceExerciseController implements Controller {
 		Member member = memberManager.findMember(memberId);
 		request.setAttribute("member", member);
 		
-		if (request.getParameter("checkExerciseId") == null) {
-			request.setAttribute("exerciseNotSelected", "exerciseNotSelected");
+		request.setAttribute("routineName", request.getParameter("routineName"));
+		request.setAttribute("routinePart", request.getParameter("routinePart"));
+		request.setAttribute("routineTime", request.getParameter("routineTime"));
+		request.setAttribute("routineLevel", request.getParameter("routineLevel"));
+		request.setAttribute("routineType", request.getParameter("routineType"));
+			
+		String[] exerciseIdList = request.getParameterValues("checkExerciseId");
+		int exerciseLength = exerciseIdList.length;
+		request.setAttribute("exerciseIdList", exerciseIdList);
+		
+		ExerciseManager exerciseManager = ExerciseManager.getInstance();
+		List<Exercise> exerciseList = new ArrayList<Exercise>();
+			
+		for (String exerciseId : exerciseIdList)  {
+			Exercise exercise = exerciseManager.getExercise(Integer.parseInt(exerciseId));
+			exerciseList.add(exercise);
 		}
-//		else {
-			request.setAttribute("routineName", request.getParameter("routineName"));
-			request.setAttribute("routinePart", request.getParameterValues("routinePart"));
-			request.setAttribute("routineTime", request.getParameter("routineTime"));
-			request.setAttribute("routineLevel", request.getParameter("routineLevel"));
-			request.setAttribute("routineType", request.getParameter("routineType"));
+		request.setAttribute("exerciseList", exerciseList);
 			
-			String[] exerciseIdList = request.getParameterValues("checkExerciseId");
-			request.setAttribute("exerciseIdList", exerciseIdList);
-			
-			String[] sequenceList = request.getParameterValues("sequence");
-			request.setAttribute("sequenceList", sequenceList);
-			
-			String[] repetitionList = request.getParameterValues("repetition");
-			request.setAttribute("repetitionList", repetitionList);
-			
-			
-			ExerciseManager exerciseManager = ExerciseManager.getInstance();
-			List<Exercise> exerciseList = new ArrayList<Exercise>();
-			
-			for (String exerciseId : exerciseIdList)  {
-				Exercise exercise = exerciseManager.getExercise(Integer.parseInt(exerciseId));
-				exerciseList.add(exercise);
+		String[] sequence = request.getParameterValues("sequence");
+		int sequenceLength = sequence.length;
+		String[] sequenceList = new String[exerciseLength];
+		for (int i = 0; i < sequenceLength; i++) {
+			if (sequence[i] != "") {
+				sequenceList[i] = sequence[i];
 			}
-			request.setAttribute("exerciseList", exerciseList);
-			
-//			if (request.getParameter("thisIsForChoice") == null) {
-//				RoutineManager routineManager = RoutineManager.getInstance();
-//				int routineId = Integer.parseInt(request.getParameter("routineId"));
-//				Routine routine = routineManager.getRoutineById(routineId);
-//				request.setAttribute("routine", routine);
-//				
-//				return "/routine/routine_updateForm.jsp";
-//			}
-//		}
+		}
+		request.setAttribute("sequenceList", sequenceList);
+		
+		String[] repetition = request.getParameterValues("repetition");
+		int repetitionLength = repetition.length;
+		String[] repetitionList = new String[exerciseLength];
+		for (int i = 0; i < repetitionLength; i++) {
+			if (repetition[i] != "") {
+				repetitionList[i] = repetition[i];
+			}
+		}
+		request.setAttribute("repetitionList", repetitionList);
+
 		if (request.getParameter("thisIsForChoice") == null) {
 			RoutineManager routineManager = RoutineManager.getInstance();
 			int routineId = Integer.parseInt(request.getParameter("routineId"));
 			Routine routine = routineManager.getRoutineById(routineId);
 			request.setAttribute("routine", routine);
+			
+			request.setAttribute("thisIsForStorage", "thisIsForStorage");
+			request.setAttribute("storage", "storage");
 			
 			return "/routine/routine_updateForm.jsp";
 		}

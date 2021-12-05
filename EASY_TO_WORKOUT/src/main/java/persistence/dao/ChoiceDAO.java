@@ -102,13 +102,12 @@ private JDBCUtil jdbcUtil = null;
 		return result;
 	}
 
-	public int updateChoice(Choice choice, int routineId, int exerciseId, int sequence, int repetition) {
+	public int updateChoice(Choice choice) {
 		int result = 0;
 		String updateQuery = "UPDATE choice "
 				+ "SET routineId=?, exerciseId=?, sequence=?, repetition=? "
-				+ "WHERE routineId=? and exerciseId=? and sequence=? and repetition=?";
-		Object[] param = new Object[] {choice.getRoutineId(), choice.getExerciseId(), choice.getSequence(), choice.getRepetition(), 
-										routineId, exerciseId, sequence, repetition};
+				+ "WHERE routineId=?";
+		Object[] param = new Object[] {choice.getRoutineId(), choice.getExerciseId(), choice.getSequence(), choice.getRepetition()};
 		jdbcUtil.setSqlAndParameters(updateQuery, param);
 		try {
 			result = jdbcUtil.executeUpdate();

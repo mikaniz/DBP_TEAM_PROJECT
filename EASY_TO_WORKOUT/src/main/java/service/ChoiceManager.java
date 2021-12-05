@@ -26,12 +26,16 @@ public class ChoiceManager {
 		return choiceDao.getChoiceListByRoutineId(routineId);
 	}
 	
+	public Choice getChoiceByRoutineIdAndExerciseId(int routineId, int exerciseId) {
+		return choiceDao.getChoiceByRoutineIdAndExerciseId(routineId, exerciseId);
+	}
+	
 	public int insertChoice(Choice choice) {
 		return choiceDao.insertChoice(choice);
 	}
 	
-	public int updateChoice(Choice choice, int routineId, int exerciseId, int sequence, int repetition) {
-		return choiceDao.updateChoice(choice, routineId, exerciseId, sequence, repetition);
+	public int updateChoice(Choice choice) {
+		return choiceDao.updateChoice(choice);
 	}
 	
 	public int deleteChoice(int routineId) {
