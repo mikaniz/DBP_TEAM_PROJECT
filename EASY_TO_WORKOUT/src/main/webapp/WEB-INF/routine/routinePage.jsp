@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>ETW RoutinePage</title>
+<title>EASY TO WORK OUT</title>
 <style>
 @import url(//font.elice.io/EliceDigitalBaeum.css);
 body {
