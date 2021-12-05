@@ -9,7 +9,9 @@ import javax.servlet.http.HttpSession;
 import controller.Controller;
 import controller.member.MemberSessionUtils;
 import service.ExerciseManager;
+import service.RoutineManager;
 import service.dto.Exercise;
+import service.dto.Routine;
 import service.exception.ExistingExerciseException;
 
 public class FindExerciseController implements Controller{
@@ -28,6 +30,22 @@ public class FindExerciseController implements Controller{
 		ExerciseManager manager = ExerciseManager.getInstance();
 		
 		String exerciseName = request.getParameter("searchExercise");
+		
+		request.setAttribute("routineName", request.getParameter("routineName"));
+		request.setAttribute("routinePart", request.getParameter("routinePart"));
+		request.setAttribute("routineTime", request.getParameter("routineTime"));
+		request.setAttribute("routineLevel", request.getParameter("routineLevel"));
+		request.setAttribute("routineType", request.getParameter("routineType"));
+		
+		if (request.getParameter("thisIsForChoice") != null) {
+			request.setAttribute("thisIsForChoice", "thisIsForChoice");
+		}
+		else {
+			RoutineManager routineManager = RoutineManager.getInstance();
+			int routineId = Integer.parseInt(request.getParameter("routineId"));
+			Routine routine = routineManager.getRoutineById(routineId);
+			request.setAttribute("routine", routine);
+		}
 		
 		try {
 			List<Exercise> exerciseList = manager.getExerciseByName(exerciseName);

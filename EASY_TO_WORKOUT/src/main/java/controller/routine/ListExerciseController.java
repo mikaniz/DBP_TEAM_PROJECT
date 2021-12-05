@@ -110,6 +110,8 @@ public class ListExerciseController implements Controller {
 			request.setAttribute("routine", routine);
 		}
 		
+		request.setAttribute("forChoice", "forChoice");
+		
 		return "/routine/exercise_choiceForm.jsp";
 	}
 
