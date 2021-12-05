@@ -8,8 +8,10 @@ import javax.servlet.http.HttpSession;
 
 import controller.Controller;
 import controller.member.MemberSessionUtils;
+import service.ChoiceManager;
 import service.MemberManager;
 import service.RoutineManager;
+import service.dto.Choice;
 import service.dto.Exercise;
 import service.dto.Member;
 import service.dto.Routine;
@@ -35,6 +37,15 @@ public class UpdateRoutineController implements Controller {
 		RoutineManager manager = RoutineManager.getInstance();
 		
 		if (request.getMethod().equals("GET")) {
+			if (request.getParameter("thisIsForStorage") != null) {
+				request.setAttribute("storage", "storage");
+			}
+			request.setAttribute("routineName", request.getParameter("routineName"));
+			request.setAttribute("routinePart", request.getParameter("routinePart"));
+			request.setAttribute("routineTime", request.getParameter("routineTime"));
+			request.setAttribute("routineLevel", request.getParameter("routineLevel"));
+			request.setAttribute("routineType", request.getParameter("routineType"));
+			
 			int routineId = Integer.parseInt(request.getParameter("routineId"));
 			Routine routine = manager.getRoutineById(routineId);
 			
@@ -109,6 +120,28 @@ public class UpdateRoutineController implements Controller {
 		routine.setrType(request.getParameter("routineType"));
 		
 		manager.updateRoutine(routine);
+		
+		String[] exerciseIdList = request.getParameterValues("exerciseIdList");
+		int exerciseLength = exerciseIdList.length;
+		
+		String[] sequenceList = request.getParameterValues("sequence");
+		
+		String[] repetitionList = request.getParameterValues("repetition");
+		
+		ChoiceManager choiceManager = ChoiceManager.getInstance();
+		
+		for (int i = 0; i < exerciseLength; i++)  {
+			Choice choice = new Choice();
+			choice.setRoutineId(Integer.parseInt(request.getParameter("routineId")));
+			choice.setExerciseId(Integer.parseInt(exerciseIdList[i]));
+			choice.setSequence(Integer.parseInt(sequenceList[i]));
+			choice.setRepetition(Integer.parseInt(repetitionList[i]));
+			
+			Choice findChoice = choiceManager.getChoiceByRoutineIdAndExerciseId(
+										Integer.parseInt(request.getParameter("routineId")), choice.getExerciseId());
+			
+			choiceManager.updateChoice(findChoice);
+		}
 		
 		return "redirect:/routine/list";
 	}
