@@ -74,17 +74,15 @@
 							</form>
 						</div>
 					</c:if>
-					<c:if test="${!infoIsMaster}">
-						<c:if test="${club.signUp eq '1'}">
-							<c:if test="${isInClub eq '0' }">
-								<div style="height: 50px;">
-									<form name="joinForm"  method="GET" action="<c:url value='/club/join' />">
-										<input type="hidden" name="clubId" value="${club.clubId}">
-										<input type="hidden" name="thisIsForJoin" value="thisIsForJoin">
-										<input id="createButton" type="button" value="모임 가입" onclick="joinClub()">
-									</form>
-								</div>
-							</c:if>
+					<c:if test="${club.signUp eq '1'}">
+						<c:if test="${isInClub eq '0' }">
+							<div style="height: 50px;">
+								<form name="joinForm"  method="GET" action="<c:url value='/club/join' />">
+									<input type="hidden" name="clubId" value="${club.clubId}">
+									<input type="hidden" name="thisIsForJoin" value="thisIsForJoin">
+									<input id="createButton" type="button" value="모임 가입" onclick="joinClub()">
+								</form>
+							</div>
 						</c:if>
 					</c:if>
 					<c:if test="${successJoin eq 'successJoin'}"><script>alert('가입이 완료되었습니다.')</script></c:if>
