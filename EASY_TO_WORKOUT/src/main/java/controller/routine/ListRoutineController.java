@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import controller.Controller;
 import service.dto.Routine;
 import service.RoutineManager;
+import service.ChoiceManager;
 import controller.member.MemberSessionUtils;
 
 public class ListRoutineController implements Controller {
@@ -25,10 +26,20 @@ public class ListRoutineController implements Controller {
 		String memberId = MemberSessionUtils.getLoginMemberId(session);
 
 		
-		RoutineManager manager = RoutineManager.getInstance();
+		RoutineManager routineManager = RoutineManager.getInstance();
+		ChoiceManager choiceManager = ChoiceManager.getInstance();
+		
+		if (request.getParameter("thisIsForDel") != null) {
+			int routineId = Integer.parseInt(request.getParameter("routineId"));
+			
+			choiceManager.deleteChoice(routineId);
+			routineManager.deleteRoutine(routineId);
+			
+			return "redirect:/routine/list";
+		}
 		
 		if (request.getMethod().equals("GET")) {
-			List<Routine> routineList = manager.ListingRoutines();
+			List<Routine> routineList = routineManager.ListingRoutines();
 			request.setAttribute("routineList", routineList);
 			
 			return "/routine/routinePage.jsp";
@@ -39,19 +50,19 @@ public class ListRoutineController implements Controller {
 		if (type.equals("1")) {
 			request.setAttribute("checkedOne", true);
 			
-			List<Routine> routineList = manager.ListingRoutines();
+			List<Routine> routineList = routineManager.ListingRoutines();
 			request.setAttribute("routineList", routineList);
 		}
 		else if (type.equals("2")) {
 			request.setAttribute("checkedTwo", true);
 			
-			List<Routine> routineList = manager.ListingRoutinesByPublic();
+			List<Routine> routineList = routineManager.ListingRoutinesByPublic();
 			request.setAttribute("routineList", routineList);
 		}
 		else if (type.equals("3")) {
 			request.setAttribute("checkedThree", true);
 			
-			List<Routine> routineList = manager.ListingRoutinesByPersonal(memberId);
+			List<Routine> routineList = routineManager.ListingRoutinesByPersonal(memberId);
 			request.setAttribute("routineList", routineList);
 		}
 		
