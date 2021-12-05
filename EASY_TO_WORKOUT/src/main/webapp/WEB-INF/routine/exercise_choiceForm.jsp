@@ -4,8 +4,12 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>ETW exercise_choiceForm</title>
+<title>EASY TO WORK OUT</title>
 <style>
+@import url(//font.elice.io/EliceDigitalBaeum.css);
+body {
+    font-family: "Elice Digital Baeum",sans-serif;
+}
 .menu {
 	height: 50px;
 	background-color: #213963;
@@ -189,6 +193,22 @@ function search() {
 			<!-- 검색창 -->
 			<div id="search" style="width: 700px; height: 40px;">
 				<form name="searchForm" method="POST" action="<c:url value='/exercise/find' />">
+					<c:if test="${thisIsForChoice ne null}"><input type="hidden" name="thisIsForChoice" value='thisIsForChoice'></c:if>
+					<c:if test="${thisIsForChoice eq null}"><input type="hidden" name="routineId" value='${routine.routineId}'></c:if>
+					<input type="hidden" name="routineName" value='${routineName}'>  
+					<input type="hidden" name="routinePart" value='${routinePart}'>
+					<input type="hidden" name="routineTime" value='${routineTime}'>
+					<input type="hidden" name="routineLevel" value='${routineLevel}'>
+					<input type="hidden" name="routineType" value='${routineType}'>
+					<c:forEach var="exercise" items="${exerciseList}">
+						<input type="hidden" name="exerciseIdList" value="${exercise.exerciseId}">
+					</c:forEach>
+					<c:forEach var="sequence" items="${sequenceList}">
+						<input type="hidden" name="sequence" value="${sequence}">
+					</c:forEach>
+					<c:forEach var="repetition" items="${repetitionList}">
+						<input type="hidden" name="repetition" value="${repetition}">
+					</c:forEach>
 					<input type="text" name="searchExercise" placeholder="
 						<c:choose>
 							<c:when test="${findExerciseFailed}">${exception.getMessage()}</c:when>	

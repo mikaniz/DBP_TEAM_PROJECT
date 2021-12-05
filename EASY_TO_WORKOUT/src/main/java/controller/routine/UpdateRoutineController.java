@@ -36,7 +36,10 @@ public class UpdateRoutineController implements Controller {
 		
 		RoutineManager manager = RoutineManager.getInstance();
 		
+		int routineId = Integer.parseInt(request.getParameter("routineId"));
+		
 		if (request.getMethod().equals("GET")) {
+			
 			if (request.getParameter("thisIsForStorage") != null) {
 				request.setAttribute("storage", "storage");
 			}
@@ -46,7 +49,6 @@ public class UpdateRoutineController implements Controller {
 			request.setAttribute("routineLevel", request.getParameter("routineLevel"));
 			request.setAttribute("routineType", request.getParameter("routineType"));
 			
-			int routineId = Integer.parseInt(request.getParameter("routineId"));
 			Routine routine = manager.getRoutineById(routineId);
 			
 			request.setAttribute("routine", routine);
@@ -121,24 +123,27 @@ public class UpdateRoutineController implements Controller {
 		
 		manager.updateRoutine(routine);
 		
-		String[] exerciseIdList = request.getParameterValues("exerciseIdList");
-		int exerciseLength = exerciseIdList.length;
-		
-		String[] sequenceList = request.getParameterValues("sequence");
-		
-		String[] repetitionList = request.getParameterValues("repetition");
-		
 		ChoiceManager choiceManager = ChoiceManager.getInstance();
-		choiceManager.deleteChoice(Integer.parseInt(request.getParameter("routineId")));
 		
-		for (int i = 0; i < exerciseLength; i++)  {
-			Choice choice = new Choice();
-			choice.setRoutineId(Integer.parseInt(request.getParameter("routineId")));
-			choice.setExerciseId(Integer.parseInt(exerciseIdList[i]));
-			choice.setSequence(Integer.parseInt(sequenceList[i]));
-			choice.setRepetition(Integer.parseInt(repetitionList[i]));
+		if (request.getParameter("forChoice") != null) {
+			choiceManager.deleteChoice(Integer.parseInt(request.getParameter("routineId")));
 			
-			choiceManager.insertChoice(choice);
+			String[] exerciseIdList = request.getParameterValues("exerciseIdList");
+			int exerciseLength = exerciseIdList.length;
+			
+			String[] sequenceList = request.getParameterValues("sequence");
+			
+			String[] repetitionList = request.getParameterValues("repetition");
+			
+			for (int i = 0; i < exerciseLength; i++)  {
+				Choice insertChoice = new Choice();
+				insertChoice.setRoutineId(Integer.parseInt(request.getParameter("routineId")));
+				insertChoice.setExerciseId(Integer.parseInt(exerciseIdList[i]));
+				insertChoice.setSequence(Integer.parseInt(sequenceList[i]));
+				insertChoice.setRepetition(Integer.parseInt(repetitionList[i]));
+				
+				choiceManager.insertChoice(insertChoice);
+			}
 		}
 		
 		return "redirect:/routine/list";

@@ -7,7 +7,6 @@ import javax.servlet.http.HttpSession;
 import controller.Controller;
 import controller.member.MemberSessionUtils;
 import service.RoutineManager;
-import service.ChoiceManager;
 import service.dto.Routine;
 import service.dto.Exercise;
 import java.util.List;
@@ -28,16 +27,8 @@ public class DetailRoutineController implements Controller {
 		String memberId = MemberSessionUtils.getLoginMemberId(session);
 		
 		RoutineManager routineManager = RoutineManager.getInstance();
-		ChoiceManager choiceManager = ChoiceManager.getInstance();
 		
 		int routineId = Integer.parseInt(request.getParameter("routineId"));
-		
-		if (request.getParameter("thisIsForDel") != null) {
-			choiceManager.deleteChoice(routineId);
-			routineManager.deleteRoutine(routineId);
-			
-			return "redirect:/routine/list";
-		}
 		
 		if (request.getParameter("thisIsForUsage") != null) {
 			request.setAttribute("thisIsForUsage", "thisIsForUsage");

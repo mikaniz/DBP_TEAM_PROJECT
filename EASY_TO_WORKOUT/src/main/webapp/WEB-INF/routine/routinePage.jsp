@@ -4,8 +4,12 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>ETW RoutinePage</title>
+<title>EASY TO WORK OUT</title>
 <style>
+@import url(//font.elice.io/EliceDigitalBaeum.css);
+body {
+    font-family: "Elice Digital Baeum",sans-serif;
+}
 .menu {
 	height: 50px;
 	background-color: #213963;
@@ -145,12 +149,12 @@ function search() {
 			<!-- 검색창 -->
 			<div id="search" style="width: 700px; height: 50px;">
 				<form name="searchForm" method="POST" action="<c:url value='/routine/find' />">
-					<input type="text" name="searchRoutine" placeholder="
-						<c:choose>
-							<c:when test="${findRoutineFailed}">${exception.getMessage()}</c:when>
-							<c:otherwise>운동부위를 입력하세요</c:otherwise>
-						</c:choose>
-					" style="width: 580px; height: 42px;" autocomplete="off"> 
+					<input type="text" name="searchRoutine" placeholder=
+					"<c:choose>
+					<c:when test="${findRoutineFailed}">
+								 ${exception.getMessage()}</c:when>	 			<c:otherwise>운동부위를 입력하세요(상체/하체/복부/어깨/전신)</c:otherwise>
+					</c:choose>"
+					 style="width: 580px; height: 42px;" autocomplete="off"> 
 	    			<input id="searchButton" type="button"
 						value="검색" onclick="search()">
 				</form>
