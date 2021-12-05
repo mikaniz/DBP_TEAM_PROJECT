@@ -150,7 +150,7 @@ th, td {
 <script>
 
 function askDelete() {
-	if (window.confirm('모임을 삭제하시겠습니까?')) {
+	if (window.confirm('해당 스케줄을 삭제하시겠습니까?')) {
 		deleteForm.submit();
 	}
 }
