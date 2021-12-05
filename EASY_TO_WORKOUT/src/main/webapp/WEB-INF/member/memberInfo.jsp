@@ -2,7 +2,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div style="width: 400px; height: 600px; border: 1px solid; float: left; margin-right: 10px;">
-	<div style="height: 550px; overflow: scroll;">
+	<div style="height: 550px; overflow-y: scroll;">
 		<h3 style="margin: 20px;">회원정보</h3>
 		<table id="memberDataTable">
 			<tr>
@@ -54,10 +54,16 @@
 				</c:when>
 			<%-- routinePage, routine_detail 루틴 등록 버튼 --%>
 				<c:when test="${btnType eq 'routineCreate'}">
-					<c:if test="${thisIsForUsage eq null}">
-						<input id="createButton" type="button" value="루틴 등록" 
-							onclick="location.href='<c:url value='/routine/create' />'">
-					</c:if>
+					<c:choose>
+						<c:when test="${thisIsForUsage eq null}">
+							<input id="createButton" type="button" value="루틴 등록" 
+								onclick="location.href='<c:url value='/routine/create' />'">
+						</c:when>
+						<c:otherwise>
+							<input type="button" disabled="disabled"
+								style="width: 400px; height: 50px; background-color: #90ABDA;">
+						</c:otherwise>
+					</c:choose>
 				</c:when>
 			<%-- clubPage 모임 개설 버튼 --%>
 				<c:when test="${btnType eq 'clubCreate'}">
@@ -66,25 +72,37 @@
 				</c:when>
 			<%-- club_detail 스케줄 등록 버튼 --%>
 				<c:when test="${btnType eq 'scheduleCreate'}">
-					<c:if test="${isMaster eq '1'}">
-						<div style="height: 50px;">
-							<form name="createForm"  method="GET" action="<c:url value='/club/schedule/create' />">
-								<input type="hidden" name="clubId" value="${club.clubId}">
-								<input id="createButton" type="button" value="스케줄 등록" onclick="form.submit()">
-							</form>
-						</div>
-					</c:if>
-					<c:if test="${club.signUp eq '1'}">
-						<c:if test="${isInClub eq '0' }">
+					<c:choose>
+						<c:when test="${isMaster eq '1'}">
 							<div style="height: 50px;">
-								<form name="joinForm"  method="GET" action="<c:url value='/club/join' />">
+								<form name="createForm"  method="GET" action="<c:url value='/club/schedule/create' />">
 									<input type="hidden" name="clubId" value="${club.clubId}">
-									<input type="hidden" name="thisIsForJoin" value="thisIsForJoin">
-									<input id="createButton" type="button" value="모임 가입" onclick="joinClub()">
+									<input id="createButton" type="button" value="스케줄 등록" onclick="form.submit()">
 								</form>
 							</div>
-						</c:if>
-					</c:if>
+						</c:when>
+						<c:when test="${club.signUp eq '1'}">
+							<c:choose>
+								<c:when test="${isInClub eq '0' }">
+									<div style="height: 50px;">
+										<form name="joinForm"  method="GET" action="<c:url value='/club/join' />">
+											<input type="hidden" name="clubId" value="${club.clubId}">
+											<input type="hidden" name="thisIsForJoin" value="thisIsForJoin">
+											<input id="createButton" type="button" value="모임 가입" onclick="joinClub()">
+										</form>
+									</div>
+								</c:when>
+								<c:otherwise>
+									<input type="button" disabled="disabled"
+										style="width: 400px; height: 50px; background-color: #90ABDA;">
+								</c:otherwise>
+							</c:choose>
+						</c:when>
+						<c:otherwise>
+							<input type="button" disabled="disabled"
+								style="width: 400px; height: 50px; background-color: #90ABDA;">
+						</c:otherwise>
+					</c:choose>
 					<c:if test="${successJoin eq 'successJoin'}"><script>alert('가입이 완료되었습니다.')</script></c:if>
 				</c:when>
 			<%-- schedule_list 일정 등록 버튼 --%>
@@ -92,7 +110,10 @@
 					<input type="button" value="일정 등록" onclick=""
 						style="width: 400px; height: 50px;">
 				</c:when>
-				<c:otherwise></c:otherwise>
+				<c:otherwise>
+					<input type="button" disabled="disabled"
+						style="width: 400px; height: 50px; background-color: #90ABDA;">
+				</c:otherwise>
 		</c:choose>
 	</div>
 </div>
