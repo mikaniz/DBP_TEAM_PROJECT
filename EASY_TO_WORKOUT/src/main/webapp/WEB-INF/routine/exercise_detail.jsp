@@ -6,6 +6,10 @@
 <meta charset="EUC-KR">
 <title>ETW exercise_details</title>
 <style>
+@import url(//font.elice.io/EliceDigitalBaeum.css);
+body {
+    font-family: "Elice Digital Baeum",sans-serif;
+}
 .menu {
 	height: 50px;
 	background-color: #213963;
@@ -143,9 +147,8 @@ th, td {
 					<tr id="exerciseTableTr">
 						<td style="width: 130px; font-size: 18px;">운동 방법 :</td>
 						<td style="text-align:left;">
-							<textarea rows=8 cols=60 style="overflow: scroll;resize: none; font-size: 16px;" readonly="readonly" disabled>
-								${exercise.method}
-							</textarea></td>
+							<textarea rows=8 cols=60 style="overflow: scroll;resize: none; font-size: 16px;" readonly="readonly" disabled>${exercise.method}</textarea>
+							</td>
 					</tr>
 				</table>
 				<div style="text-align: center;"> 

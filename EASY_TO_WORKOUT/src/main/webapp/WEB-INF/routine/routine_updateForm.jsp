@@ -6,6 +6,10 @@
 <meta charset="EUC-KR">
 <title>ETW routine_updateForm</title>
 <style>
+@import url(//font.elice.io/EliceDigitalBaeum.css);
+body {
+    font-family: "Elice Digital Baeum",sans-serif;
+}
 .menu {
 	height: 50px;
 	background-color: #213963;
@@ -116,7 +120,6 @@ function routineUpdate() {
 		return false;
 	}
 	
-	
 	updateForm.submit();
 }
 
@@ -173,6 +176,7 @@ function chooseExercise(targetUri) {
 				<h3 style="margin: 20px;">루틴 정보 수정</h3>
 				<hr>
 				<form name="updateForm" method="POST" action="<c:url value='/routine/update' />">
+				<c:if test="${forChoice ne null}"><input type="hidden" name="forChoice" value='forChoice'></c:if>
 				<input type="hidden" name="routineId" value="${routine.routineId}">
 				<table id="routineTable">
 					<tr id="routineTableTr">
@@ -279,11 +283,10 @@ function chooseExercise(targetUri) {
 								<c:forEach var="repetition" items="${repetitionList}">
 									<input type="hidden" name="repetition" value="${repetition}">
 								</c:forEach>
-								<textarea name="checkedExercise" rows=6 cols=60 style="overflow: scroll; resize: none; margin-top: 10px;"  
-									readonly="readonly" disabled>
-									<c:forEach var="exercise" items="${exerciseList}">${exercise.name} (${exercise.part})
-									</c:forEach>
-								</textarea>
+								<c:forEach var="choice" items="${choiceList}">
+									<input type="hidden" name="choice" value="${choice}">
+								</c:forEach>
+								<textarea name="checkedExercise" rows=6 cols=60 style="overflow: scroll; resize: none; margin-top: 10px;" readonly="readonly" disabled><c:forEach var="exercise" items="${exerciseList}">${exercise.name} (${exercise.part})<%= "\n" %></c:forEach></textarea>
 							</td>
 						</tr>
 				</table>

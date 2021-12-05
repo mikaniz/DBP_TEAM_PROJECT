@@ -6,6 +6,10 @@
 <meta charset="EUC-KR">
 <title>ETW routine_createForm</title>
 <style>
+@import url(//font.elice.io/EliceDigitalBaeum.css);
+body {
+    font-family: "Elice Digital Baeum",sans-serif;
+}
 .menu {
 	height: 50px;
 	background-color: #213963;
@@ -136,23 +140,27 @@ th, td {
 function routineCreate() {
 	if(createForm.routineName.value == "") {
 		alert("루틴명을 입력해주세요.");
-		createForm.routineName.focus();
+		theForm.routineName.focus();
 		return false;
 	}
 	
-	if(checkCount() == 0) {
+	else if(checkCount() == 0) {
 		alert("운동 부위를 선택해주세요.");
-		createForm.routinePart.focus();
+		theForm.routinePart.focus();
 		return false;
 	}
 	
-	if(createForm.routineTime.value == "") {
+	else if(createForm.routineTime.value == "") {
 		alert("소요시간을 입력해주세요.");
-		createForm.routineTime.focus();
+		theForm.routineTime.focus();
 		return false;
 	}
 	
-	
+	else if(createForm.checkedExercise.value.length == 0) {
+		alert("운동을 선택해주세요.");
+		theForm.checkedExercise.focus();
+		return false;
+	}
 	
 	createForm.submit();
 }
@@ -306,11 +314,7 @@ function chooseExercise(targetUri) {
 								<c:forEach var="repetition" items="${repetitionList}">
 									<input type="hidden" name="repetition" value="${repetition}">
 								</c:forEach>
-								<textarea name="checkedExercise" rows=6 cols=60 style="overflow: scroll; resize: none; margin-top: 10px;"  
-									readonly="readonly" disabled>
-									<c:forEach var="exercise" items="${exerciseList}">${exercise.name} (${exercise.part})
-									</c:forEach>
-								</textarea>
+								<textarea name="checkedExercise" rows=6 cols=60 style="overflow: scroll; resize: none; margin-top: 10px;" readonly="readonly" disabled><c:forEach var="exercise" items="${exerciseList}">${exercise.name} (${exercise.part})<%= "\n\n" %></c:forEach></textarea>
 							</td>
 						</tr>
 				</table>

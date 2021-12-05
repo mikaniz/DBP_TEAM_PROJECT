@@ -6,6 +6,10 @@
 <meta charset="EUC-KR">
 <title>ETW routine_details</title>
 <style>
+@import url(//font.elice.io/EliceDigitalBaeum.css);
+body {
+    font-family: "Elice Digital Baeum",sans-serif;
+}
 .menu {
 	height: 50px;
 	background-color: #213963;
@@ -101,7 +105,9 @@ th, td {
 </style>
 <script>
 function askDelete() {
-	window.confirm('루틴을 삭제하시겠습니까?');
+	if (window.confirm('루틴을 삭제하시겠습니까?')) {
+		deleteForm.submit();
+	}
 }
 </script>
 </head>
@@ -193,27 +199,23 @@ function askDelete() {
 						<td style="width: 130px; font-size: 14px;">운동 방법 :</td>
 						<td style="text-align:left; font-size: 12px;">
 							<textarea rows=8 cols=70
-								style="overflow: scroll;resize: none; font-size: 12px;" readonly="readonly" disabled>
-								<c:forEach var="exercise" items="${exerciseList}">
-									${exercise.name} : ${exercise.method}
-								</c:forEach>
+								style="overflow: scroll;resize: none; font-size: 12px;" readonly="readonly" disabled><c:forEach var="exercise" items="${exerciseList}">${exercise.name} : ${exercise.method}<%= "\n\n" %></c:forEach>
 							</textarea></td>
 					</tr>
 				</table>
 				<p>
 				<div style="text-align: center;">
-					<form>
+					<form name="deleteForm"  method="GET" action="<c:url value='/routine/list' />">
 						<c:if test="${thisIsForUsage eq null}">
 							<c:if test="${isCreater}">
 								<a href="<c:url value='/routine/update'>
-									<c:param name='routineId' value='${routine.routineId}' /></c:url>">
+										<c:param name='routineId' value='${routine.routineId}' />
+									</c:url>">
 										<input id="routineUpdateButton" type="button" value="루틴 수정">
 								</a>
-								<a href="<c:url value='/routine/detail'>
-									<c:param name='routineId' value='${routine.routineId}' />
-									<c:param name='thisIsForDel' value='thisIsForDel' /></c:url>">
-										<input id="routineDeleteButton" type="button" value="루틴 삭제"  onclick="askDelete()">
-								</a>
+								<input type="hidden" name="routineId" value="${routine.routineId}">
+								<input type="hidden" name="thisIsForDel" value="${thisIsForDel}">
+								<input id="routineDeleteButton" type="button" value="루틴 삭제" onclick="askDelete()">
 							</c:if>
 							<input id="backButton" type="button" value="돌아가기" 
 								onclick="location.href='<c:url value='/routine/list' />'">
