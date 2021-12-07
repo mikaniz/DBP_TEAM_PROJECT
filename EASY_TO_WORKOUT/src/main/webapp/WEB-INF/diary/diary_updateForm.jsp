@@ -185,8 +185,7 @@ function diaryUpdateBtn_click() {
 					</tr>
 					<tr id="diaryTableTr">
 						<td style="width: 130px;">내용 :</td>
-						<td><textarea name="diaryContents" rows=15 cols=45 style="width: 450px; resize: none;">
-							${diary.contents}</textarea></td>
+						<td><textarea name="diaryContents" rows=15 cols=45 style="width: 450px; resize: none;">${diary.contents}</textarea></td>
 					</tr>
 				</table>
 				<div style="text-align: center; margin-left: 130px;">
