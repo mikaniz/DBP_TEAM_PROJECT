@@ -252,7 +252,7 @@ function askDelete() {
 						<c:if test="${isMaster eq '1'}">							
 								<input type="hidden" name="scheduleId" value="${scheduleId}">
 								<input type="hidden" name="thisIsForDeleteSchedule" value="thisIsForDeleteSchedule"/>
-								<input id="backButton" type="button" value="모임 삭제" onclick="askDelete()">							
+								<input id="backButton" type="button" value="스케줄 삭제" onclick="askDelete()">							
 						</c:if>
 						<a href="<c:url value='/club/schedule/list'>
 								<c:param name='clubId' value='${clubId}'/>
